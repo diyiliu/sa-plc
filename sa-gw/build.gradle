@@ -1,0 +1,27 @@
+group 'com.tiza'
+version '2.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+}
+
+ext{
+    springBootVersion='2.0.0.RELEASE'
+}
+
+dependencies {
+    compile project(':dyl-plugin')
+
+    // spring-boot
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "$springBootVersion"
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: "$springBootVersion"
+
+    // kafka
+    compile group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.1.5.RELEASE'
+}

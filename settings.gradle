@@ -1,0 +1,4 @@
+rootProject.name = 'sa-plc'
+include 'sa-gw'
+include 'dyl-plugin'
+

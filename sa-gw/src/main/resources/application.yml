@@ -1,0 +1,46 @@
+# https://docs.spring.io/spring-boot/docs/2.0.0.RELEASE/reference/htmlsingle/#common-application-properties
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# SPRING
+spring:
+  # JSON
+  jackson:
+    locale: zh_CN
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+
+  # DATASOURCE
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: 'jdbc:mysql://192.168.1.51:3306/shangair?useUnicode=true&characterEncoding=UTF-8'
+    username: root
+    password: 123456
+
+  jpa:
+    show-sql: true
+    hibernate:
+     naming:
+       physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+# LOGGING
+logging:
+  config: 'classpath:logback.xml'
+
+# 自定义配置
+dtu-server-port: 5001
+
+kafka:
+   producer:
+     properties:
+      metadata.broker.list: xg153:9092,xg154:9092,xg155:9092
+      serializer.class: kafka.serializer.StringEncoder
+      request.required.acks: 1
+      producer.type: async
+
+   topic:
+     row: shangair_rawdata
+     data: shangair_metrics

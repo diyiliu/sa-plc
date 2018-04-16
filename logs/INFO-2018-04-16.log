@@ -1,0 +1,1038 @@
+[INFO ] [2018-04-16 10:14:21] com.tiza.gw.Application [50] - Starting Application on DIYILIU with PID 12348 (E:\Workspace\tiza\sa-plc\sa-gw\out\production\classes started by DIYILIU in E:\Workspace\tiza\sa-plc)
+[INFO ] [2018-04-16 10:14:21] com.tiza.gw.Application [652] - No active profile set, falling back to default profiles: default
+[INFO ] [2018-04-16 10:14:21] org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [589] - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@62230c58: startup date [Mon Apr 16 10:14:21 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:14:22] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$992aec57] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:14:22] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$c578dad4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:14:23] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [91] - Tomcat initialized with port(s): 8080 (http)
+[INFO ] [2018-04-16 10:14:23] org.apache.coyote.http11.Http11NioProtocol [180] - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:14:23] org.apache.catalina.core.StandardService [180] - Starting service [Tomcat]
+[INFO ] [2018-04-16 10:14:23] org.apache.catalina.core.StandardEngine [180] - Starting Servlet Engine: Apache Tomcat/8.5.28
+[INFO ] [2018-04-16 10:14:23] org.apache.catalina.core.AprLifecycleListener [180] - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [E:\Develop\Java\jdk1.8.0_161\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\oracle\product\11.1.0\client_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;E:\Develop\Java\jdk1.8.0_45\bin;E:\Develop\Java\jdk1.8.0_45\jre\bin;D:\Program Files\TortoiseSVN\bin;E:\Develop\Apache\apache-maven-3.5.0\bin;E:\Develop\Gradle\gradle-3.5\bin;C:\Program Files\PuTTY\;D:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Utilities 1.6\;E:\Develop\Apache\zookeeper-3.4.9\bin;E:\Develop\Scala\scala-2.12.4\bin;D:\Program Files\nodejs\;E:\Develop\Redis\;d:\Ruby24-x64\bin;C:\Users\DIYILIU\AppData\Local\Microsoft\WindowsApps;;d:\Program Files (x86)\Fiddler2;C:\Users\DIYILIU\AppData\Roaming\npm;.]
+[INFO ] [2018-04-16 10:14:23] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [180] - Initializing Spring embedded WebApplicationContext
+[INFO ] [2018-04-16 10:14:23] org.springframework.web.context.ContextLoader [285] - Root WebApplicationContext: initialization completed in 2024 ms
+[INFO ] [2018-04-16 10:14:23] org.springframework.boot.web.servlet.ServletRegistrationBean [185] - Servlet dispatcherServlet mapped to [/]
+[INFO ] [2018-04-16 10:14:23] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'characterEncodingFilter' to: [/*]
+[INFO ] [2018-04-16 10:14:23] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[INFO ] [2018-04-16 10:14:23] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[INFO ] [2018-04-16 10:14:23] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'requestContextFilter' to: [/*]
+[INFO ] [2018-04-16 10:14:23] com.alibaba.druid.pool.DruidDataSource [106] - {dataSource-1} inited
+[INFO ] [2018-04-16 10:14:23] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [361] - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:14:23] org.hibernate.jpa.internal.util.LogHelper [31] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] [2018-04-16 10:14:24] org.hibernate.Version [45] - HHH000412: Hibernate Core {5.2.14.Final}
+[INFO ] [2018-04-16 10:14:24] org.hibernate.cfg.Environment [213] - HHH000206: hibernate.properties not found
+[INFO ] [2018-04-16 10:14:24] org.hibernate.annotations.common.Version [66] - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] [2018-04-16 10:14:24] org.hibernate.dialect.Dialect [157] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] [2018-04-16 10:14:24] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [394] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:14:24] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [572] - Closing JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:14:24] com.alibaba.druid.pool.DruidDataSource [106] - {dataSource-1} closed
+[INFO ] [2018-04-16 10:14:24] org.apache.catalina.core.StandardService [180] - Stopping service [Tomcat]
+[INFO ] [2018-04-16 10:14:24] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener [101] - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+[INFO ] [2018-04-16 10:15:14] com.tiza.gw.Application [50] - Starting Application on DIYILIU with PID 8828 (E:\Workspace\tiza\sa-plc\sa-gw\out\production\classes started by DIYILIU in E:\Workspace\tiza\sa-plc)
+[INFO ] [2018-04-16 10:15:14] com.tiza.gw.Application [652] - No active profile set, falling back to default profiles: default
+[INFO ] [2018-04-16 10:15:14] org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [589] - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@74455848: startup date [Mon Apr 16 10:15:14 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:15:15] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$e6927047] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:15:15] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$12e05ec4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:15:15] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [91] - Tomcat initialized with port(s): 8080 (http)
+[INFO ] [2018-04-16 10:15:15] org.apache.coyote.http11.Http11NioProtocol [180] - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:15:15] org.apache.catalina.core.StandardService [180] - Starting service [Tomcat]
+[INFO ] [2018-04-16 10:15:15] org.apache.catalina.core.StandardEngine [180] - Starting Servlet Engine: Apache Tomcat/8.5.28
+[INFO ] [2018-04-16 10:15:15] org.apache.catalina.core.AprLifecycleListener [180] - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [E:\Develop\Java\jdk1.8.0_161\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\oracle\product\11.1.0\client_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;E:\Develop\Java\jdk1.8.0_45\bin;E:\Develop\Java\jdk1.8.0_45\jre\bin;D:\Program Files\TortoiseSVN\bin;E:\Develop\Apache\apache-maven-3.5.0\bin;E:\Develop\Gradle\gradle-3.5\bin;C:\Program Files\PuTTY\;D:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Utilities 1.6\;E:\Develop\Apache\zookeeper-3.4.9\bin;E:\Develop\Scala\scala-2.12.4\bin;D:\Program Files\nodejs\;E:\Develop\Redis\;d:\Ruby24-x64\bin;C:\Users\DIYILIU\AppData\Local\Microsoft\WindowsApps;;d:\Program Files (x86)\Fiddler2;C:\Users\DIYILIU\AppData\Roaming\npm;.]
+[INFO ] [2018-04-16 10:15:16] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [180] - Initializing Spring embedded WebApplicationContext
+[INFO ] [2018-04-16 10:15:16] org.springframework.web.context.ContextLoader [285] - Root WebApplicationContext: initialization completed in 1724 ms
+[INFO ] [2018-04-16 10:15:16] org.springframework.boot.web.servlet.ServletRegistrationBean [185] - Servlet dispatcherServlet mapped to [/]
+[INFO ] [2018-04-16 10:15:16] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'characterEncodingFilter' to: [/*]
+[INFO ] [2018-04-16 10:15:16] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[INFO ] [2018-04-16 10:15:16] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[INFO ] [2018-04-16 10:15:16] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'requestContextFilter' to: [/*]
+[INFO ] [2018-04-16 10:15:16] com.alibaba.druid.pool.DruidDataSource [106] - {dataSource-1} inited
+[INFO ] [2018-04-16 10:15:16] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [361] - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:15:16] org.hibernate.jpa.internal.util.LogHelper [31] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] [2018-04-16 10:15:16] org.hibernate.Version [45] - HHH000412: Hibernate Core {5.2.14.Final}
+[INFO ] [2018-04-16 10:15:16] org.hibernate.cfg.Environment [213] - HHH000206: hibernate.properties not found
+[INFO ] [2018-04-16 10:15:16] org.hibernate.annotations.common.Version [66] - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] [2018-04-16 10:15:16] org.hibernate.dialect.Dialect [157] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] [2018-04-16 10:15:17] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [394] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:15:18] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [572] - Closing JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:15:18] com.alibaba.druid.pool.DruidDataSource [106] - {dataSource-1} closed
+[INFO ] [2018-04-16 10:15:18] org.apache.catalina.core.StandardService [180] - Stopping service [Tomcat]
+[INFO ] [2018-04-16 10:15:18] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener [101] - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+[INFO ] [2018-04-16 10:17:21] com.tiza.gw.Application [50] - Starting Application on DIYILIU with PID 14228 (E:\Workspace\tiza\sa-plc\sa-gw\out\production\classes started by DIYILIU in E:\Workspace\tiza\sa-plc)
+[INFO ] [2018-04-16 10:17:21] com.tiza.gw.Application [652] - No active profile set, falling back to default profiles: default
+[INFO ] [2018-04-16 10:17:21] org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [589] - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2e55dd0c: startup date [Mon Apr 16 10:17:21 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:17:22] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$bca37264] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:17:22] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$e8f160e1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:17:23] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [91] - Tomcat initialized with port(s): 8080 (http)
+[INFO ] [2018-04-16 10:17:23] org.apache.coyote.http11.Http11NioProtocol [180] - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:17:23] org.apache.catalina.core.StandardService [180] - Starting service [Tomcat]
+[INFO ] [2018-04-16 10:17:23] org.apache.catalina.core.StandardEngine [180] - Starting Servlet Engine: Apache Tomcat/8.5.28
+[INFO ] [2018-04-16 10:17:23] org.apache.catalina.core.AprLifecycleListener [180] - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [E:\Develop\Java\jdk1.8.0_161\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\oracle\product\11.1.0\client_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;E:\Develop\Java\jdk1.8.0_45\bin;E:\Develop\Java\jdk1.8.0_45\jre\bin;D:\Program Files\TortoiseSVN\bin;E:\Develop\Apache\apache-maven-3.5.0\bin;E:\Develop\Gradle\gradle-3.5\bin;C:\Program Files\PuTTY\;D:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Utilities 1.6\;E:\Develop\Apache\zookeeper-3.4.9\bin;E:\Develop\Scala\scala-2.12.4\bin;D:\Program Files\nodejs\;E:\Develop\Redis\;d:\Ruby24-x64\bin;C:\Users\DIYILIU\AppData\Local\Microsoft\WindowsApps;;d:\Program Files (x86)\Fiddler2;C:\Users\DIYILIU\AppData\Roaming\npm;.]
+[INFO ] [2018-04-16 10:17:23] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [180] - Initializing Spring embedded WebApplicationContext
+[INFO ] [2018-04-16 10:17:23] org.springframework.web.context.ContextLoader [285] - Root WebApplicationContext: initialization completed in 1750 ms
+[INFO ] [2018-04-16 10:17:23] org.springframework.boot.web.servlet.ServletRegistrationBean [185] - Servlet dispatcherServlet mapped to [/]
+[INFO ] [2018-04-16 10:17:23] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'characterEncodingFilter' to: [/*]
+[INFO ] [2018-04-16 10:17:23] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[INFO ] [2018-04-16 10:17:23] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[INFO ] [2018-04-16 10:17:23] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'requestContextFilter' to: [/*]
+[INFO ] [2018-04-16 10:17:23] com.alibaba.druid.pool.DruidDataSource [106] - {dataSource-1} inited
+[INFO ] [2018-04-16 10:17:23] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [361] - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:17:24] org.hibernate.jpa.internal.util.LogHelper [31] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] [2018-04-16 10:17:24] org.hibernate.Version [45] - HHH000412: Hibernate Core {5.2.14.Final}
+[INFO ] [2018-04-16 10:17:24] org.hibernate.cfg.Environment [213] - HHH000206: hibernate.properties not found
+[INFO ] [2018-04-16 10:17:24] org.hibernate.annotations.common.Version [66] - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] [2018-04-16 10:17:24] org.hibernate.dialect.Dialect [157] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] [2018-04-16 10:17:24] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [394] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:17:25] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter [567] - Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2e55dd0c: startup date [Mon Apr 16 10:17:21 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:17:25] com.tiza.gw.netty.server.DtuServer [54] - DTU网关服务器启动, 端口[5001]...
+[INFO ] [2018-04-16 10:17:25] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] [2018-04-16 10:17:25] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] [2018-04-16 10:17:25] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:17:25] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:17:25] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:17:25] org.quartz.impl.StdSchedulerFactory [1208] - Using default implementation for ThreadExecutor
+[INFO ] [2018-04-16 10:17:25] org.quartz.core.SchedulerSignalerImpl [61] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[INFO ] [2018-04-16 10:17:25] org.quartz.core.QuartzScheduler [229] - Quartz Scheduler v.2.3.0 created.
+[INFO ] [2018-04-16 10:17:25] org.quartz.simpl.RAMJobStore [155] - RAMJobStore initialized.
+[INFO ] [2018-04-16 10:17:25] org.quartz.core.QuartzScheduler [294] - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[INFO ] [2018-04-16 10:17:25] org.quartz.impl.StdSchedulerFactory [1362] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[INFO ] [2018-04-16 10:17:25] org.quartz.impl.StdSchedulerFactory [1366] - Quartz scheduler version: 2.3.0
+[INFO ] [2018-04-16 10:17:25] org.quartz.core.QuartzScheduler [2287] - JobFactory set to: org.springframework.boot.autoconfigure.quartz.AutowireCapableBeanJobFactory@ce12fbb
+[INFO ] [2018-04-16 10:17:25] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [434] - Registering beans for JMX exposure on startup
+[INFO ] [2018-04-16 10:17:25] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [896] - Bean with name 'dataSource' has been autodetected for JMX exposure
+[INFO ] [2018-04-16 10:17:25] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [669] - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+[INFO ] [2018-04-16 10:17:25] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483547
+[INFO ] [2018-04-16 10:17:25] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483647
+[INFO ] [2018-04-16 10:17:25] org.springframework.scheduling.quartz.SchedulerFactoryBean [686] - Starting Quartz Scheduler now
+[INFO ] [2018-04-16 10:17:25] org.quartz.core.QuartzScheduler [547] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[INFO ] [2018-04-16 10:17:25] org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor [275] - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+[INFO ] [2018-04-16 10:17:26] org.apache.coyote.http11.Http11NioProtocol [180] - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:17:26] org.apache.tomcat.util.net.NioSelectorPool [180] - Using a shared selector for servlet write/read
+[INFO ] [2018-04-16 10:17:26] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [205] - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] [2018-04-16 10:17:26] com.tiza.gw.Application [59] - Started Application in 5.314 seconds (JVM running for 6.419)
+[INFO ] [2018-04-16 10:17:26] com.tiza.gw.support.listener.CMDInitializer [27] - 协议解析初始化...
+[INFO ] [2018-04-16 10:17:29] com.tiza.gw.support.task.DeviceInfoTask [32] - 刷新设备列表...
+[INFO ] [2018-04-16 10:17:29] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [47] - HHH000397: Using ASTQueryTranslatorFactory
+[INFO ] [2018-04-16 10:17:31] com.tiza.gw.support.task.FunctionSetTask [36] - 刷新功能集列表...
+[INFO ] [2018-04-16 10:17:56] com.tiza.gw.netty.handler.DtuHandler [32] - 建立连接...
+[INFO ] [2018-04-16 10:17:57] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[404040333535373834303132373833393136]写入kafka...
+[INFO ] [2018-04-16 10:17:57] com.tiza.gw.netty.handler.codec.DtuDecoder [123] - 设备[355784012783916]注册...
+[INFO ] [2018-04-16 10:17:59] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[1]下发...
+[INFO ] [2018-04-16 10:17:59] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0201000000103DF5]写入kafka...
+[INFO ] [2018-04-16 10:17:59] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0201020000FDFC]写入kafka...
+[INFO ] [2018-04-16 10:18:12] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[2]下发...
+[INFO ] [2018-04-16 10:18:12] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0202000000187833]写入kafka...
+[INFO ] [2018-04-16 10:18:13] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[020203000000787D]写入kafka...
+[INFO ] [2018-04-16 10:18:25] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[3]下发...
+[INFO ] [2018-04-16 10:18:25] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[02030000003C45E8]写入kafka...
+[INFO ] [2018-04-16 10:18:26] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0203780000000000000000000000000000000000000000000000000000000000000000000000000000000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C80000E3DE]写入kafka...
+[INFO ] [2018-04-16 10:18:39] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[1]下发...
+[INFO ] [2018-04-16 10:18:39] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0201000000103DF5]写入kafka...
+[INFO ] [2018-04-16 10:18:40] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0201020000FDFC]写入kafka...
+[INFO ] [2018-04-16 10:18:52] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[2]下发...
+[INFO ] [2018-04-16 10:18:52] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0202000000187833]写入kafka...
+[INFO ] [2018-04-16 10:18:53] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[020203000000787D]写入kafka...
+[INFO ] [2018-04-16 10:19:05] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[3]下发...
+[INFO ] [2018-04-16 10:19:05] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[02030000003C45E8]写入kafka...
+[INFO ] [2018-04-16 10:19:06] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0203780000000000000000000000000000000000000000000000000000000000000000000000000000000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C80000E3DE]写入kafka...
+[INFO ] [2018-04-16 10:19:22] com.tiza.gw.Application [50] - Starting Application on DIYILIU with PID 14156 (E:\Workspace\tiza\sa-plc\sa-gw\out\production\classes started by DIYILIU in E:\Workspace\tiza\sa-plc)
+[INFO ] [2018-04-16 10:19:22] com.tiza.gw.Application [652] - No active profile set, falling back to default profiles: default
+[INFO ] [2018-04-16 10:19:22] org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [589] - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@74455848: startup date [Mon Apr 16 10:19:22 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:19:24] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$f76752f9] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:19:24] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$23b54176] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:19:24] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [91] - Tomcat initialized with port(s): 8080 (http)
+[INFO ] [2018-04-16 10:19:24] org.apache.coyote.http11.Http11NioProtocol [180] - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:19:24] org.apache.catalina.core.StandardService [180] - Starting service [Tomcat]
+[INFO ] [2018-04-16 10:19:24] org.apache.catalina.core.StandardEngine [180] - Starting Servlet Engine: Apache Tomcat/8.5.28
+[INFO ] [2018-04-16 10:19:24] org.apache.catalina.core.AprLifecycleListener [180] - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [E:\Develop\Java\jdk1.8.0_161\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\oracle\product\11.1.0\client_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;E:\Develop\Java\jdk1.8.0_45\bin;E:\Develop\Java\jdk1.8.0_45\jre\bin;D:\Program Files\TortoiseSVN\bin;E:\Develop\Apache\apache-maven-3.5.0\bin;E:\Develop\Gradle\gradle-3.5\bin;C:\Program Files\PuTTY\;D:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Utilities 1.6\;E:\Develop\Apache\zookeeper-3.4.9\bin;E:\Develop\Scala\scala-2.12.4\bin;D:\Program Files\nodejs\;E:\Develop\Redis\;d:\Ruby24-x64\bin;C:\Users\DIYILIU\AppData\Local\Microsoft\WindowsApps;;d:\Program Files (x86)\Fiddler2;C:\Users\DIYILIU\AppData\Roaming\npm;.]
+[INFO ] [2018-04-16 10:19:24] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [180] - Initializing Spring embedded WebApplicationContext
+[INFO ] [2018-04-16 10:19:24] org.springframework.web.context.ContextLoader [285] - Root WebApplicationContext: initialization completed in 1928 ms
+[INFO ] [2018-04-16 10:19:24] org.springframework.boot.web.servlet.ServletRegistrationBean [185] - Servlet dispatcherServlet mapped to [/]
+[INFO ] [2018-04-16 10:19:24] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'characterEncodingFilter' to: [/*]
+[INFO ] [2018-04-16 10:19:24] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[INFO ] [2018-04-16 10:19:24] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[INFO ] [2018-04-16 10:19:24] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'requestContextFilter' to: [/*]
+[INFO ] [2018-04-16 10:19:24] com.alibaba.druid.pool.DruidDataSource [106] - {dataSource-1} inited
+[INFO ] [2018-04-16 10:19:25] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [361] - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:19:25] org.hibernate.jpa.internal.util.LogHelper [31] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] [2018-04-16 10:19:25] org.hibernate.Version [45] - HHH000412: Hibernate Core {5.2.14.Final}
+[INFO ] [2018-04-16 10:19:25] org.hibernate.cfg.Environment [213] - HHH000206: hibernate.properties not found
+[INFO ] [2018-04-16 10:19:25] org.hibernate.annotations.common.Version [66] - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] [2018-04-16 10:19:25] org.hibernate.dialect.Dialect [157] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] [2018-04-16 10:19:25] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [394] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:19:26] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter [567] - Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@74455848: startup date [Mon Apr 16 10:19:22 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:19:26] com.tiza.gw.netty.server.DtuServer [54] - DTU网关服务器启动, 端口[5001]...
+[INFO ] [2018-04-16 10:19:26] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] [2018-04-16 10:19:26] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] [2018-04-16 10:19:26] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:19:26] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:19:26] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:19:26] org.quartz.impl.StdSchedulerFactory [1208] - Using default implementation for ThreadExecutor
+[INFO ] [2018-04-16 10:19:26] org.quartz.core.SchedulerSignalerImpl [61] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[INFO ] [2018-04-16 10:19:26] org.quartz.core.QuartzScheduler [229] - Quartz Scheduler v.2.3.0 created.
+[INFO ] [2018-04-16 10:19:26] org.quartz.simpl.RAMJobStore [155] - RAMJobStore initialized.
+[INFO ] [2018-04-16 10:19:26] org.quartz.core.QuartzScheduler [294] - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[INFO ] [2018-04-16 10:19:26] org.quartz.impl.StdSchedulerFactory [1362] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[INFO ] [2018-04-16 10:19:26] org.quartz.impl.StdSchedulerFactory [1366] - Quartz scheduler version: 2.3.0
+[INFO ] [2018-04-16 10:19:26] org.quartz.core.QuartzScheduler [2287] - JobFactory set to: org.springframework.boot.autoconfigure.quartz.AutowireCapableBeanJobFactory@16ee9aa7
+[INFO ] [2018-04-16 10:19:26] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [434] - Registering beans for JMX exposure on startup
+[INFO ] [2018-04-16 10:19:26] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [896] - Bean with name 'dataSource' has been autodetected for JMX exposure
+[INFO ] [2018-04-16 10:19:26] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [669] - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+[INFO ] [2018-04-16 10:19:26] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483547
+[INFO ] [2018-04-16 10:19:26] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483647
+[INFO ] [2018-04-16 10:19:26] org.springframework.scheduling.quartz.SchedulerFactoryBean [686] - Starting Quartz Scheduler now
+[INFO ] [2018-04-16 10:19:26] org.quartz.core.QuartzScheduler [547] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[INFO ] [2018-04-16 10:19:26] org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor [275] - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+[INFO ] [2018-04-16 10:19:26] org.apache.coyote.http11.Http11NioProtocol [180] - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:19:26] org.apache.tomcat.util.net.NioSelectorPool [180] - Using a shared selector for servlet write/read
+[INFO ] [2018-04-16 10:19:26] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [205] - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] [2018-04-16 10:19:26] com.tiza.gw.Application [59] - Started Application in 5.282 seconds (JVM running for 6.345)
+[INFO ] [2018-04-16 10:19:26] com.tiza.gw.support.listener.CMDInitializer [27] - 协议解析初始化...
+[INFO ] [2018-04-16 10:19:29] com.tiza.gw.support.task.DeviceInfoTask [32] - 刷新设备列表...
+[INFO ] [2018-04-16 10:19:29] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [47] - HHH000397: Using ASTQueryTranslatorFactory
+[INFO ] [2018-04-16 10:19:31] com.tiza.gw.netty.handler.DtuHandler [32] - 建立连接...
+[INFO ] [2018-04-16 10:19:31] com.tiza.gw.support.task.FunctionSetTask [36] - 刷新功能集列表...
+[INFO ] [2018-04-16 10:19:32] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[404040333535373834303132373833393136]写入kafka...
+[INFO ] [2018-04-16 10:19:32] com.tiza.gw.netty.handler.codec.DtuDecoder [123] - 设备[355784012783916]注册...
+[INFO ] [2018-04-16 10:19:32] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[2]下发...
+[INFO ] [2018-04-16 10:19:32] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0202000000187833]写入kafka...
+[INFO ] [2018-04-16 10:19:33] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[020203000000787D]写入kafka...
+[INFO ] [2018-04-16 10:21:15] com.tiza.gw.Application [50] - Starting Application on DIYILIU with PID 3384 (E:\Workspace\tiza\sa-plc\sa-gw\out\production\classes started by DIYILIU in E:\Workspace\tiza\sa-plc)
+[INFO ] [2018-04-16 10:21:15] com.tiza.gw.Application [652] - No active profile set, falling back to default profiles: default
+[INFO ] [2018-04-16 10:21:15] org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [589] - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@74455848: startup date [Mon Apr 16 10:21:15 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:21:16] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$f76752f9] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:21:16] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$23b54176] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:21:16] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [91] - Tomcat initialized with port(s): 8080 (http)
+[INFO ] [2018-04-16 10:21:16] org.apache.coyote.http11.Http11NioProtocol [180] - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:21:16] org.apache.catalina.core.StandardService [180] - Starting service [Tomcat]
+[INFO ] [2018-04-16 10:21:16] org.apache.catalina.core.StandardEngine [180] - Starting Servlet Engine: Apache Tomcat/8.5.28
+[INFO ] [2018-04-16 10:21:16] org.apache.catalina.core.AprLifecycleListener [180] - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [E:\Develop\Java\jdk1.8.0_161\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\oracle\product\11.1.0\client_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;E:\Develop\Java\jdk1.8.0_45\bin;E:\Develop\Java\jdk1.8.0_45\jre\bin;D:\Program Files\TortoiseSVN\bin;E:\Develop\Apache\apache-maven-3.5.0\bin;E:\Develop\Gradle\gradle-3.5\bin;C:\Program Files\PuTTY\;D:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Utilities 1.6\;E:\Develop\Apache\zookeeper-3.4.9\bin;E:\Develop\Scala\scala-2.12.4\bin;D:\Program Files\nodejs\;E:\Develop\Redis\;d:\Ruby24-x64\bin;C:\Users\DIYILIU\AppData\Local\Microsoft\WindowsApps;;d:\Program Files (x86)\Fiddler2;C:\Users\DIYILIU\AppData\Roaming\npm;.]
+[INFO ] [2018-04-16 10:21:17] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [180] - Initializing Spring embedded WebApplicationContext
+[INFO ] [2018-04-16 10:21:17] org.springframework.web.context.ContextLoader [285] - Root WebApplicationContext: initialization completed in 1837 ms
+[INFO ] [2018-04-16 10:21:17] org.springframework.boot.web.servlet.ServletRegistrationBean [185] - Servlet dispatcherServlet mapped to [/]
+[INFO ] [2018-04-16 10:21:17] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'characterEncodingFilter' to: [/*]
+[INFO ] [2018-04-16 10:21:17] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[INFO ] [2018-04-16 10:21:17] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[INFO ] [2018-04-16 10:21:17] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'requestContextFilter' to: [/*]
+[INFO ] [2018-04-16 10:21:17] com.alibaba.druid.pool.DruidDataSource [106] - {dataSource-1} inited
+[INFO ] [2018-04-16 10:21:17] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [361] - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:21:17] org.hibernate.jpa.internal.util.LogHelper [31] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] [2018-04-16 10:21:17] org.hibernate.Version [45] - HHH000412: Hibernate Core {5.2.14.Final}
+[INFO ] [2018-04-16 10:21:17] org.hibernate.cfg.Environment [213] - HHH000206: hibernate.properties not found
+[INFO ] [2018-04-16 10:21:17] org.hibernate.annotations.common.Version [66] - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] [2018-04-16 10:21:17] org.hibernate.dialect.Dialect [157] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] [2018-04-16 10:21:18] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [394] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:21:19] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter [567] - Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@74455848: startup date [Mon Apr 16 10:21:15 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:21:19] com.tiza.gw.netty.server.DtuServer [54] - DTU网关服务器启动, 端口[5001]...
+[INFO ] [2018-04-16 10:21:19] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] [2018-04-16 10:21:19] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] [2018-04-16 10:21:19] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:21:19] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:21:19] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:21:19] org.quartz.impl.StdSchedulerFactory [1208] - Using default implementation for ThreadExecutor
+[INFO ] [2018-04-16 10:21:19] org.quartz.core.SchedulerSignalerImpl [61] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[INFO ] [2018-04-16 10:21:19] org.quartz.core.QuartzScheduler [229] - Quartz Scheduler v.2.3.0 created.
+[INFO ] [2018-04-16 10:21:19] org.quartz.simpl.RAMJobStore [155] - RAMJobStore initialized.
+[INFO ] [2018-04-16 10:21:19] org.quartz.core.QuartzScheduler [294] - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[INFO ] [2018-04-16 10:21:19] org.quartz.impl.StdSchedulerFactory [1362] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[INFO ] [2018-04-16 10:21:19] org.quartz.impl.StdSchedulerFactory [1366] - Quartz scheduler version: 2.3.0
+[INFO ] [2018-04-16 10:21:19] org.quartz.core.QuartzScheduler [2287] - JobFactory set to: org.springframework.boot.autoconfigure.quartz.AutowireCapableBeanJobFactory@16ee9aa7
+[INFO ] [2018-04-16 10:21:19] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [434] - Registering beans for JMX exposure on startup
+[INFO ] [2018-04-16 10:21:19] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [896] - Bean with name 'dataSource' has been autodetected for JMX exposure
+[INFO ] [2018-04-16 10:21:19] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [669] - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+[INFO ] [2018-04-16 10:21:19] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483547
+[INFO ] [2018-04-16 10:21:19] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483647
+[INFO ] [2018-04-16 10:21:19] org.springframework.scheduling.quartz.SchedulerFactoryBean [686] - Starting Quartz Scheduler now
+[INFO ] [2018-04-16 10:21:19] org.quartz.core.QuartzScheduler [547] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[INFO ] [2018-04-16 10:21:19] org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor [275] - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+[INFO ] [2018-04-16 10:21:19] org.apache.coyote.http11.Http11NioProtocol [180] - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:21:19] org.apache.tomcat.util.net.NioSelectorPool [180] - Using a shared selector for servlet write/read
+[INFO ] [2018-04-16 10:21:19] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [205] - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] [2018-04-16 10:21:19] com.tiza.gw.Application [59] - Started Application in 5.156 seconds (JVM running for 6.23)
+[INFO ] [2018-04-16 10:21:19] com.tiza.gw.support.listener.CMDInitializer [27] - 协议解析初始化...
+[INFO ] [2018-04-16 10:21:21] com.tiza.gw.netty.handler.DtuHandler [32] - 建立连接...
+[INFO ] [2018-04-16 10:21:22] com.tiza.gw.support.task.DeviceInfoTask [32] - 刷新设备列表...
+[INFO ] [2018-04-16 10:21:22] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [47] - HHH000397: Using ASTQueryTranslatorFactory
+[INFO ] [2018-04-16 10:21:22] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[404040333535373834303132373833393136]写入kafka...
+[INFO ] [2018-04-16 10:21:22] com.tiza.gw.netty.handler.codec.DtuDecoder [123] - 设备[355784012783916]注册...
+[INFO ] [2018-04-16 10:21:24] com.tiza.gw.support.task.FunctionSetTask [36] - 刷新功能集列表...
+[INFO ] [2018-04-16 10:21:25] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[2]下发...
+[INFO ] [2018-04-16 10:21:25] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0202000000187833]写入kafka...
+[INFO ] [2018-04-16 10:22:31] com.tiza.gw.Application [50] - Starting Application on DIYILIU with PID 11916 (E:\Workspace\tiza\sa-plc\sa-gw\out\production\classes started by DIYILIU in E:\Workspace\tiza\sa-plc)
+[INFO ] [2018-04-16 10:22:31] com.tiza.gw.Application [652] - No active profile set, falling back to default profiles: default
+[INFO ] [2018-04-16 10:22:31] org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [589] - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@74455848: startup date [Mon Apr 16 10:22:31 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:22:32] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$e6927047] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:22:32] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$12e05ec4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:22:33] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [91] - Tomcat initialized with port(s): 8080 (http)
+[INFO ] [2018-04-16 10:22:33] org.apache.coyote.http11.Http11NioProtocol [180] - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:22:33] org.apache.catalina.core.StandardService [180] - Starting service [Tomcat]
+[INFO ] [2018-04-16 10:22:33] org.apache.catalina.core.StandardEngine [180] - Starting Servlet Engine: Apache Tomcat/8.5.28
+[INFO ] [2018-04-16 10:22:33] org.apache.catalina.core.AprLifecycleListener [180] - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [E:\Develop\Java\jdk1.8.0_161\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\oracle\product\11.1.0\client_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;E:\Develop\Java\jdk1.8.0_45\bin;E:\Develop\Java\jdk1.8.0_45\jre\bin;D:\Program Files\TortoiseSVN\bin;E:\Develop\Apache\apache-maven-3.5.0\bin;E:\Develop\Gradle\gradle-3.5\bin;C:\Program Files\PuTTY\;D:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Utilities 1.6\;E:\Develop\Apache\zookeeper-3.4.9\bin;E:\Develop\Scala\scala-2.12.4\bin;D:\Program Files\nodejs\;E:\Develop\Redis\;d:\Ruby24-x64\bin;C:\Users\DIYILIU\AppData\Local\Microsoft\WindowsApps;;d:\Program Files (x86)\Fiddler2;C:\Users\DIYILIU\AppData\Roaming\npm;.]
+[INFO ] [2018-04-16 10:22:33] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [180] - Initializing Spring embedded WebApplicationContext
+[INFO ] [2018-04-16 10:22:33] org.springframework.web.context.ContextLoader [285] - Root WebApplicationContext: initialization completed in 1863 ms
+[INFO ] [2018-04-16 10:22:33] org.springframework.boot.web.servlet.ServletRegistrationBean [185] - Servlet dispatcherServlet mapped to [/]
+[INFO ] [2018-04-16 10:22:33] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'characterEncodingFilter' to: [/*]
+[INFO ] [2018-04-16 10:22:33] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[INFO ] [2018-04-16 10:22:33] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[INFO ] [2018-04-16 10:22:33] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'requestContextFilter' to: [/*]
+[INFO ] [2018-04-16 10:22:33] com.alibaba.druid.pool.DruidDataSource [106] - {dataSource-1} inited
+[INFO ] [2018-04-16 10:22:34] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [361] - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:22:34] org.hibernate.jpa.internal.util.LogHelper [31] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] [2018-04-16 10:22:34] org.hibernate.Version [45] - HHH000412: Hibernate Core {5.2.14.Final}
+[INFO ] [2018-04-16 10:22:34] org.hibernate.cfg.Environment [213] - HHH000206: hibernate.properties not found
+[INFO ] [2018-04-16 10:22:34] org.hibernate.annotations.common.Version [66] - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] [2018-04-16 10:22:34] org.hibernate.dialect.Dialect [157] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] [2018-04-16 10:22:34] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [394] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:22:35] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter [567] - Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@74455848: startup date [Mon Apr 16 10:22:31 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:22:35] com.tiza.gw.netty.server.DtuServer [54] - DTU网关服务器启动, 端口[5001]...
+[INFO ] [2018-04-16 10:22:35] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] [2018-04-16 10:22:35] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] [2018-04-16 10:22:35] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:22:35] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:22:35] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:22:36] org.quartz.impl.StdSchedulerFactory [1208] - Using default implementation for ThreadExecutor
+[INFO ] [2018-04-16 10:22:36] org.quartz.core.SchedulerSignalerImpl [61] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[INFO ] [2018-04-16 10:22:36] org.quartz.core.QuartzScheduler [229] - Quartz Scheduler v.2.3.0 created.
+[INFO ] [2018-04-16 10:22:36] org.quartz.simpl.RAMJobStore [155] - RAMJobStore initialized.
+[INFO ] [2018-04-16 10:22:36] org.quartz.core.QuartzScheduler [294] - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[INFO ] [2018-04-16 10:22:36] org.quartz.impl.StdSchedulerFactory [1362] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[INFO ] [2018-04-16 10:22:36] org.quartz.impl.StdSchedulerFactory [1366] - Quartz scheduler version: 2.3.0
+[INFO ] [2018-04-16 10:22:36] org.quartz.core.QuartzScheduler [2287] - JobFactory set to: org.springframework.boot.autoconfigure.quartz.AutowireCapableBeanJobFactory@4525e9e8
+[INFO ] [2018-04-16 10:22:36] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [434] - Registering beans for JMX exposure on startup
+[INFO ] [2018-04-16 10:22:36] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [896] - Bean with name 'dataSource' has been autodetected for JMX exposure
+[INFO ] [2018-04-16 10:22:36] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [669] - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+[INFO ] [2018-04-16 10:22:36] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483547
+[INFO ] [2018-04-16 10:22:36] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483647
+[INFO ] [2018-04-16 10:22:36] org.springframework.scheduling.quartz.SchedulerFactoryBean [686] - Starting Quartz Scheduler now
+[INFO ] [2018-04-16 10:22:36] org.quartz.core.QuartzScheduler [547] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[INFO ] [2018-04-16 10:22:36] org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor [275] - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+[INFO ] [2018-04-16 10:22:36] org.apache.coyote.http11.Http11NioProtocol [180] - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:22:36] org.apache.tomcat.util.net.NioSelectorPool [180] - Using a shared selector for servlet write/read
+[INFO ] [2018-04-16 10:22:36] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [205] - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] [2018-04-16 10:22:36] com.tiza.gw.Application [59] - Started Application in 5.671 seconds (JVM running for 6.771)
+[INFO ] [2018-04-16 10:22:36] com.tiza.gw.support.listener.CMDInitializer [27] - 协议解析初始化...
+[INFO ] [2018-04-16 10:22:37] com.tiza.gw.netty.handler.DtuHandler [32] - 建立连接...
+[INFO ] [2018-04-16 10:22:38] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[404040333535373834303132373833393136]写入kafka...
+[INFO ] [2018-04-16 10:22:38] com.tiza.gw.netty.handler.codec.DtuDecoder [123] - 设备[355784012783916]注册...
+[INFO ] [2018-04-16 10:22:39] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[1]下发...
+[INFO ] [2018-04-16 10:22:39] com.tiza.gw.support.task.DeviceInfoTask [32] - 刷新设备列表...
+[INFO ] [2018-04-16 10:22:39] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0201000000103DF5]写入kafka...
+[INFO ] [2018-04-16 10:22:39] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [47] - HHH000397: Using ASTQueryTranslatorFactory
+[INFO ] [2018-04-16 10:22:40] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0201020000FDFC]写入kafka...
+[INFO ] [2018-04-16 10:22:41] com.tiza.gw.support.task.FunctionSetTask [36] - 刷新功能集列表...
+[INFO ] [2018-04-16 10:26:53] com.tiza.gw.Application [50] - Starting Application on DIYILIU with PID 10960 (E:\Workspace\tiza\sa-plc\sa-gw\out\production\classes started by DIYILIU in E:\Workspace\tiza\sa-plc)
+[INFO ] [2018-04-16 10:26:53] com.tiza.gw.Application [652] - No active profile set, falling back to default profiles: default
+[INFO ] [2018-04-16 10:26:53] org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [589] - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6631f5ca: startup date [Mon Apr 16 10:26:53 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:26:54] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$a5e9c013] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:26:54] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$d237ae90] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:26:55] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [91] - Tomcat initialized with port(s): 8080 (http)
+[INFO ] [2018-04-16 10:26:55] org.apache.coyote.http11.Http11NioProtocol [180] - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:26:55] org.apache.catalina.core.StandardService [180] - Starting service [Tomcat]
+[INFO ] [2018-04-16 10:26:55] org.apache.catalina.core.StandardEngine [180] - Starting Servlet Engine: Apache Tomcat/8.5.28
+[INFO ] [2018-04-16 10:26:55] org.apache.catalina.core.AprLifecycleListener [180] - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [E:\Develop\Java\jdk1.8.0_161\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\oracle\product\11.1.0\client_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;E:\Develop\Java\jdk1.8.0_45\bin;E:\Develop\Java\jdk1.8.0_45\jre\bin;D:\Program Files\TortoiseSVN\bin;E:\Develop\Apache\apache-maven-3.5.0\bin;E:\Develop\Gradle\gradle-3.5\bin;C:\Program Files\PuTTY\;D:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Utilities 1.6\;E:\Develop\Apache\zookeeper-3.4.9\bin;E:\Develop\Scala\scala-2.12.4\bin;D:\Program Files\nodejs\;E:\Develop\Redis\;d:\Ruby24-x64\bin;C:\Users\DIYILIU\AppData\Local\Microsoft\WindowsApps;;d:\Program Files (x86)\Fiddler2;C:\Users\DIYILIU\AppData\Roaming\npm;.]
+[INFO ] [2018-04-16 10:26:55] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [180] - Initializing Spring embedded WebApplicationContext
+[INFO ] [2018-04-16 10:26:55] org.springframework.web.context.ContextLoader [285] - Root WebApplicationContext: initialization completed in 1983 ms
+[INFO ] [2018-04-16 10:26:55] org.springframework.boot.web.servlet.ServletRegistrationBean [185] - Servlet dispatcherServlet mapped to [/]
+[INFO ] [2018-04-16 10:26:55] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'characterEncodingFilter' to: [/*]
+[INFO ] [2018-04-16 10:26:55] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[INFO ] [2018-04-16 10:26:55] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[INFO ] [2018-04-16 10:26:55] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'requestContextFilter' to: [/*]
+[INFO ] [2018-04-16 10:26:55] com.alibaba.druid.pool.DruidDataSource [106] - {dataSource-1} inited
+[INFO ] [2018-04-16 10:26:55] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [361] - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:26:55] org.hibernate.jpa.internal.util.LogHelper [31] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] [2018-04-16 10:26:55] org.hibernate.Version [45] - HHH000412: Hibernate Core {5.2.14.Final}
+[INFO ] [2018-04-16 10:26:55] org.hibernate.cfg.Environment [213] - HHH000206: hibernate.properties not found
+[INFO ] [2018-04-16 10:26:55] org.hibernate.annotations.common.Version [66] - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] [2018-04-16 10:26:56] org.hibernate.dialect.Dialect [157] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] [2018-04-16 10:26:56] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [394] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:26:57] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter [567] - Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6631f5ca: startup date [Mon Apr 16 10:26:53 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:26:57] com.tiza.gw.netty.server.DtuServer [54] - DTU网关服务器启动, 端口[5001]...
+[INFO ] [2018-04-16 10:26:57] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] [2018-04-16 10:26:57] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] [2018-04-16 10:26:57] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:26:57] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:26:57] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:26:57] org.quartz.impl.StdSchedulerFactory [1208] - Using default implementation for ThreadExecutor
+[INFO ] [2018-04-16 10:26:57] org.quartz.core.SchedulerSignalerImpl [61] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[INFO ] [2018-04-16 10:26:57] org.quartz.core.QuartzScheduler [229] - Quartz Scheduler v.2.3.0 created.
+[INFO ] [2018-04-16 10:26:57] org.quartz.simpl.RAMJobStore [155] - RAMJobStore initialized.
+[INFO ] [2018-04-16 10:26:57] org.quartz.core.QuartzScheduler [294] - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[INFO ] [2018-04-16 10:26:57] org.quartz.impl.StdSchedulerFactory [1362] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[INFO ] [2018-04-16 10:26:57] org.quartz.impl.StdSchedulerFactory [1366] - Quartz scheduler version: 2.3.0
+[INFO ] [2018-04-16 10:26:57] org.quartz.core.QuartzScheduler [2287] - JobFactory set to: org.springframework.boot.autoconfigure.quartz.AutowireCapableBeanJobFactory@2e590b
+[INFO ] [2018-04-16 10:26:57] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [434] - Registering beans for JMX exposure on startup
+[INFO ] [2018-04-16 10:26:57] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [896] - Bean with name 'dataSource' has been autodetected for JMX exposure
+[INFO ] [2018-04-16 10:26:57] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [669] - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+[INFO ] [2018-04-16 10:26:57] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483547
+[INFO ] [2018-04-16 10:26:57] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483647
+[INFO ] [2018-04-16 10:26:57] org.springframework.scheduling.quartz.SchedulerFactoryBean [686] - Starting Quartz Scheduler now
+[INFO ] [2018-04-16 10:26:57] org.quartz.core.QuartzScheduler [547] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[INFO ] [2018-04-16 10:26:57] org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor [275] - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+[INFO ] [2018-04-16 10:26:57] org.apache.coyote.http11.Http11NioProtocol [180] - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:26:57] org.apache.tomcat.util.net.NioSelectorPool [180] - Using a shared selector for servlet write/read
+[INFO ] [2018-04-16 10:26:57] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [205] - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] [2018-04-16 10:26:57] com.tiza.gw.Application [59] - Started Application in 5.608 seconds (JVM running for 7.064)
+[INFO ] [2018-04-16 10:26:57] com.tiza.gw.support.listener.CMDInitializer [27] - 协议解析初始化...
+[INFO ] [2018-04-16 10:27:00] com.tiza.gw.support.task.DeviceInfoTask [32] - 刷新设备列表...
+[INFO ] [2018-04-16 10:27:00] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [47] - HHH000397: Using ASTQueryTranslatorFactory
+[INFO ] [2018-04-16 10:27:02] com.tiza.gw.support.task.FunctionSetTask [36] - 刷新功能集列表...
+[INFO ] [2018-04-16 10:27:55] com.tiza.gw.Application [50] - Starting Application on DIYILIU with PID 1604 (E:\Workspace\tiza\sa-plc\sa-gw\out\production\classes started by DIYILIU in E:\Workspace\tiza\sa-plc)
+[INFO ] [2018-04-16 10:27:55] com.tiza.gw.Application [652] - No active profile set, falling back to default profiles: default
+[INFO ] [2018-04-16 10:27:55] org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [589] - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@5ace1ed4: startup date [Mon Apr 16 10:27:55 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:27:56] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$ec82805a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:27:56] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$18d06ed7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:27:57] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [91] - Tomcat initialized with port(s): 8080 (http)
+[INFO ] [2018-04-16 10:27:57] org.apache.coyote.http11.Http11NioProtocol [180] - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:27:57] org.apache.catalina.core.StandardService [180] - Starting service [Tomcat]
+[INFO ] [2018-04-16 10:27:57] org.apache.catalina.core.StandardEngine [180] - Starting Servlet Engine: Apache Tomcat/8.5.28
+[INFO ] [2018-04-16 10:27:57] org.apache.catalina.core.AprLifecycleListener [180] - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [E:\Develop\Java\jdk1.8.0_161\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\oracle\product\11.1.0\client_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;E:\Develop\Java\jdk1.8.0_45\bin;E:\Develop\Java\jdk1.8.0_45\jre\bin;D:\Program Files\TortoiseSVN\bin;E:\Develop\Apache\apache-maven-3.5.0\bin;E:\Develop\Gradle\gradle-3.5\bin;C:\Program Files\PuTTY\;D:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Utilities 1.6\;E:\Develop\Apache\zookeeper-3.4.9\bin;E:\Develop\Scala\scala-2.12.4\bin;D:\Program Files\nodejs\;E:\Develop\Redis\;d:\Ruby24-x64\bin;C:\Users\DIYILIU\AppData\Local\Microsoft\WindowsApps;;d:\Program Files (x86)\Fiddler2;C:\Users\DIYILIU\AppData\Roaming\npm;.]
+[INFO ] [2018-04-16 10:27:57] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [180] - Initializing Spring embedded WebApplicationContext
+[INFO ] [2018-04-16 10:27:57] org.springframework.web.context.ContextLoader [285] - Root WebApplicationContext: initialization completed in 1872 ms
+[INFO ] [2018-04-16 10:27:57] org.springframework.boot.web.servlet.ServletRegistrationBean [185] - Servlet dispatcherServlet mapped to [/]
+[INFO ] [2018-04-16 10:27:57] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'characterEncodingFilter' to: [/*]
+[INFO ] [2018-04-16 10:27:57] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[INFO ] [2018-04-16 10:27:57] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[INFO ] [2018-04-16 10:27:57] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'requestContextFilter' to: [/*]
+[INFO ] [2018-04-16 10:27:57] com.alibaba.druid.pool.DruidDataSource [106] - {dataSource-1} inited
+[INFO ] [2018-04-16 10:27:57] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [361] - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:27:57] org.hibernate.jpa.internal.util.LogHelper [31] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] [2018-04-16 10:27:57] org.hibernate.Version [45] - HHH000412: Hibernate Core {5.2.14.Final}
+[INFO ] [2018-04-16 10:27:57] org.hibernate.cfg.Environment [213] - HHH000206: hibernate.properties not found
+[INFO ] [2018-04-16 10:27:57] org.hibernate.annotations.common.Version [66] - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] [2018-04-16 10:27:58] org.hibernate.dialect.Dialect [157] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] [2018-04-16 10:27:58] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [394] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:27:59] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter [567] - Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@5ace1ed4: startup date [Mon Apr 16 10:27:55 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:27:59] com.tiza.gw.netty.server.DtuServer [54] - DTU网关服务器启动, 端口[5001]...
+[INFO ] [2018-04-16 10:27:59] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] [2018-04-16 10:27:59] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] [2018-04-16 10:27:59] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:27:59] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:27:59] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:27:59] org.quartz.impl.StdSchedulerFactory [1208] - Using default implementation for ThreadExecutor
+[INFO ] [2018-04-16 10:27:59] org.quartz.core.SchedulerSignalerImpl [61] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[INFO ] [2018-04-16 10:27:59] org.quartz.core.QuartzScheduler [229] - Quartz Scheduler v.2.3.0 created.
+[INFO ] [2018-04-16 10:27:59] org.quartz.simpl.RAMJobStore [155] - RAMJobStore initialized.
+[INFO ] [2018-04-16 10:27:59] org.quartz.core.QuartzScheduler [294] - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[INFO ] [2018-04-16 10:27:59] org.quartz.impl.StdSchedulerFactory [1362] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[INFO ] [2018-04-16 10:27:59] org.quartz.impl.StdSchedulerFactory [1366] - Quartz scheduler version: 2.3.0
+[INFO ] [2018-04-16 10:27:59] org.quartz.core.QuartzScheduler [2287] - JobFactory set to: org.springframework.boot.autoconfigure.quartz.AutowireCapableBeanJobFactory@113ee1ce
+[INFO ] [2018-04-16 10:27:59] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [434] - Registering beans for JMX exposure on startup
+[INFO ] [2018-04-16 10:27:59] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [896] - Bean with name 'dataSource' has been autodetected for JMX exposure
+[INFO ] [2018-04-16 10:27:59] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [669] - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+[INFO ] [2018-04-16 10:27:59] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483547
+[INFO ] [2018-04-16 10:27:59] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483647
+[INFO ] [2018-04-16 10:27:59] org.springframework.scheduling.quartz.SchedulerFactoryBean [686] - Starting Quartz Scheduler now
+[INFO ] [2018-04-16 10:27:59] org.quartz.core.QuartzScheduler [547] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[INFO ] [2018-04-16 10:27:59] org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor [275] - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+[INFO ] [2018-04-16 10:27:59] org.apache.coyote.http11.Http11NioProtocol [180] - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:27:59] org.apache.tomcat.util.net.NioSelectorPool [180] - Using a shared selector for servlet write/read
+[INFO ] [2018-04-16 10:27:59] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [205] - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] [2018-04-16 10:27:59] com.tiza.gw.Application [59] - Started Application in 5.392 seconds (JVM running for 6.489)
+[INFO ] [2018-04-16 10:27:59] com.tiza.gw.support.listener.CMDInitializer [27] - 协议解析初始化...
+[INFO ] [2018-04-16 10:28:02] com.tiza.gw.support.task.DeviceInfoTask [32] - 刷新设备列表...
+[INFO ] [2018-04-16 10:28:02] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [47] - HHH000397: Using ASTQueryTranslatorFactory
+[INFO ] [2018-04-16 10:28:04] com.tiza.gw.support.task.FunctionSetTask [36] - 刷新功能集列表...
+[INFO ] [2018-04-16 10:28:11] com.tiza.gw.netty.handler.DtuHandler [32] - 建立连接...
+[INFO ] [2018-04-16 10:28:12] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[404040333535373834303132373833393136]写入kafka...
+[INFO ] [2018-04-16 10:28:12] com.tiza.gw.netty.handler.codec.DtuDecoder [123] - 设备[355784012783916]注册...
+[INFO ] [2018-04-16 10:28:12] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[1]下发...
+[INFO ] [2018-04-16 10:28:12] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0201000000103DF5]写入kafka...
+[INFO ] [2018-04-16 10:28:13] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0201020000FDFC]写入kafka...
+[INFO ] [2018-04-16 10:28:13] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:28:14] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 10:32:29] com.tiza.gw.Application [50] - Starting Application on DIYILIU with PID 13444 (E:\Workspace\tiza\sa-plc\sa-gw\out\production\classes started by DIYILIU in E:\Workspace\tiza\sa-plc)
+[INFO ] [2018-04-16 10:32:29] com.tiza.gw.Application [652] - No active profile set, falling back to default profiles: default
+[INFO ] [2018-04-16 10:32:29] org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [589] - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1698ee84: startup date [Mon Apr 16 10:32:29 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:32:31] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$7f5503fa] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:32:31] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$aba2f277] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:32:31] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [91] - Tomcat initialized with port(s): 8080 (http)
+[INFO ] [2018-04-16 10:32:31] org.apache.coyote.http11.Http11NioProtocol [180] - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:32:31] org.apache.catalina.core.StandardService [180] - Starting service [Tomcat]
+[INFO ] [2018-04-16 10:32:31] org.apache.catalina.core.StandardEngine [180] - Starting Servlet Engine: Apache Tomcat/8.5.28
+[INFO ] [2018-04-16 10:32:31] org.apache.catalina.core.AprLifecycleListener [180] - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [E:\Develop\Java\jdk1.8.0_161\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\oracle\product\11.1.0\client_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;E:\Develop\Java\jdk1.8.0_45\bin;E:\Develop\Java\jdk1.8.0_45\jre\bin;D:\Program Files\TortoiseSVN\bin;E:\Develop\Apache\apache-maven-3.5.0\bin;E:\Develop\Gradle\gradle-3.5\bin;C:\Program Files\PuTTY\;D:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Utilities 1.6\;E:\Develop\Apache\zookeeper-3.4.9\bin;E:\Develop\Scala\scala-2.12.4\bin;D:\Program Files\nodejs\;E:\Develop\Redis\;d:\Ruby24-x64\bin;C:\Users\DIYILIU\AppData\Local\Microsoft\WindowsApps;;d:\Program Files (x86)\Fiddler2;C:\Users\DIYILIU\AppData\Roaming\npm;.]
+[INFO ] [2018-04-16 10:32:31] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [180] - Initializing Spring embedded WebApplicationContext
+[INFO ] [2018-04-16 10:32:31] org.springframework.web.context.ContextLoader [285] - Root WebApplicationContext: initialization completed in 1845 ms
+[INFO ] [2018-04-16 10:32:31] org.springframework.boot.web.servlet.ServletRegistrationBean [185] - Servlet dispatcherServlet mapped to [/]
+[INFO ] [2018-04-16 10:32:31] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'characterEncodingFilter' to: [/*]
+[INFO ] [2018-04-16 10:32:31] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[INFO ] [2018-04-16 10:32:31] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[INFO ] [2018-04-16 10:32:31] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'requestContextFilter' to: [/*]
+[INFO ] [2018-04-16 10:32:32] com.alibaba.druid.pool.DruidDataSource [106] - {dataSource-1} inited
+[INFO ] [2018-04-16 10:32:32] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [361] - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:32:32] org.hibernate.jpa.internal.util.LogHelper [31] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] [2018-04-16 10:32:32] org.hibernate.Version [45] - HHH000412: Hibernate Core {5.2.14.Final}
+[INFO ] [2018-04-16 10:32:32] org.hibernate.cfg.Environment [213] - HHH000206: hibernate.properties not found
+[INFO ] [2018-04-16 10:32:32] org.hibernate.annotations.common.Version [66] - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] [2018-04-16 10:32:32] org.hibernate.dialect.Dialect [157] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] [2018-04-16 10:32:33] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [394] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:32:34] com.tiza.gw.netty.server.DtuServer [54] - DTU网关服务器启动, 端口[5001]...
+[INFO ] [2018-04-16 10:32:34] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter [567] - Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1698ee84: startup date [Mon Apr 16 10:32:29 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:32:34] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] [2018-04-16 10:32:34] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] [2018-04-16 10:32:34] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:32:34] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:32:34] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:32:35] org.quartz.impl.StdSchedulerFactory [1208] - Using default implementation for ThreadExecutor
+[INFO ] [2018-04-16 10:32:35] org.quartz.core.SchedulerSignalerImpl [61] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[INFO ] [2018-04-16 10:32:35] org.quartz.core.QuartzScheduler [229] - Quartz Scheduler v.2.3.0 created.
+[INFO ] [2018-04-16 10:32:35] org.quartz.simpl.RAMJobStore [155] - RAMJobStore initialized.
+[INFO ] [2018-04-16 10:32:35] org.quartz.core.QuartzScheduler [294] - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[INFO ] [2018-04-16 10:32:35] org.quartz.impl.StdSchedulerFactory [1362] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[INFO ] [2018-04-16 10:32:35] org.quartz.impl.StdSchedulerFactory [1366] - Quartz scheduler version: 2.3.0
+[INFO ] [2018-04-16 10:32:35] org.quartz.core.QuartzScheduler [2287] - JobFactory set to: org.springframework.boot.autoconfigure.quartz.AutowireCapableBeanJobFactory@7d1cdeb1
+[INFO ] [2018-04-16 10:32:35] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [434] - Registering beans for JMX exposure on startup
+[INFO ] [2018-04-16 10:32:35] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [896] - Bean with name 'dataSource' has been autodetected for JMX exposure
+[INFO ] [2018-04-16 10:32:35] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [669] - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+[INFO ] [2018-04-16 10:32:35] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483547
+[INFO ] [2018-04-16 10:32:35] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483647
+[INFO ] [2018-04-16 10:32:35] org.springframework.scheduling.quartz.SchedulerFactoryBean [686] - Starting Quartz Scheduler now
+[INFO ] [2018-04-16 10:32:35] org.quartz.core.QuartzScheduler [547] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[INFO ] [2018-04-16 10:32:35] org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor [275] - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+[INFO ] [2018-04-16 10:32:35] org.apache.coyote.http11.Http11NioProtocol [180] - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:32:35] org.apache.tomcat.util.net.NioSelectorPool [180] - Using a shared selector for servlet write/read
+[INFO ] [2018-04-16 10:32:35] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [205] - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] [2018-04-16 10:32:35] com.tiza.gw.Application [59] - Started Application in 6.457 seconds (JVM running for 9.134)
+[INFO ] [2018-04-16 10:32:35] com.tiza.gw.support.listener.CMDInitializer [27] - 协议解析初始化...
+[INFO ] [2018-04-16 10:32:38] com.tiza.gw.support.task.DeviceInfoTask [32] - 刷新设备列表...
+[INFO ] [2018-04-16 10:32:38] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [47] - HHH000397: Using ASTQueryTranslatorFactory
+[INFO ] [2018-04-16 10:32:39] com.tiza.gw.netty.handler.DtuHandler [32] - 建立连接...
+[INFO ] [2018-04-16 10:32:40] com.tiza.gw.support.task.FunctionSetTask [36] - 刷新功能集列表...
+[INFO ] [2018-04-16 10:32:40] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[404040333535373834303132373833393136]写入kafka...
+[INFO ] [2018-04-16 10:32:40] com.tiza.gw.netty.handler.codec.DtuDecoder [123] - 设备[355784012783916]注册...
+[INFO ] [2018-04-16 10:32:41] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[2]下发...
+[INFO ] [2018-04-16 10:32:41] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0202000000187833]写入kafka...
+[INFO ] [2018-04-16 10:32:42] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[020203000000787D]写入kafka...
+[INFO ] [2018-04-16 10:32:45] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[3]下发...
+[INFO ] [2018-04-16 10:40:58] com.tiza.gw.Application [50] - Starting Application on DIYILIU with PID 2932 (E:\Workspace\tiza\sa-plc\sa-gw\out\production\classes started by DIYILIU in E:\Workspace\tiza\sa-plc)
+[INFO ] [2018-04-16 10:40:58] com.tiza.gw.Application [652] - No active profile set, falling back to default profiles: default
+[INFO ] [2018-04-16 10:40:59] org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [589] - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@295eaa7c: startup date [Mon Apr 16 10:40:59 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:41:00] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$8e76a972] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:41:00] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$bac497ef] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:41:00] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [91] - Tomcat initialized with port(s): 8080 (http)
+[INFO ] [2018-04-16 10:41:00] org.apache.coyote.http11.Http11NioProtocol [180] - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:41:00] org.apache.catalina.core.StandardService [180] - Starting service [Tomcat]
+[INFO ] [2018-04-16 10:41:00] org.apache.catalina.core.StandardEngine [180] - Starting Servlet Engine: Apache Tomcat/8.5.28
+[INFO ] [2018-04-16 10:41:00] org.apache.catalina.core.AprLifecycleListener [180] - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [E:\Develop\Java\jdk1.8.0_161\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\oracle\product\11.1.0\client_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;E:\Develop\Java\jdk1.8.0_45\bin;E:\Develop\Java\jdk1.8.0_45\jre\bin;D:\Program Files\TortoiseSVN\bin;E:\Develop\Apache\apache-maven-3.5.0\bin;E:\Develop\Gradle\gradle-3.5\bin;C:\Program Files\PuTTY\;D:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Utilities 1.6\;E:\Develop\Apache\zookeeper-3.4.9\bin;E:\Develop\Scala\scala-2.12.4\bin;D:\Program Files\nodejs\;E:\Develop\Redis\;d:\Ruby24-x64\bin;C:\Users\DIYILIU\AppData\Local\Microsoft\WindowsApps;;d:\Program Files (x86)\Fiddler2;C:\Users\DIYILIU\AppData\Roaming\npm;.]
+[INFO ] [2018-04-16 10:41:00] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [180] - Initializing Spring embedded WebApplicationContext
+[INFO ] [2018-04-16 10:41:00] org.springframework.web.context.ContextLoader [285] - Root WebApplicationContext: initialization completed in 1826 ms
+[INFO ] [2018-04-16 10:41:01] org.springframework.boot.web.servlet.ServletRegistrationBean [185] - Servlet dispatcherServlet mapped to [/]
+[INFO ] [2018-04-16 10:41:01] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'characterEncodingFilter' to: [/*]
+[INFO ] [2018-04-16 10:41:01] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[INFO ] [2018-04-16 10:41:01] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[INFO ] [2018-04-16 10:41:01] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'requestContextFilter' to: [/*]
+[INFO ] [2018-04-16 10:41:01] com.alibaba.druid.pool.DruidDataSource [106] - {dataSource-1} inited
+[INFO ] [2018-04-16 10:41:01] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [361] - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:41:01] org.hibernate.jpa.internal.util.LogHelper [31] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] [2018-04-16 10:41:01] org.hibernate.Version [45] - HHH000412: Hibernate Core {5.2.14.Final}
+[INFO ] [2018-04-16 10:41:01] org.hibernate.cfg.Environment [213] - HHH000206: hibernate.properties not found
+[INFO ] [2018-04-16 10:41:01] org.hibernate.annotations.common.Version [66] - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] [2018-04-16 10:41:02] org.hibernate.dialect.Dialect [157] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] [2018-04-16 10:41:02] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [394] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:41:03] com.tiza.gw.netty.server.DtuServer [54] - DTU网关服务器启动, 端口[5001]...
+[INFO ] [2018-04-16 10:41:03] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter [567] - Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@295eaa7c: startup date [Mon Apr 16 10:40:59 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:41:03] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] [2018-04-16 10:41:03] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] [2018-04-16 10:41:03] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:41:03] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:41:03] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:41:04] org.quartz.impl.StdSchedulerFactory [1208] - Using default implementation for ThreadExecutor
+[INFO ] [2018-04-16 10:41:04] org.quartz.core.SchedulerSignalerImpl [61] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[INFO ] [2018-04-16 10:41:04] org.quartz.core.QuartzScheduler [229] - Quartz Scheduler v.2.3.0 created.
+[INFO ] [2018-04-16 10:41:04] org.quartz.simpl.RAMJobStore [155] - RAMJobStore initialized.
+[INFO ] [2018-04-16 10:41:04] org.quartz.core.QuartzScheduler [294] - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[INFO ] [2018-04-16 10:41:04] org.quartz.impl.StdSchedulerFactory [1362] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[INFO ] [2018-04-16 10:41:04] org.quartz.impl.StdSchedulerFactory [1366] - Quartz scheduler version: 2.3.0
+[INFO ] [2018-04-16 10:41:04] org.quartz.core.QuartzScheduler [2287] - JobFactory set to: org.springframework.boot.autoconfigure.quartz.AutowireCapableBeanJobFactory@8cb7185
+[INFO ] [2018-04-16 10:41:04] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [434] - Registering beans for JMX exposure on startup
+[INFO ] [2018-04-16 10:41:04] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [896] - Bean with name 'dataSource' has been autodetected for JMX exposure
+[INFO ] [2018-04-16 10:41:04] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [669] - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+[INFO ] [2018-04-16 10:41:04] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483547
+[INFO ] [2018-04-16 10:41:04] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483647
+[INFO ] [2018-04-16 10:41:04] org.springframework.scheduling.quartz.SchedulerFactoryBean [686] - Starting Quartz Scheduler now
+[INFO ] [2018-04-16 10:41:04] org.quartz.core.QuartzScheduler [547] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[INFO ] [2018-04-16 10:41:04] org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor [275] - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+[INFO ] [2018-04-16 10:41:04] org.apache.coyote.http11.Http11NioProtocol [180] - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:41:04] org.apache.tomcat.util.net.NioSelectorPool [180] - Using a shared selector for servlet write/read
+[INFO ] [2018-04-16 10:41:04] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [205] - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] [2018-04-16 10:41:04] com.tiza.gw.Application [59] - Started Application in 6.626 seconds (JVM running for 8.295)
+[INFO ] [2018-04-16 10:41:04] com.tiza.gw.support.listener.CMDInitializer [27] - 协议解析初始化...
+[INFO ] [2018-04-16 10:41:07] com.tiza.gw.support.task.DeviceInfoTask [32] - 刷新设备列表...
+[INFO ] [2018-04-16 10:41:11] com.tiza.gw.netty.handler.DtuHandler [32] - 建立连接...
+[INFO ] [2018-04-16 10:41:11] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[404040333535373834303132373833393136]写入kafka...
+[INFO ] [2018-04-16 10:41:11] com.tiza.gw.netty.handler.codec.DtuDecoder [123] - 设备[355784012783916]注册...
+[INFO ] [2018-04-16 10:41:11] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [47] - HHH000397: Using ASTQueryTranslatorFactory
+[INFO ] [2018-04-16 10:41:25] com.tiza.gw.support.task.FunctionSetTask [36] - 刷新功能集列表...
+[INFO ] [2018-04-16 10:43:24] com.tiza.gw.Application [50] - Starting Application on DIYILIU with PID 13828 (E:\Workspace\tiza\sa-plc\sa-gw\out\production\classes started by DIYILIU in E:\Workspace\tiza\sa-plc)
+[INFO ] [2018-04-16 10:43:24] com.tiza.gw.Application [652] - No active profile set, falling back to default profiles: default
+[INFO ] [2018-04-16 10:43:24] org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [589] - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@b62d79: startup date [Mon Apr 16 10:43:24 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:43:25] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$529ac236] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:43:25] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$7ee8b0b3] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 10:43:26] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [91] - Tomcat initialized with port(s): 8080 (http)
+[INFO ] [2018-04-16 10:43:26] org.apache.coyote.http11.Http11NioProtocol [180] - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:43:26] org.apache.catalina.core.StandardService [180] - Starting service [Tomcat]
+[INFO ] [2018-04-16 10:43:26] org.apache.catalina.core.StandardEngine [180] - Starting Servlet Engine: Apache Tomcat/8.5.28
+[INFO ] [2018-04-16 10:43:26] org.apache.catalina.core.AprLifecycleListener [180] - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [E:\Develop\Java\jdk1.8.0_161\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\oracle\product\11.1.0\client_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;E:\Develop\Java\jdk1.8.0_45\bin;E:\Develop\Java\jdk1.8.0_45\jre\bin;D:\Program Files\TortoiseSVN\bin;E:\Develop\Apache\apache-maven-3.5.0\bin;E:\Develop\Gradle\gradle-3.5\bin;C:\Program Files\PuTTY\;D:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Utilities 1.6\;E:\Develop\Apache\zookeeper-3.4.9\bin;E:\Develop\Scala\scala-2.12.4\bin;D:\Program Files\nodejs\;E:\Develop\Redis\;d:\Ruby24-x64\bin;C:\Users\DIYILIU\AppData\Local\Microsoft\WindowsApps;;d:\Program Files (x86)\Fiddler2;C:\Users\DIYILIU\AppData\Roaming\npm;.]
+[INFO ] [2018-04-16 10:43:26] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [180] - Initializing Spring embedded WebApplicationContext
+[INFO ] [2018-04-16 10:43:26] org.springframework.web.context.ContextLoader [285] - Root WebApplicationContext: initialization completed in 1711 ms
+[INFO ] [2018-04-16 10:43:26] org.springframework.boot.web.servlet.ServletRegistrationBean [185] - Servlet dispatcherServlet mapped to [/]
+[INFO ] [2018-04-16 10:43:26] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'characterEncodingFilter' to: [/*]
+[INFO ] [2018-04-16 10:43:26] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[INFO ] [2018-04-16 10:43:26] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[INFO ] [2018-04-16 10:43:26] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'requestContextFilter' to: [/*]
+[INFO ] [2018-04-16 10:43:26] com.alibaba.druid.pool.DruidDataSource [106] - {dataSource-1} inited
+[INFO ] [2018-04-16 10:43:26] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [361] - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:43:26] org.hibernate.jpa.internal.util.LogHelper [31] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] [2018-04-16 10:43:27] org.hibernate.Version [45] - HHH000412: Hibernate Core {5.2.14.Final}
+[INFO ] [2018-04-16 10:43:27] org.hibernate.cfg.Environment [213] - HHH000206: hibernate.properties not found
+[INFO ] [2018-04-16 10:43:27] org.hibernate.annotations.common.Version [66] - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] [2018-04-16 10:43:27] org.hibernate.dialect.Dialect [157] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] [2018-04-16 10:43:27] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [394] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 10:43:28] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter [567] - Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@b62d79: startup date [Mon Apr 16 10:43:24 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 10:43:28] com.tiza.gw.netty.server.DtuServer [54] - DTU网关服务器启动, 端口[5001]...
+[INFO ] [2018-04-16 10:43:28] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] [2018-04-16 10:43:28] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] [2018-04-16 10:43:28] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:43:28] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:43:28] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 10:43:28] org.quartz.impl.StdSchedulerFactory [1208] - Using default implementation for ThreadExecutor
+[INFO ] [2018-04-16 10:43:28] org.quartz.core.SchedulerSignalerImpl [61] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[INFO ] [2018-04-16 10:43:28] org.quartz.core.QuartzScheduler [229] - Quartz Scheduler v.2.3.0 created.
+[INFO ] [2018-04-16 10:43:28] org.quartz.simpl.RAMJobStore [155] - RAMJobStore initialized.
+[INFO ] [2018-04-16 10:43:28] org.quartz.core.QuartzScheduler [294] - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[INFO ] [2018-04-16 10:43:28] org.quartz.impl.StdSchedulerFactory [1362] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[INFO ] [2018-04-16 10:43:28] org.quartz.impl.StdSchedulerFactory [1366] - Quartz scheduler version: 2.3.0
+[INFO ] [2018-04-16 10:43:28] org.quartz.core.QuartzScheduler [2287] - JobFactory set to: org.springframework.boot.autoconfigure.quartz.AutowireCapableBeanJobFactory@70b2fa10
+[INFO ] [2018-04-16 10:43:28] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [434] - Registering beans for JMX exposure on startup
+[INFO ] [2018-04-16 10:43:28] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [896] - Bean with name 'dataSource' has been autodetected for JMX exposure
+[INFO ] [2018-04-16 10:43:28] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [669] - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+[INFO ] [2018-04-16 10:43:28] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483547
+[INFO ] [2018-04-16 10:43:28] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483647
+[INFO ] [2018-04-16 10:43:28] org.springframework.scheduling.quartz.SchedulerFactoryBean [686] - Starting Quartz Scheduler now
+[INFO ] [2018-04-16 10:43:28] org.quartz.core.QuartzScheduler [547] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[INFO ] [2018-04-16 10:43:28] org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor [275] - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+[INFO ] [2018-04-16 10:43:28] org.apache.coyote.http11.Http11NioProtocol [180] - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 10:43:28] org.apache.tomcat.util.net.NioSelectorPool [180] - Using a shared selector for servlet write/read
+[INFO ] [2018-04-16 10:43:28] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [205] - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] [2018-04-16 10:43:28] com.tiza.gw.Application [59] - Started Application in 5.355 seconds (JVM running for 6.599)
+[INFO ] [2018-04-16 10:43:28] com.tiza.gw.support.listener.CMDInitializer [27] - 协议解析初始化...
+[INFO ] [2018-04-16 10:43:31] com.tiza.gw.support.task.DeviceInfoTask [32] - 刷新设备列表...
+[INFO ] [2018-04-16 10:43:31] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [47] - HHH000397: Using ASTQueryTranslatorFactory
+[INFO ] [2018-04-16 10:43:33] com.tiza.gw.support.task.FunctionSetTask [36] - 刷新功能集列表...
+[INFO ] [2018-04-16 10:43:52] com.tiza.gw.netty.handler.DtuHandler [32] - 建立连接...
+[INFO ] [2018-04-16 10:43:52] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[404040333535373834303132373833393136]写入kafka...
+[INFO ] [2018-04-16 10:43:52] com.tiza.gw.netty.handler.codec.DtuDecoder [123] - 设备[355784012783916]注册...
+[INFO ] [2018-04-16 10:44:04] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[2]下发...
+[INFO ] [2018-04-16 10:44:04] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0202000000187833]写入kafka...
+[INFO ] [2018-04-16 10:44:06] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[020203000000787D]写入kafka...
+[INFO ] [2018-04-16 10:44:06] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:44:06] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 10:44:07] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[3]下发...
+[INFO ] [2018-04-16 10:44:07] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[02030000003C45E8]写入kafka...
+[INFO ] [2018-04-16 10:44:09] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0203780000000000000000000000000000000000000000000000000000000000000000000000000000000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C80000E3DE]写入kafka...
+[INFO ] [2018-04-16 10:44:09] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:44:09] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 10:44:11] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[1]下发...
+[INFO ] [2018-04-16 10:44:11] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0201000000103DF5]写入kafka...
+[INFO ] [2018-04-16 10:44:12] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0201020000FDFC]写入kafka...
+[INFO ] [2018-04-16 10:44:12] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:44:12] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 10:44:34] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[2]下发...
+[INFO ] [2018-04-16 10:44:34] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0202000000187833]写入kafka...
+[INFO ] [2018-04-16 10:44:36] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[020203000000787D]写入kafka...
+[INFO ] [2018-04-16 10:44:36] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:44:36] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 10:44:37] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[3]下发...
+[INFO ] [2018-04-16 10:44:37] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[02030000003C45E8]写入kafka...
+[INFO ] [2018-04-16 10:44:38] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0203780000000000000000000000000000000000000000000000000000000000000000000000000000000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C80000E3DE]写入kafka...
+[INFO ] [2018-04-16 10:44:39] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:44:39] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 10:44:41] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[1]下发...
+[INFO ] [2018-04-16 10:44:41] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0201000000103DF5]写入kafka...
+[INFO ] [2018-04-16 10:44:44] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0201020000FDFC]写入kafka...
+[INFO ] [2018-04-16 10:44:44] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:44:44] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 10:45:04] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[2]下发...
+[INFO ] [2018-04-16 10:45:04] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0202000000187833]写入kafka...
+[INFO ] [2018-04-16 10:45:06] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[020203000000787D]写入kafka...
+[INFO ] [2018-04-16 10:45:06] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:45:06] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 10:45:07] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[3]下发...
+[INFO ] [2018-04-16 10:45:07] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[02030000003C45E8]写入kafka...
+[INFO ] [2018-04-16 10:45:08] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0203780000000000000000000000000000000000000000000000000000000000000000000000000000000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C80000E3DE]写入kafka...
+[INFO ] [2018-04-16 10:45:09] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:45:09] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 10:45:11] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[1]下发...
+[INFO ] [2018-04-16 10:45:11] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0201000000103DF5]写入kafka...
+[INFO ] [2018-04-16 10:45:13] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0201020000FDFC]写入kafka...
+[INFO ] [2018-04-16 10:45:13] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:45:13] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 10:45:34] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[2]下发...
+[INFO ] [2018-04-16 10:45:34] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0202000000187833]写入kafka...
+[INFO ] [2018-04-16 10:45:36] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[020203000000787D]写入kafka...
+[INFO ] [2018-04-16 10:45:36] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:45:36] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 10:45:37] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[3]下发...
+[INFO ] [2018-04-16 10:45:37] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[02030000003C45E8]写入kafka...
+[INFO ] [2018-04-16 10:45:38] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0203780000000000000000000000000000000000000000000000000000000000000000000000000000000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C80000E3DE]写入kafka...
+[INFO ] [2018-04-16 10:45:39] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:45:39] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 10:45:41] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[1]下发...
+[INFO ] [2018-04-16 10:45:41] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0201000000103DF5]写入kafka...
+[INFO ] [2018-04-16 10:45:43] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0201020000FDFC]写入kafka...
+[INFO ] [2018-04-16 10:45:43] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:45:43] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 10:46:04] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[2]下发...
+[INFO ] [2018-04-16 10:46:04] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0202000000187833]写入kafka...
+[INFO ] [2018-04-16 10:46:06] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[020203000000787D]写入kafka...
+[INFO ] [2018-04-16 10:46:06] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:46:06] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 10:46:07] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[3]下发...
+[INFO ] [2018-04-16 10:46:07] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[02030000003C45E8]写入kafka...
+[INFO ] [2018-04-16 10:46:08] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0203780000000000000000000000000000000000000000000000000000000000000000000000000000000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C80000E3DE]写入kafka...
+[INFO ] [2018-04-16 10:46:09] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:46:09] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 10:46:11] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[1]下发...
+[INFO ] [2018-04-16 10:46:11] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0201000000103DF5]写入kafka...
+[INFO ] [2018-04-16 10:46:13] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0201020000FDFC]写入kafka...
+[INFO ] [2018-04-16 10:46:13] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:46:13] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 10:46:34] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[2]下发...
+[INFO ] [2018-04-16 10:46:34] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0202000000187833]写入kafka...
+[INFO ] [2018-04-16 10:46:36] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[020203000000787D]写入kafka...
+[INFO ] [2018-04-16 10:46:36] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:46:36] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 10:46:37] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[3]下发...
+[INFO ] [2018-04-16 10:46:37] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[02030000003C45E8]写入kafka...
+[INFO ] [2018-04-16 10:46:39] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0203780000000000000000000000000000000000000000000000000000000000000000000000000000000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C80000E3DE]写入kafka...
+[INFO ] [2018-04-16 10:46:39] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:46:39] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 10:46:41] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[1]下发...
+[INFO ] [2018-04-16 10:46:41] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0201000000103DF5]写入kafka...
+[INFO ] [2018-04-16 10:46:42] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0201020000FDFC]写入kafka...
+[INFO ] [2018-04-16 10:46:42] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 10:46:43] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 12:58:28] com.tiza.gw.Application [50] - Starting Application on DIYILIU with PID 7160 (E:\Workspace\tiza\sa-plc\sa-gw\out\production\classes started by DIYILIU in E:\Workspace\tiza\sa-plc)
+[INFO ] [2018-04-16 12:58:28] com.tiza.gw.Application [652] - No active profile set, falling back to default profiles: default
+[INFO ] [2018-04-16 12:58:28] org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [589] - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@45e37a7e: startup date [Mon Apr 16 12:58:28 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 12:58:30] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$4cf6a282] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 12:58:30] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$794490ff] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 12:58:30] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [91] - Tomcat initialized with port(s): 8080 (http)
+[INFO ] [2018-04-16 12:58:30] org.apache.coyote.http11.Http11NioProtocol [180] - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 12:58:30] org.apache.catalina.core.StandardService [180] - Starting service [Tomcat]
+[INFO ] [2018-04-16 12:58:30] org.apache.catalina.core.StandardEngine [180] - Starting Servlet Engine: Apache Tomcat/8.5.28
+[INFO ] [2018-04-16 12:58:30] org.apache.catalina.core.AprLifecycleListener [180] - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [E:\Develop\Java\jdk1.8.0_161\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\oracle\product\11.1.0\client_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;E:\Develop\Java\jdk1.8.0_45\bin;E:\Develop\Java\jdk1.8.0_45\jre\bin;D:\Program Files\TortoiseSVN\bin;E:\Develop\Apache\apache-maven-3.5.0\bin;E:\Develop\Gradle\gradle-3.5\bin;C:\Program Files\PuTTY\;D:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Utilities 1.6\;E:\Develop\Apache\zookeeper-3.4.9\bin;E:\Develop\Scala\scala-2.12.4\bin;D:\Program Files\nodejs\;E:\Develop\Redis\;d:\Ruby24-x64\bin;C:\Users\DIYILIU\AppData\Local\Microsoft\WindowsApps;;d:\Program Files (x86)\Fiddler2;C:\Users\DIYILIU\AppData\Roaming\npm;.]
+[INFO ] [2018-04-16 12:58:30] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [180] - Initializing Spring embedded WebApplicationContext
+[INFO ] [2018-04-16 12:58:30] org.springframework.web.context.ContextLoader [285] - Root WebApplicationContext: initialization completed in 2498 ms
+[INFO ] [2018-04-16 12:58:31] org.springframework.boot.web.servlet.ServletRegistrationBean [185] - Servlet dispatcherServlet mapped to [/]
+[INFO ] [2018-04-16 12:58:31] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'characterEncodingFilter' to: [/*]
+[INFO ] [2018-04-16 12:58:31] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[INFO ] [2018-04-16 12:58:31] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[INFO ] [2018-04-16 12:58:31] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'requestContextFilter' to: [/*]
+[INFO ] [2018-04-16 12:58:31] com.alibaba.druid.pool.DruidDataSource [106] - {dataSource-1} inited
+[INFO ] [2018-04-16 12:58:31] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [361] - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 12:58:31] org.hibernate.jpa.internal.util.LogHelper [31] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] [2018-04-16 12:58:31] org.hibernate.Version [45] - HHH000412: Hibernate Core {5.2.14.Final}
+[INFO ] [2018-04-16 12:58:31] org.hibernate.cfg.Environment [213] - HHH000206: hibernate.properties not found
+[INFO ] [2018-04-16 12:58:31] org.hibernate.annotations.common.Version [66] - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] [2018-04-16 12:58:32] org.hibernate.dialect.Dialect [157] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] [2018-04-16 12:58:32] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [394] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 12:58:33] com.tiza.gw.netty.server.DtuServer [54] - DTU网关服务器启动, 端口[5001]...
+[INFO ] [2018-04-16 12:58:33] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter [567] - Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@45e37a7e: startup date [Mon Apr 16 12:58:28 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 12:58:33] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] [2018-04-16 12:58:33] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] [2018-04-16 12:58:33] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 12:58:33] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 12:58:33] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 12:58:34] org.quartz.impl.StdSchedulerFactory [1208] - Using default implementation for ThreadExecutor
+[INFO ] [2018-04-16 12:58:34] org.quartz.core.SchedulerSignalerImpl [61] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[INFO ] [2018-04-16 12:58:34] org.quartz.core.QuartzScheduler [229] - Quartz Scheduler v.2.3.0 created.
+[INFO ] [2018-04-16 12:58:34] org.quartz.simpl.RAMJobStore [155] - RAMJobStore initialized.
+[INFO ] [2018-04-16 12:58:34] org.quartz.core.QuartzScheduler [294] - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[INFO ] [2018-04-16 12:58:34] org.quartz.impl.StdSchedulerFactory [1362] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[INFO ] [2018-04-16 12:58:34] org.quartz.impl.StdSchedulerFactory [1366] - Quartz scheduler version: 2.3.0
+[INFO ] [2018-04-16 12:58:34] org.quartz.core.QuartzScheduler [2287] - JobFactory set to: org.springframework.boot.autoconfigure.quartz.AutowireCapableBeanJobFactory@21ea1d9d
+[INFO ] [2018-04-16 12:58:34] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [434] - Registering beans for JMX exposure on startup
+[INFO ] [2018-04-16 12:58:34] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [896] - Bean with name 'dataSource' has been autodetected for JMX exposure
+[INFO ] [2018-04-16 12:58:34] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [669] - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+[INFO ] [2018-04-16 12:58:34] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483547
+[INFO ] [2018-04-16 12:58:34] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483647
+[INFO ] [2018-04-16 12:58:34] org.springframework.scheduling.quartz.SchedulerFactoryBean [686] - Starting Quartz Scheduler now
+[INFO ] [2018-04-16 12:58:34] org.quartz.core.QuartzScheduler [547] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[INFO ] [2018-04-16 12:58:34] org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor [275] - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+[INFO ] [2018-04-16 12:58:34] org.apache.coyote.http11.Http11NioProtocol [180] - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 12:58:34] org.apache.tomcat.util.net.NioSelectorPool [180] - Using a shared selector for servlet write/read
+[INFO ] [2018-04-16 12:58:34] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [205] - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] [2018-04-16 12:58:34] com.tiza.gw.Application [59] - Started Application in 7.407 seconds (JVM running for 9.016)
+[INFO ] [2018-04-16 12:58:34] com.tiza.gw.support.listener.CMDInitializer [27] - 协议解析初始化...
+[INFO ] [2018-04-16 12:58:37] com.tiza.gw.support.task.DeviceInfoTask [32] - 刷新设备列表...
+[INFO ] [2018-04-16 12:58:37] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [47] - HHH000397: Using ASTQueryTranslatorFactory
+[INFO ] [2018-04-16 12:58:39] com.tiza.gw.support.task.FunctionSetTask [36] - 刷新功能集列表...
+[INFO ] [2018-04-16 12:59:25] com.tiza.gw.Application [50] - Starting Application on DIYILIU with PID 4132 (E:\Workspace\tiza\sa-plc\sa-gw\out\production\classes started by DIYILIU in E:\Workspace\tiza\sa-plc)
+[INFO ] [2018-04-16 12:59:25] com.tiza.gw.Application [652] - No active profile set, falling back to default profiles: default
+[INFO ] [2018-04-16 12:59:25] org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [589] - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2262b621: startup date [Mon Apr 16 12:59:25 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 12:59:26] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$4cd15a98] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 12:59:26] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$791f4915] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 12:59:26] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [91] - Tomcat initialized with port(s): 8080 (http)
+[INFO ] [2018-04-16 12:59:26] org.apache.coyote.http11.Http11NioProtocol [180] - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 12:59:26] org.apache.catalina.core.StandardService [180] - Starting service [Tomcat]
+[INFO ] [2018-04-16 12:59:26] org.apache.catalina.core.StandardEngine [180] - Starting Servlet Engine: Apache Tomcat/8.5.28
+[INFO ] [2018-04-16 12:59:26] org.apache.catalina.core.AprLifecycleListener [180] - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [E:\Develop\Java\jdk1.8.0_161\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\oracle\product\11.1.0\client_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;E:\Develop\Java\jdk1.8.0_45\bin;E:\Develop\Java\jdk1.8.0_45\jre\bin;D:\Program Files\TortoiseSVN\bin;E:\Develop\Apache\apache-maven-3.5.0\bin;E:\Develop\Gradle\gradle-3.5\bin;C:\Program Files\PuTTY\;D:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Utilities 1.6\;E:\Develop\Apache\zookeeper-3.4.9\bin;E:\Develop\Scala\scala-2.12.4\bin;D:\Program Files\nodejs\;E:\Develop\Redis\;d:\Ruby24-x64\bin;C:\Users\DIYILIU\AppData\Local\Microsoft\WindowsApps;;d:\Program Files (x86)\Fiddler2;C:\Users\DIYILIU\AppData\Roaming\npm;.]
+[INFO ] [2018-04-16 12:59:27] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [180] - Initializing Spring embedded WebApplicationContext
+[INFO ] [2018-04-16 12:59:27] org.springframework.web.context.ContextLoader [285] - Root WebApplicationContext: initialization completed in 1988 ms
+[INFO ] [2018-04-16 12:59:27] org.springframework.boot.web.servlet.ServletRegistrationBean [185] - Servlet dispatcherServlet mapped to [/]
+[INFO ] [2018-04-16 12:59:27] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'characterEncodingFilter' to: [/*]
+[INFO ] [2018-04-16 12:59:27] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[INFO ] [2018-04-16 12:59:27] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[INFO ] [2018-04-16 12:59:27] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'requestContextFilter' to: [/*]
+[INFO ] [2018-04-16 12:59:27] com.alibaba.druid.pool.DruidDataSource [106] - {dataSource-1} inited
+[INFO ] [2018-04-16 12:59:27] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [361] - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 12:59:27] org.hibernate.jpa.internal.util.LogHelper [31] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] [2018-04-16 12:59:27] org.hibernate.Version [45] - HHH000412: Hibernate Core {5.2.14.Final}
+[INFO ] [2018-04-16 12:59:27] org.hibernate.cfg.Environment [213] - HHH000206: hibernate.properties not found
+[INFO ] [2018-04-16 12:59:28] org.hibernate.annotations.common.Version [66] - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] [2018-04-16 12:59:28] org.hibernate.dialect.Dialect [157] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] [2018-04-16 12:59:28] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [394] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 12:59:29] com.tiza.gw.netty.server.DtuServer [54] - DTU网关服务器启动, 端口[5001]...
+[INFO ] [2018-04-16 12:59:29] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter [567] - Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2262b621: startup date [Mon Apr 16 12:59:25 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 12:59:29] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] [2018-04-16 12:59:29] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] [2018-04-16 12:59:29] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 12:59:29] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 12:59:30] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 12:59:30] org.quartz.impl.StdSchedulerFactory [1208] - Using default implementation for ThreadExecutor
+[INFO ] [2018-04-16 12:59:30] org.quartz.core.SchedulerSignalerImpl [61] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[INFO ] [2018-04-16 12:59:30] org.quartz.core.QuartzScheduler [229] - Quartz Scheduler v.2.3.0 created.
+[INFO ] [2018-04-16 12:59:30] org.quartz.simpl.RAMJobStore [155] - RAMJobStore initialized.
+[INFO ] [2018-04-16 12:59:30] org.quartz.core.QuartzScheduler [294] - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[INFO ] [2018-04-16 12:59:30] org.quartz.impl.StdSchedulerFactory [1362] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[INFO ] [2018-04-16 12:59:30] org.quartz.impl.StdSchedulerFactory [1366] - Quartz scheduler version: 2.3.0
+[INFO ] [2018-04-16 12:59:30] org.quartz.core.QuartzScheduler [2287] - JobFactory set to: org.springframework.boot.autoconfigure.quartz.AutowireCapableBeanJobFactory@4aeaff64
+[INFO ] [2018-04-16 12:59:30] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [434] - Registering beans for JMX exposure on startup
+[INFO ] [2018-04-16 12:59:30] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [896] - Bean with name 'dataSource' has been autodetected for JMX exposure
+[INFO ] [2018-04-16 12:59:30] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [669] - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+[INFO ] [2018-04-16 12:59:30] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483547
+[INFO ] [2018-04-16 12:59:30] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483647
+[INFO ] [2018-04-16 12:59:30] org.springframework.scheduling.quartz.SchedulerFactoryBean [686] - Starting Quartz Scheduler now
+[INFO ] [2018-04-16 12:59:30] org.quartz.core.QuartzScheduler [547] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[INFO ] [2018-04-16 12:59:30] org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor [275] - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+[INFO ] [2018-04-16 12:59:30] org.apache.coyote.http11.Http11NioProtocol [180] - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 12:59:30] org.apache.tomcat.util.net.NioSelectorPool [180] - Using a shared selector for servlet write/read
+[INFO ] [2018-04-16 12:59:30] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [205] - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] [2018-04-16 12:59:30] com.tiza.gw.Application [59] - Started Application in 6.337 seconds (JVM running for 7.945)
+[INFO ] [2018-04-16 12:59:30] com.tiza.gw.support.listener.CMDInitializer [27] - 协议解析初始化...
+[INFO ] [2018-04-16 12:59:33] com.tiza.gw.support.task.DeviceInfoTask [32] - 刷新设备列表...
+[INFO ] [2018-04-16 12:59:33] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [47] - HHH000397: Using ASTQueryTranslatorFactory
+[INFO ] [2018-04-16 12:59:35] com.tiza.gw.support.task.FunctionSetTask [36] - 刷新功能集列表...
+[INFO ] [2018-04-16 12:59:48] com.tiza.gw.netty.handler.DtuHandler [32] - 建立连接...
+[INFO ] [2018-04-16 12:59:49] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[404040333535373834303132373833393136]写入kafka...
+[INFO ] [2018-04-16 12:59:49] com.tiza.gw.netty.handler.codec.DtuDecoder [123] - 设备[355784012783916]注册...
+[INFO ] [2018-04-16 13:00:06] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[2]下发...
+[INFO ] [2018-04-16 13:00:06] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0202000000187833]写入kafka...
+[INFO ] [2018-04-16 13:00:07] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[020203000000787D]写入kafka...
+[INFO ] [2018-04-16 13:00:15] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[3]下发...
+[INFO ] [2018-04-16 13:05:26] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[1]下发...
+[INFO ] [2018-04-16 13:05:26] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[2]下发...
+[INFO ] [2018-04-16 13:05:26] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[3]下发...
+[INFO ] [2018-04-16 13:05:26] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[1]下发...
+[INFO ] [2018-04-16 13:05:26] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[2]下发...
+[INFO ] [2018-04-16 13:05:26] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[3]下发...
+[INFO ] [2018-04-16 13:06:16] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[1]下发...
+[INFO ] [2018-04-16 13:06:16] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[2]下发...
+[INFO ] [2018-04-16 13:06:16] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[3]下发...
+[INFO ] [2018-04-16 13:07:49] com.tiza.gw.Application [50] - Starting Application on DIYILIU with PID 1532 (E:\Workspace\tiza\sa-plc\sa-gw\out\production\classes started by DIYILIU in E:\Workspace\tiza\sa-plc)
+[INFO ] [2018-04-16 13:07:49] com.tiza.gw.Application [652] - No active profile set, falling back to default profiles: default
+[INFO ] [2018-04-16 13:07:49] org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [589] - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@34997338: startup date [Mon Apr 16 13:07:49 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 13:07:51] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$db43c255] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 13:07:51] org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [328] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$791b0d2] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] [2018-04-16 13:07:51] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [91] - Tomcat initialized with port(s): 8080 (http)
+[INFO ] [2018-04-16 13:07:51] org.apache.coyote.http11.Http11NioProtocol [180] - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 13:07:51] org.apache.catalina.core.StandardService [180] - Starting service [Tomcat]
+[INFO ] [2018-04-16 13:07:51] org.apache.catalina.core.StandardEngine [180] - Starting Servlet Engine: Apache Tomcat/8.5.28
+[INFO ] [2018-04-16 13:07:51] org.apache.catalina.core.AprLifecycleListener [180] - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [E:\Develop\Java\jdk1.8.0_161\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\oracle\product\11.1.0\client_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;E:\Develop\Java\jdk1.8.0_45\bin;E:\Develop\Java\jdk1.8.0_45\jre\bin;D:\Program Files\TortoiseSVN\bin;E:\Develop\Apache\apache-maven-3.5.0\bin;E:\Develop\Gradle\gradle-3.5\bin;C:\Program Files\PuTTY\;D:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Utilities 1.6\;E:\Develop\Apache\zookeeper-3.4.9\bin;E:\Develop\Scala\scala-2.12.4\bin;D:\Program Files\nodejs\;E:\Develop\Redis\;d:\Ruby24-x64\bin;C:\Users\DIYILIU\AppData\Local\Microsoft\WindowsApps;;d:\Program Files (x86)\Fiddler2;C:\Users\DIYILIU\AppData\Roaming\npm;.]
+[INFO ] [2018-04-16 13:07:51] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [180] - Initializing Spring embedded WebApplicationContext
+[INFO ] [2018-04-16 13:07:51] org.springframework.web.context.ContextLoader [285] - Root WebApplicationContext: initialization completed in 2075 ms
+[INFO ] [2018-04-16 13:07:52] org.springframework.boot.web.servlet.ServletRegistrationBean [185] - Servlet dispatcherServlet mapped to [/]
+[INFO ] [2018-04-16 13:07:52] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'characterEncodingFilter' to: [/*]
+[INFO ] [2018-04-16 13:07:52] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[INFO ] [2018-04-16 13:07:52] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[INFO ] [2018-04-16 13:07:52] org.springframework.boot.web.servlet.FilterRegistrationBean [243] - Mapping filter: 'requestContextFilter' to: [/*]
+[INFO ] [2018-04-16 13:07:52] com.alibaba.druid.pool.DruidDataSource [106] - {dataSource-1} inited
+[INFO ] [2018-04-16 13:07:52] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [361] - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 13:07:52] org.hibernate.jpa.internal.util.LogHelper [31] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] [2018-04-16 13:07:52] org.hibernate.Version [45] - HHH000412: Hibernate Core {5.2.14.Final}
+[INFO ] [2018-04-16 13:07:52] org.hibernate.cfg.Environment [213] - HHH000206: hibernate.properties not found
+[INFO ] [2018-04-16 13:07:52] org.hibernate.annotations.common.Version [66] - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] [2018-04-16 13:07:52] org.hibernate.dialect.Dialect [157] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] [2018-04-16 13:07:53] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [394] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] [2018-04-16 13:07:55] com.tiza.gw.netty.server.DtuServer [54] - DTU网关服务器启动, 端口[5001]...
+[INFO ] [2018-04-16 13:07:55] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter [567] - Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@34997338: startup date [Mon Apr 16 13:07:49 CST 2018]; root of context hierarchy
+[INFO ] [2018-04-16 13:07:55] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[INFO ] [2018-04-16 13:07:55] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [548] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[INFO ] [2018-04-16 13:07:55] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 13:07:55] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 13:07:55] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [373] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[INFO ] [2018-04-16 13:07:55] org.quartz.impl.StdSchedulerFactory [1208] - Using default implementation for ThreadExecutor
+[INFO ] [2018-04-16 13:07:55] org.quartz.core.SchedulerSignalerImpl [61] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[INFO ] [2018-04-16 13:07:55] org.quartz.core.QuartzScheduler [229] - Quartz Scheduler v.2.3.0 created.
+[INFO ] [2018-04-16 13:07:55] org.quartz.simpl.RAMJobStore [155] - RAMJobStore initialized.
+[INFO ] [2018-04-16 13:07:55] org.quartz.core.QuartzScheduler [294] - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[INFO ] [2018-04-16 13:07:55] org.quartz.impl.StdSchedulerFactory [1362] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[INFO ] [2018-04-16 13:07:55] org.quartz.impl.StdSchedulerFactory [1366] - Quartz scheduler version: 2.3.0
+[INFO ] [2018-04-16 13:07:55] org.quartz.core.QuartzScheduler [2287] - JobFactory set to: org.springframework.boot.autoconfigure.quartz.AutowireCapableBeanJobFactory@7a3c99f1
+[INFO ] [2018-04-16 13:07:56] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [434] - Registering beans for JMX exposure on startup
+[INFO ] [2018-04-16 13:07:56] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [896] - Bean with name 'dataSource' has been autodetected for JMX exposure
+[INFO ] [2018-04-16 13:07:56] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [669] - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+[INFO ] [2018-04-16 13:07:56] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483547
+[INFO ] [2018-04-16 13:07:56] org.springframework.context.support.DefaultLifecycleProcessor [351] - Starting beans in phase 2147483647
+[INFO ] [2018-04-16 13:07:56] org.springframework.scheduling.quartz.SchedulerFactoryBean [686] - Starting Quartz Scheduler now
+[INFO ] [2018-04-16 13:07:56] org.quartz.core.QuartzScheduler [547] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[INFO ] [2018-04-16 13:07:56] org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor [275] - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+[INFO ] [2018-04-16 13:07:56] org.apache.coyote.http11.Http11NioProtocol [180] - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] [2018-04-16 13:07:56] org.apache.tomcat.util.net.NioSelectorPool [180] - Using a shared selector for servlet write/read
+[INFO ] [2018-04-16 13:07:56] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [205] - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] [2018-04-16 13:07:56] com.tiza.gw.Application [59] - Started Application in 7.286 seconds (JVM running for 8.883)
+[INFO ] [2018-04-16 13:07:56] com.tiza.gw.support.listener.CMDInitializer [27] - 协议解析初始化...
+[INFO ] [2018-04-16 13:07:58] com.tiza.gw.netty.handler.DtuHandler [32] - 建立连接...
+[INFO ] [2018-04-16 13:07:58] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[404040333535373834303132373833393136]写入kafka...
+[INFO ] [2018-04-16 13:07:58] com.tiza.gw.netty.handler.codec.DtuDecoder [123] - 设备[355784012783916]注册...
+[INFO ] [2018-04-16 13:07:59] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[1]下发...
+[INFO ] [2018-04-16 13:07:59] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0201000000103DF5]写入kafka...
+[INFO ] [2018-04-16 13:07:59] com.tiza.gw.support.task.DeviceInfoTask [32] - 刷新设备列表...
+[INFO ] [2018-04-16 13:07:59] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [47] - HHH000397: Using ASTQueryTranslatorFactory
+[INFO ] [2018-04-16 13:08:00] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0201020000FDFC]写入kafka...
+[INFO ] [2018-04-16 13:08:01] com.tiza.gw.support.task.FunctionSetTask [36] - 刷新功能集列表...
+[INFO ] [2018-04-16 13:08:02] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[2]下发...
+[INFO ] [2018-04-16 13:08:02] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0202000000187833]写入kafka...
+[INFO ] [2018-04-16 13:08:03] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[020203000000787D]写入kafka...
+[INFO ] [2018-04-16 13:08:03] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 13:08:03] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 13:08:05] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[3]下发...
+[INFO ] [2018-04-16 13:08:05] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[02030000003C45E8]写入kafka...
+[INFO ] [2018-04-16 13:08:06] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0203780000000000000000000000000000000000000000000000000000000000000000000000000000000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C8000042C80000E3DE]写入kafka...
+[INFO ] [2018-04-16 13:08:06] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 13:08:06] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 13:08:09] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[1]下发...
+[INFO ] [2018-04-16 13:08:09] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0201000000103DF5]写入kafka...
+[INFO ] [2018-04-16 13:08:10] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[0201020000FDFC]写入kafka...
+[INFO ] [2018-04-16 13:08:10] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 13:08:10] com.tiza.gw.support.client.KafkaClient [49] - 设备[1]解析数据写入kafka...
+[INFO ] [2018-04-16 13:08:32] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[2]下发...
+[INFO ] [2018-04-16 13:08:32] com.tiza.gw.support.client.KafkaClient [31] - [下行] 设备[355784012783916]原始数据[0202000000187833]写入kafka...
+[INFO ] [2018-04-16 13:08:33] com.tiza.gw.support.client.KafkaClient [31] - [上行] 设备[355784012783916]原始数据[020203000000787D]写入kafka...
+[INFO ] [2018-04-16 13:08:33] com.tiza.gw.protocol.DtuDataProcess [163] - 更新设备[355784012783916]状态...
+[INFO ] [2018-04-16 13:08:54] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[3]下发...
+[INFO ] [2018-04-16 13:09:30] com.tiza.gw.support.task.AutoSenderTask [77] - 终端[355784012783916]指令[1]下发...
