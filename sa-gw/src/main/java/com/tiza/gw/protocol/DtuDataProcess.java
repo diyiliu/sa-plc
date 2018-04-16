@@ -5,11 +5,12 @@ import com.diyiliu.plugin.model.Header;
 import com.diyiliu.plugin.model.IDataProcess;
 import com.diyiliu.plugin.util.CommonUtil;
 import com.tiza.gw.support.client.KafkaClient;
-import com.tiza.gw.support.model.*;
+import com.tiza.gw.support.model.CanPackage;
+import com.tiza.gw.support.model.DtuHeader;
+import com.tiza.gw.support.model.NodeItem;
 import com.tiza.gw.support.model.bean.DeviceInfo;
 import com.tiza.gw.support.model.bean.FunctionInfo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +24,9 @@ import java.util.*;
  * Update: 2018-01-30 09:45
  */
 
+@Slf4j
 @Service
 public class DtuDataProcess implements IDataProcess {
-    protected Logger logger = LoggerFactory.getLogger(this.getClass());
-
     protected int cmd = 0xFF;
 
     @Resource
@@ -61,14 +61,14 @@ public class DtuDataProcess implements IDataProcess {
         String deviceId = dtuHeader.getDeviceId();
         if (!deviceCacheProvider.containsKey(deviceId)){
 
-            logger.warn("设备不存在[{}]!", deviceId);
+            log.warn("设备不存在[{}]!", deviceId);
             return;
         }
 
         DeviceInfo deviceInfo = (DeviceInfo) deviceCacheProvider.get(deviceId);
         if (!functionSetCacheProvider.containsKey(deviceInfo.getSoftVersion())){
 
-            logger.warn("未配置的功能集[{}]", deviceInfo.getSoftVersion());
+            log.warn("未配置的功能集[{}]", deviceInfo.getSoftVersion());
             return;
         }
 
@@ -77,7 +77,7 @@ public class DtuDataProcess implements IDataProcess {
         CanPackage canPackage = functionInfo.getCanPackages().get(canCode);
         if (canPackage == null){
 
-            logger.warn("未配置的功能码[{}]", canCode);
+            log.warn("未配置的功能码[{}]", canCode);
             return;
         }
 
@@ -115,7 +115,7 @@ public class DtuDataProcess implements IDataProcess {
             try {
                 packageValues.put(item.getField(), parseItem(content, item));
             } catch (Exception e) {
-                logger.error("解析表达式错误：", e);
+                log.error("解析表达式错误：", e);
             }
         }
 
@@ -142,7 +142,7 @@ public class DtuDataProcess implements IDataProcess {
         String deviceId = dtuHeader.getDeviceId();
         if (!deviceCacheProvider.containsKey(deviceId)){
 
-            logger.warn("设备不存在[{}]!", deviceId);
+            log.warn("设备不存在[{}]!", deviceId);
             return;
         }
         DeviceInfo deviceInfo = (DeviceInfo) deviceCacheProvider.get(deviceId);
@@ -160,10 +160,9 @@ public class DtuDataProcess implements IDataProcess {
         sqlBuilder.append("lastTime").append("=?, ");
         list.add(new Date(dtuHeader.getTime()));
 
-        logger.info("更新设备[{}]状态...", deviceId);
+        log.info("更新设备[{}]状态...", deviceId);
         String sql = sqlBuilder.substring(0, sqlBuilder.length() - 2) + " WHERE equipmentId=" + deviceInfo.getId();
         jdbcTemplate.update(sql, list.toArray());
-
 
         // 写入kafka
         kafkaClient.toKafka(deviceInfo.getId(), paramValues);

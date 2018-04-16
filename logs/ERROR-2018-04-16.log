@@ -23535,3 +23535,44 @@ Caused by: jdk.nashorn.internal.runtime.ParserException: <eval>:1:1 Missing spac
 	at jdk.nashorn.internal.runtime.Context.compileScript(Context.java:627)
 	at jdk.nashorn.api.scripting.NashornScriptEngine.compileImpl(NashornScriptEngine.java:535)
 	... 29 common frames omitted
+[ERROR] [2018-04-16 14:12:21] com.tiza.gw.netty.handler.codec.DtuDecoder[102] - CRC校验码错误, 断开连接!
+[ERROR] [2018-04-16 15:59:41] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"data":"404040333535373834303132373833393136","id":"355784012783916","flow":1,"timestamp":152386552...' to topic shangair_rawdata:
+org.apache.kafka.common.errors.TimeoutException: Failed to update metadata after 60000 ms.
+[ERROR] [2018-04-16 16:00:41] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"data":"0202000000187833","id":"355784012783916","flow":2,"timestamp":1523865581575}' to topic shangair_rawdata:
+org.apache.kafka.common.errors.TimeoutException: Failed to update metadata after 60000 ms.
+[ERROR] [2018-04-16 16:01:55] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"data":"02030000003C45E8","id":"355784012783916","flow":2,"timestamp":1523865641582}' to topic shangair_rawdata:
+org.apache.kafka.common.errors.TimeoutException: Failed to update metadata after 60000 ms.
+[ERROR] [2018-04-16 16:02:55] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"data":"0201000000103DF5","id":"355784012783916","flow":2,"timestamp":1523865715287}' to topic shangair_rawdata:
+org.apache.kafka.common.errors.TimeoutException: Failed to update metadata after 60000 ms.
+[ERROR] [2018-04-16 16:04:16] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"data":"0201000000103DF5","id":"355784012783916","flow":2,"timestamp":1523865825389}' to topic shangair_rawdata:
+org.apache.kafka.common.errors.TimeoutException: Expiring 2 record(s) for shangair_rawdata-2: 31283 ms has passed since batch creation plus linger time
+[ERROR] [2018-04-16 16:04:16] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"data":"020203000000787D","id":"355784012783916","flow":1,"timestamp":1523865829277}' to topic shangair_rawdata:
+org.apache.kafka.common.errors.TimeoutException: Expiring 2 record(s) for shangair_rawdata-2: 31283 ms has passed since batch creation plus linger time
+[ERROR] [2018-04-16 16:04:16] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"data":"0201020000FDFC","id":"355784012783916","flow":1,"timestamp":1523865826199}' to topic shangair_rawdata:
+org.apache.kafka.common.errors.TimeoutException: Expiring 1 record(s) for shangair_rawdata-1: 30474 ms has passed since batch creation plus linger time
+[ERROR] [2018-04-16 16:04:16] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"data":"404040333535373834303132373833393136","id":"355784012783916","flow":1,"timestamp":152386582...' to topic shangair_rawdata:
+org.apache.kafka.common.errors.TimeoutException: Expiring 2 record(s) for shangair_rawdata-0: 31311 ms has passed since batch creation plus linger time
+[ERROR] [2018-04-16 16:04:16] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"data":"0202000000187833","id":"355784012783916","flow":2,"timestamp":1523865828385}' to topic shangair_rawdata:
+org.apache.kafka.common.errors.TimeoutException: Expiring 2 record(s) for shangair_rawdata-0: 31311 ms has passed since batch creation plus linger time
+[ERROR] [2018-04-16 16:24:08] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"data":"404040333535373834303132373833393136","id":"355784012783916","flow":1,"timestamp":152386701...' to topic shangair_rawdata:
+org.apache.kafka.common.errors.TimeoutException: Expiring 1 record(s) for shangair_rawdata-0: 31012 ms has passed since batch creation plus linger time
+[ERROR] [2018-04-16 16:24:12] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"data":"0202000000187833","id":"355784012783916","flow":2,"timestamp":1523867022435}' to topic shangair_rawdata:
+org.apache.kafka.common.errors.TimeoutException: Expiring 1 record(s) for shangair_rawdata-2: 30023 ms has passed since batch creation plus linger time
+[ERROR] [2018-04-16 16:24:13] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"data":"020203000000787D","id":"355784012783916","flow":1,"timestamp":1523867023868}' to topic shangair_rawdata:
+org.apache.kafka.common.errors.TimeoutException: Expiring 1 record(s) for shangair_rawdata-1: 30047 ms has passed since batch creation plus linger time
+[ERROR] [2018-04-16 16:24:44] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"id":1,"metrics":"{\"PbStopIn\":\"0\",\"OilPressureDifferenceIn\":\"0\",\"LoadValveControlFullIn\":...' to topic shangair_metrics:
+org.apache.kafka.common.errors.TimeoutException: Failed to update metadata after 60000 ms.
+[ERROR] [2018-04-16 16:25:14] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"data":"0201000000103DF5","id":"355784012783916","flow":2,"timestamp":1523867084355}' to topic shangair_rawdata:
+org.apache.kafka.common.errors.TimeoutException: Expiring 1 record(s) for shangair_rawdata-2: 30046 ms has passed since batch creation plus linger time
+[ERROR] [2018-04-16 16:25:14] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"data":"02030000003C45E8","id":"355784012783916","flow":2,"timestamp":1523867084354}' to topic shangair_rawdata:
+org.apache.kafka.common.errors.TimeoutException: Expiring 2 record(s) for shangair_rawdata-0: 30047 ms has passed since batch creation plus linger time
+[ERROR] [2018-04-16 16:25:14] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"data":"0203780000000000000000000000000000000000000000000000000000000000000000000000000000000042C83...' to topic shangair_rawdata:
+org.apache.kafka.common.errors.TimeoutException: Expiring 2 record(s) for shangair_rawdata-0: 30047 ms has passed since batch creation plus linger time
+[ERROR] [2018-04-16 16:25:15] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"data":"242424333535373834303132373833393136","id":"355784012783916","flow":1,"timestamp":152386708...' to topic shangair_rawdata:
+org.apache.kafka.common.errors.TimeoutException: Expiring 1 record(s) for shangair_rawdata-1: 30011 ms has passed since batch creation plus linger time
+[ERROR] [2018-04-16 16:25:46] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"id":1,"metrics":"{\"FourthLevelTemperature\":\"100.2\",\"FourthBushingTemperature\":\"100.0\",\"Th...' to topic shangair_metrics:
+org.apache.kafka.common.errors.TimeoutException: Failed to update metadata after 60000 ms.
+[ERROR] [2018-04-16 16:32:24] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"data":"404040333535373834303132373833393136","id":"355784012783916","flow":1,"timestamp":152386748...' to topic shangair_rawdata:
+org.apache.kafka.common.errors.TimeoutException: Failed to update metadata after 60000 ms.
+[ERROR] [2018-04-16 16:33:25] org.springframework.kafka.support.LoggingProducerListener[76] - Exception thrown when sending a message with key='null' and payload='{"data":"242424333535373834303132373833393136","id":"355784012783916","flow":1,"timestamp":152386754...' to topic shangair_rawdata:
+org.apache.kafka.common.errors.TimeoutException: Failed to update metadata after 60000 ms.

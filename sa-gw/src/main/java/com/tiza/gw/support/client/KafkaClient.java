@@ -4,6 +4,7 @@ import com.diyiliu.plugin.util.CommonUtil;
 import com.diyiliu.plugin.util.JacksonUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.core.KafkaTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +18,8 @@ import java.util.Map;
 @Data
 @Slf4j
 public class KafkaClient {
+    private KafkaTemplate kafkaTemplate;
+
     private String rowTopic;
 
     private String dataTopic;
@@ -36,7 +39,7 @@ public class KafkaClient {
         map.put("data", CommonUtil.bytesToStr(bytes));
         map.put("flow", direction);
 
-        //kafkaTemplate.send(rowTopic, JacksonUtil.toJson(map));
+        kafkaTemplate.send(rowTopic, JacksonUtil.toJson(map));
     }
 
     /**
@@ -53,6 +56,6 @@ public class KafkaClient {
         map.put("timestamp", System.currentTimeMillis());
         map.put("metrics", JacksonUtil.toJson(paramValues));
 
-        //kafkaTemplate.send(dataTopic, JacksonUtil.toJson(map));
+        kafkaTemplate.send(dataTopic, JacksonUtil.toJson(map));
     }
 }

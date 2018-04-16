@@ -429,19 +429,21 @@ public class CommonUtil {
         ScriptEngineManager factory = new ScriptEngineManager();
         ScriptEngine engine = factory.getEngineByName("JavaScript");
 
-        String retVal;
+        String retVal = String.valueOf(val);
         if (type.equalsIgnoreCase("hex")) {
+
             retVal = String.format("%02X", val);
-        } else if (type.equalsIgnoreCase("decimal")) {
-            retVal = engine.eval(val + exp).toString();
-        } else {
-            if (StringUtils.isEmpty(exp)){
+        } else if (type.equalsIgnoreCase("float")) {
 
-                return String.valueOf(val);
+            retVal = String.valueOf(Float.intBitsToFloat(val));
+        } else if (StringUtils.isNotEmpty(exp)) {
+            if (type.equalsIgnoreCase("decimal")) {
+
+                retVal = engine.eval(val + exp).toString();
+            } else {
+                //表达式解析会出现类型问题
+                retVal = engine.eval(val + exp).toString();
             }
-
-            //表达式解析会出现类型问题
-            retVal = engine.eval(val + exp).toString();
         }
 
         return retVal;

@@ -5,7 +5,6 @@ import com.diyiliu.plugin.cache.ram.RamCacheProvider;
 import com.diyiliu.plugin.util.SpringUtil;
 import com.tiza.gw.netty.server.DtuServer;
 import com.tiza.gw.protocol.DtuDataProcess;
-import com.tiza.gw.support.client.KafkaClient;
 import com.tiza.gw.support.listener.CMDInitializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -37,16 +36,6 @@ public class SpringConfig {
 
         return dtuServer;
     }
-
-    @Bean
-    public KafkaClient kafkaClient(){
-        KafkaClient kafkaClient = new KafkaClient();
-//        kafkaClient.setRowTopic(rowTopic);
-//        kafkaClient.setDataTopic(dataTopic);
-
-        return kafkaClient;
-    }
-
 
     /**
      * spring 工具类
