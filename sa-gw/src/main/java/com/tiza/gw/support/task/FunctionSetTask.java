@@ -9,6 +9,7 @@ import com.tiza.gw.support.model.NodeItem;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Node;
@@ -78,19 +79,42 @@ public class FunctionSetTask implements ITask {
         Map<String, CanPackage> canPackages = new HashedMap();
         for (Node node : rootPackageNodes) {
             CanPackage canPackage = dealPackage(node);
-            canPackages.put(canPackage.getPackageId(), canPackage);
+
+            // 读功能码
+            if (StringUtils.isNotEmpty(canPackage.getReadFunction())){
+                canPackages.put(canPackage.getReadFunction(), canPackage);
+            }
+
+            // 写功能码
+            if (StringUtils.isNotEmpty(canPackage.getWriteFunction())){
+                canPackages.put(canPackage.getWriteFunction(), canPackage);
+            }
         }
 
         return canPackages;
     }
 
     private CanPackage dealPackage(Node packageNode) {
-        String packageId = packageNode.valueOf("@function");
-        int length = Integer.parseInt(packageNode.valueOf("@length"));
-        int period = Integer.parseInt(packageNode.valueOf("@frequency"));
+        String readFun = packageNode.valueOf("@readFunction");
+        String writeFun = packageNode.valueOf("@writeFunction");
 
-        CanPackage canPackage = new CanPackage(packageId, length);
-        canPackage.setPeriod(period);
+        int site = Integer.parseInt(packageNode.valueOf("@siteId"));
+        int offset = Integer.parseInt(packageNode.valueOf("@offset"));
+        int length = Integer.parseInt(packageNode.valueOf("@length"));
+
+        CanPackage canPackage = new CanPackage();
+        canPackage.setReadFunction(readFun);
+        canPackage.setWriteFunction(writeFun);
+        canPackage.setAddress(site);
+        canPackage.setOffset(offset);
+        canPackage.setLength(length);
+
+        // 刷新频率
+        if (StringUtils.isNotEmpty(packageNode.valueOf("@frequency"))){
+            int period = Integer.parseInt(packageNode.valueOf("@frequency"));
+            canPackage.setPeriod(period);
+        }
+
         List<Node> nodeItems = packageNode.selectNodes("point");
 
         if (nodeItems != null && nodeItems.size() > 0) {
@@ -110,9 +134,9 @@ public class FunctionSetTask implements ITask {
     private NodeItem dealItem(Node itemNode) {
         NodeItem itemBean = null;
         try {
-            String nameKey = itemNode.selectSingleNode("tag").getText();
+            String tag = itemNode.selectSingleNode("tag").getText();
 
-            String field = nameKey;
+            String field = tag;
             Node fieldNode = itemNode.selectSingleNode("field");
             if (fieldNode != null) {
                 field = fieldNode.getText();
@@ -144,13 +168,16 @@ public class FunctionSetTask implements ITask {
                 itemBean.setExpression(expNode.getText());
             }
 
-            itemBean.setNameKey(nameKey);
+            // 唯一标识
+            itemBean.setTag(tag);
+            // 数据库字段
+            itemBean.setField(field);
+
             itemBean.setName(name);
             itemBean.setType(type);
             itemBean.setEndian(endian);
             itemBean.setByteStart(Integer.parseInt(byteStart));
             itemBean.setByteLen(Integer.parseInt(byteLen));
-            itemBean.setField(field);
         } catch (Exception e) {
             log.error("解析功能集错误![{}]", e.getMessage());
             e.printStackTrace();

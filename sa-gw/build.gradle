@@ -24,5 +24,8 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: "$springBootVersion"
 
     // kafka
-    compile group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.1.5.RELEASE'
+    compile (group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.1.5.RELEASE'){
+        exclude group: 'org.apache.kafka'
+    }
+    compile group: 'org.apache.kafka', name: 'kafka_2.12', version: '1.1.0'
 }

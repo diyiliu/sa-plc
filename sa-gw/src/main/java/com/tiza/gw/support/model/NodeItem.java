@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class NodeItem {
 
-    private String nameKey;
+    private String tag;
     private String name;
     private String type;
     private String endian;

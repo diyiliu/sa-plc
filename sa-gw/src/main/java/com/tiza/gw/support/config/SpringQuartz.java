@@ -10,6 +10,7 @@ import com.tiza.gw.support.model.CanPackage;
 import com.tiza.gw.support.model.bean.FunctionInfo;
 import com.tiza.gw.support.task.DeviceInfoTask;
 import com.tiza.gw.support.task.FunctionSetTask;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -60,10 +61,12 @@ public class SpringQuartz {
 
             // 修改执行频率
             CanPackage canPackage = functionInfo.getCanPackages().get(timer.getFunctionId());
+            if (StringUtils.isEmpty(canPackage.getReadFunction())){
+                continue;
+            }
             timer.setPeriod(canPackage.getPeriod());
         }
     }
-
 
     /**
      * 刷新设备列表

@@ -34,6 +34,6 @@ logging:
 dtu-server-port: 5001
 
 kafka:
- broker-list: 192.168.1.153:9092,192.168.1.154:9092,192.168.1.155:9092
+ broker-list: tcloud-161:9092,tcloud-162:9092,tcloud-163:9092
  row-topic: shangair_rawdata
  data-topic: shangair_metrics
