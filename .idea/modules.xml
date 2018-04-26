@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dyl-plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/dyl-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sa-gw.iml" filepath="$PROJECT_DIR$/.idea/modules/sa-gw.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sa-plc.iml" filepath="$PROJECT_DIR$/.idea/modules/sa-plc.iml" />
+    </modules>
+  </component>
+</project>

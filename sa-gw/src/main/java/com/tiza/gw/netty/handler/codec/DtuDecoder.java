@@ -5,6 +5,8 @@ import com.diyiliu.plugin.util.CommonUtil;
 import com.diyiliu.plugin.util.SpringUtil;
 import com.tiza.gw.support.client.KafkaClient;
 import com.tiza.gw.support.config.Constant;
+import com.tiza.gw.support.model.MsgMemory;
+import com.tiza.gw.support.model.SendMsg;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
@@ -73,26 +75,55 @@ public class DtuDecoder extends ByteToMessageDecoder {
 
             // 读取 地址(byte) + 功能码(byte)
             in.readShort();
-            // 内容长度
-            int length = in.readUnsignedByte();
 
-            if (in.readableBytes() < length + 2) {
-
-                in.resetReaderIndex();
+            // 判断上行数据类型
+            ICache sendCache = SpringUtil.getBean("sendCacheProvider");
+            if (!sendCache.containsKey(deviceId)) {
+                log.error("数据异常, 找不到下行数据与之对应。");
+                ctx.close();
                 return;
             }
 
-            in.resetReaderIndex();
+            MsgMemory msgMemory = (MsgMemory) sendCache.get(deviceId);
+            SendMsg sendMsg = msgMemory.getCurrent();
 
-            byte[] content = new byte[3 + length];
-            in.readBytes(content);
+            // 指令类型
+            int type = sendMsg.getType();
+            byte[] content = null;
+            switch (type) {
+                case 0: // 查询应答
+                    int length = in.readUnsignedByte();
+                    if (in.readableBytes() < length + 2) {
+
+                        in.resetReaderIndex();
+                        return;
+                    }
+                    in.resetReaderIndex();
+
+                    content = new byte[3 + length];
+                    in.readBytes(content);
+                    break;
+
+                case 1: // 设置应答
+                    if (in.readableBytes() < 6) {
+                        in.resetReaderIndex();
+                        return;
+                    }
+
+                    in.resetReaderIndex();
+                    content = new byte[6];
+                    in.readBytes(content);
+                    break;
+                default:
+                    log.error("未知数据!");
+                    ctx.close();
+            }
 
             // CRC校验码
             byte crc0 = in.readByte();
             byte crc1 = in.readByte();
 
             byte[] bytes = Unpooled.copiedBuffer(content, new byte[]{crc0, crc1}).array();
-            //logger.info("收到设备[{}]原始数据[{}]...", deviceId, CommonUtil.bytesToStr(bytes));
 
             // 写入kafka
             kafkaClient.toKafka(deviceId, bytes, 1);
@@ -104,9 +135,16 @@ public class DtuDecoder extends ByteToMessageDecoder {
                 return;
             }
 
+
+            if (type == 1){
+                sendMsg.setResult(1);
+
+                return;
+            }
+
             if (deviceCache.containsKey(deviceId)) {
                 out.add(Unpooled.copiedBuffer(content));
-            }else{
+            } else {
                 log.warn("设备[{}]不存在!", deviceId);
             }
         }

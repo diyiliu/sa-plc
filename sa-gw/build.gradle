@@ -2,17 +2,19 @@ group 'com.tiza'
 version '2.0'
 
 apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 sourceCompatibility = 1.8
 
 repositories {
-    mavenLocal()
-    mavenCentral()
     jcenter()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
 }
 
-ext{
-    springBootVersion='2.0.0.RELEASE'
+ext {
+    springBootVersion = '2.0.0.RELEASE'
 }
 
 dependencies {
@@ -24,8 +26,34 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: "$springBootVersion"
 
     // kafka
-    compile (group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.1.5.RELEASE'){
+    compile(group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.1.5.RELEASE') {
         exclude group: 'org.apache.kafka'
     }
+
     compile group: 'org.apache.kafka', name: 'kafka_2.12', version: '1.1.0'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+bootJar {
+    baseName = 'sa-plc'
+    version = ''
+}
+
+
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'https://repo.spring.io/snapshot' }
+        maven { url 'https://repo.spring.io/milestone' }
+    }
+
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.0.BUILD-SNAPSHOT'
+    }
+}
+

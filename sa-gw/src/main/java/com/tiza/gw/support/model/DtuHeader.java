@@ -1,12 +1,15 @@
 package com.tiza.gw.support.model;
 
 import com.diyiliu.plugin.model.Header;
+import lombok.Data;
 
 /**
  * Description: DtuHeader
  * Author: DIYILIU
  * Update: 2018-01-30 10:12
  */
+
+@Data
 public class DtuHeader extends Header {
 
     private String deviceId;
@@ -16,46 +19,4 @@ public class DtuHeader extends Header {
     private int code;
 
     private byte[] content = new byte[0];
-
-    private long time;
-
-    public String getDeviceId() {
-        return deviceId;
-    }
-
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-    }
-
-    public int getAddress() {
-        return address;
-    }
-
-    public void setAddress(int address) {
-        this.address = address;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public byte[] getContent() {
-        return content;
-    }
-
-    public void setContent(byte[] content) {
-        this.content = content;
-    }
-
-    public long getTime() {
-        return time;
-    }
-
-    public void setTime(long time) {
-        this.time = time;
-    }
 }

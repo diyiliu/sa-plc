@@ -15,7 +15,6 @@ public class NodeItem {
     private String name;
     private String type;
     private String endian;
-    private String position;
     private int byteStart;
     private int byteLen;
     private int bitStart;

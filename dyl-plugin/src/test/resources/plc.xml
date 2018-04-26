@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<modbus>
+    <point tag="PbStartIn" name="主机启动输入" type="bit" siteId="2" address="0" position="0"
+           readFunction="2" writeFunction="5" frequency="30" readWrite="1">
+        <!--保存时的字段名或json的属性名-->
+        <field>PbStartIn</field>
+        <!--保存方式:
+          0: 只存字典表;
+          1: 需要存当前表-->
+        <saveType>1</saveType>
+        <!--硬件故障类型
+            0:不是报警
+            1:紧急报警;
+            2:重要报警;
+            3:一般警示
+            -->
+        <faultType>1</faultType>
+        <!--硬件故障代码-->
+        <faultCode>SA-F00001</faultCode>
+        <!--展示时的数据类型-->
+        <display>
+            <!--数据类型, 预留-->
+            <type/>
+            <!--如果为数组类型-->
+            <enum>
+                <!--
+                    value: 值
+                    text: 显示的内容
+                    default: 是否为默认显示的内容, 1为是, 0或空为否
+                    langKey: 预留多语言
+                    -->
+                <item value="1" text="报警" langKey="Alarm"/>
+                <item value="0" text="不报警" default="1"/>
+            </enum>
+        </display>
+    </point>
+</modbus>

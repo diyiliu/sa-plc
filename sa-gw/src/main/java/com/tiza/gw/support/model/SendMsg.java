@@ -1,5 +1,8 @@
 package com.tiza.gw.support.model;
 
+import lombok.Data;
+
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -8,42 +11,33 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Update: 2018-02-09 14:54
  */
 
+@Data
 public class SendMsg {
-
     private String deviceId;
 
-    private int cmd;
+    private Integer cmd;
 
     private byte[] bytes;
 
-    // 重复次数
-    private AtomicInteger time = new AtomicInteger(0);
+    /** 0: 查询; 1: 设置 */
+    private Integer type;
 
-    public String getDeviceId() {
-        return deviceId;
-    }
+    /** 处理结果 0: 下发; 1: 接收 */
+    private Integer result = 0;
 
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-    }
+    /** 重复次数 */
+    private AtomicInteger tryCount = new AtomicInteger(0);
 
-    public int getCmd() {
-        return cmd;
-    }
+    /** 指令KEY */
+    private String key;
 
-    public void setCmd(int cmd) {
-        this.cmd = cmd;
-    }
+    /** 下发时间 */
+    private Long datetime;
 
-    public byte[] getBytes() {
-        return bytes;
-    }
+    /** 下发功能集节点 */
+    private List<PointUnit> unitList;
 
-    public void setBytes(byte[] bytes) {
-        this.bytes = bytes;
-    }
-
-    public int getTime() {
-        return time.incrementAndGet();
+    public int getTryCount() {
+        return tryCount.getAndIncrement();
     }
 }

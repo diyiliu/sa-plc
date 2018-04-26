@@ -146,18 +146,12 @@ public class CommonUtil {
     }
 
 
-    public static byte[] longToBytes(long number, int length) {
-
+    public static byte[] long2Bytes(long number, int length) {
         long temp = number;
-
         byte[] bytes = new byte[length];
-
         for (int i = bytes.length - 1; i > -1; i--) {
-
             bytes[i] = new Long(temp & 0xff).byteValue();
-
             temp = temp >> 8;
-
         }
 
         return bytes;
@@ -246,9 +240,9 @@ public class CommonUtil {
         return decimal.doubleValue();
     }
 
-    public static String parseBytes(byte[] array, int offset, int lenght) {
+    public static String parseBytes(byte[] array, int offset, int length) {
 
-        ByteBuf buf = Unpooled.copiedBuffer(array, offset, lenght);
+        ByteBuf buf = Unpooled.copiedBuffer(array, offset, length);
 
         byte[] bytes = new byte[buf.readableBytes()];
         buf.readBytes(bytes);
@@ -477,6 +471,22 @@ public class CommonUtil {
         return new byte[]{hi, lo};
     }
 
+    /**
+     * 字节数组转二进制字符串
+     *
+     * @param b
+     * @return
+     */
+    public static String bytes2BinaryStr(byte b) {
+        StringBuffer strb = new StringBuffer();
+        for (int i = 0; i < 8; i++) {
+            int value = (b >> i) & 0x01;
+            strb.append(value);
+        }
+
+        return strb.toString();
+    }
+
     public static void main(String[] args) {
 
 
@@ -601,7 +611,7 @@ public class CommonUtil {
     public static String addZeroForNum(String str, int strLength) {
 
         int strLen = str.length();
-        StringBuffer sb = null;
+        StringBuffer sb;
         while (strLen < strLength * 8) {
             sb = new StringBuffer();
             sb.append("0").append(str);// 左(前)补0
@@ -610,6 +620,7 @@ public class CommonUtil {
             strLen = str.length();
         }
         return str;
-
     }
+
+
 }

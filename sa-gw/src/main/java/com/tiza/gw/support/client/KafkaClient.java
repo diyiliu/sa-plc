@@ -4,10 +4,12 @@ import com.diyiliu.plugin.util.CommonUtil;
 import com.diyiliu.plugin.util.JacksonUtil;
 import com.tiza.gw.support.model.TopicMsg;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -18,7 +20,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * Update: 2018-02-02 09:30
  */
 
-@Data
 @Slf4j
 public class KafkaClient extends Thread{
     private KafkaTemplate kafkaTemplate;
@@ -79,9 +80,9 @@ public class KafkaClient extends Thread{
      *  kafka解析数据存入队列
      *
      * @param id
-     * @param paramValues
+     * @param list
      */
-    public void toKafka(long id, Map paramValues) {
+    public void toKafka(long id, List list) {
         //log.info("设备[{}]解析数据...", id);
 
         long time = System.currentTimeMillis();
@@ -89,7 +90,7 @@ public class KafkaClient extends Thread{
         Map map = new HashMap();
         map.put("id", id);
         map.put("timestamp", time);
-        map.put("metrics", JacksonUtil.toJson(paramValues));
+        map.put("metrics", JacksonUtil.toJson(list));
 
         TopicMsg tm = new TopicMsg();
         tm.setTopic(dataTopic);
@@ -97,5 +98,18 @@ public class KafkaClient extends Thread{
         tm.setDateTime(time);
 
         pool.add(tm);
+    }
+
+
+    public void setKafkaTemplate(KafkaTemplate kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
+
+    public void setRowTopic(String rowTopic) {
+        this.rowTopic = rowTopic;
+    }
+
+    public void setDataTopic(String dataTopic) {
+        this.dataTopic = dataTopic;
     }
 }

@@ -4,5 +4,19 @@
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="dyl-plugin_main" target="1.8" />
+      <module name="dyl-plugin_test" target="1.8" />
+      <module name="sa-gw_main" target="1.8" />
+      <module name="sa-gw_test" target="1.8" />
+      <module name="sa-plc-dyl-plugin_main" target="1.8" />
+      <module name="sa-plc-dyl-plugin_test" target="1.8" />
+      <module name="sa-plc-sa-gw_main" target="1.8" />
+      <module name="sa-plc-sa-gw_test" target="1.8" />
+      <module name="sa-plc_main" target="1.8" />
+      <module name="sa-plc_test" target="1.8" />
+      <module name="tiza-sa-plc_main" target="1.8" />
+      <module name="tiza-sa-plc_test" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

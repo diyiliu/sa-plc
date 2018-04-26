@@ -16,6 +16,8 @@ import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.List;
+
 /**
  * Description: DtuHandler
  * Author: DIYILIU
@@ -54,20 +56,7 @@ public class DtuHandler extends ChannelInboundHandlerAdapter {
         int address = byteBuf.readUnsignedByte();
         int code = byteBuf.readUnsignedByte();
 
-        // 判断是否收到指令应答
-        ICache sendMsgCache = SpringUtil.getBean("sendMsgCacheProvider");
-        if (sendMsgCache.containsKey(deviceId)) {
-            SendMsg sendMsg = (SendMsg) sendMsgCache.get(deviceId);
-
-            synchronized (sendMsg) {
-                if (code == sendMsg.getCmd()) {
-                    sendMsgCache.remove(deviceId);
-                }
-            }
-        }
-
-        ICache cmdCacheProvider = SpringUtil.getBean("dtuCMDCacheProvider");
-        DtuDataProcess dataProcess = (DtuDataProcess) cmdCacheProvider.get(0xFF);
+        DtuDataProcess dataProcess = SpringUtil.getBean("dtuDataProcess");
         if (dataProcess == null) {
             log.warn("找不到指令[{}]解析器!", CommonUtil.toHex(code));
 
@@ -83,7 +72,6 @@ public class DtuHandler extends ChannelInboundHandlerAdapter {
         dtuHeader.setAddress(address);
         dtuHeader.setCode(code);
         dtuHeader.setContent(bytes);
-        dtuHeader.setTime(System.currentTimeMillis());
 
         dataProcess.parse(bytes, dtuHeader);
     }

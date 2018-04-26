@@ -4,16 +4,12 @@ import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.cache.ram.RamCacheProvider;
 import com.diyiliu.plugin.util.SpringUtil;
 import com.tiza.gw.netty.server.DtuServer;
-import com.tiza.gw.protocol.DtuDataProcess;
-import com.tiza.gw.support.listener.CMDInitializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Description: SpringConfiguration
@@ -60,22 +56,6 @@ public class SpringConfig {
         return new JdbcTemplate(dataSource);
     }
 
-    /**
-     * 指令初始化
-     *
-     * @return
-     */
-    @Bean
-    public CMDInitializer cmdInitializer(){
-        CMDInitializer cmdInitializer = new CMDInitializer();
-
-        List<Class> protocols = new ArrayList();
-        protocols.add(DtuDataProcess.class);
-        cmdInitializer.setProtocols(protocols);
-
-        return cmdInitializer;
-    }
-
 
     /**
      * 设备注册缓存
@@ -89,23 +69,12 @@ public class SpringConfig {
     }
 
     /**
-     * 指令缓存
-     *
-     * @return
-     */
-    @Bean
-    public ICache dtuCMDCacheProvider() {
-
-        return new RamCacheProvider();
-    }
-
-    /**
      * 下发缓存
      *
      * @return
      */
     @Bean
-    public ICache sendMsgCacheProvider() {
+    public ICache sendCacheProvider() {
 
         return new RamCacheProvider();
     }
@@ -123,12 +92,35 @@ public class SpringConfig {
 
 
     /**
-     * 功能集缓存
+     * 读功能集缓存
      *
      * @return
      */
     @Bean
-    public ICache functionSetCacheProvider() {
+    public ICache readFnCacheProvider() {
+
+        return new RamCacheProvider();
+    }
+
+    /**
+     * 写功能集缓存
+     *
+     * @return
+     */
+    @Bean
+    public ICache writeFnCacheProvider() {
+
+        return new RamCacheProvider();
+    }
+
+
+    /**
+     * 定时任务缓存
+     *
+     * @return
+     */
+    @Bean
+    public ICache timerCacheProvider() {
 
         return new RamCacheProvider();
     }

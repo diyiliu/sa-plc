@@ -5,17 +5,19 @@ import com.diyiliu.plugin.model.Header;
 import com.diyiliu.plugin.model.IDataProcess;
 import com.diyiliu.plugin.util.CommonUtil;
 import com.tiza.gw.support.client.KafkaClient;
-import com.tiza.gw.support.model.CanPackage;
-import com.tiza.gw.support.model.DtuHeader;
-import com.tiza.gw.support.model.NodeItem;
+import com.tiza.gw.support.jpa.DetailInfoJpa;
+import com.tiza.gw.support.model.*;
+import com.tiza.gw.support.model.bean.DetailInfo;
 import com.tiza.gw.support.model.bean.DeviceInfo;
-import com.tiza.gw.support.model.bean.FunctionInfo;
+import com.tiza.gw.support.model.bean.PointInfo;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.script.ScriptException;
 import java.util.*;
 
 /**
@@ -27,16 +29,12 @@ import java.util.*;
 @Slf4j
 @Service
 public class DtuDataProcess implements IDataProcess {
-    protected int cmd = 0xFF;
-
-    @Resource
-    private ICache dtuCMDCacheProvider;
 
     @Resource
     private ICache deviceCacheProvider;
 
     @Resource
-    private ICache functionSetCacheProvider;
+    private ICache sendCacheProvider;
 
     @Resource
     private JdbcTemplate jdbcTemplate;
@@ -44,9 +42,12 @@ public class DtuDataProcess implements IDataProcess {
     @Resource
     private KafkaClient kafkaClient;
 
+    @Resource
+    private DetailInfoJpa detailInfoJpa;
+
     @Override
     public void init() {
-        dtuCMDCacheProvider.put(this.cmd, this);
+
     }
 
     @Override
@@ -59,30 +60,52 @@ public class DtuDataProcess implements IDataProcess {
     public void parse(byte[] content, Header header) {
         DtuHeader dtuHeader = (DtuHeader) header;
         String deviceId = dtuHeader.getDeviceId();
-        if (!deviceCacheProvider.containsKey(deviceId)){
+        if (!deviceCacheProvider.containsKey(deviceId)) {
 
             log.warn("设备不存在[{}]!", deviceId);
             return;
         }
-
         DeviceInfo deviceInfo = (DeviceInfo) deviceCacheProvider.get(deviceId);
-        if (!functionSetCacheProvider.containsKey(deviceInfo.getSoftVersion())){
+        long equipId = deviceInfo.getId();
 
-            log.warn("未配置的功能集[{}]", deviceInfo.getSoftVersion());
-            return;
+        MsgMemory msgMemory = (MsgMemory) sendCacheProvider.get(deviceId);
+        SendMsg sendMsg = msgMemory.getCurrent();
+        sendMsg.setResult(1);
+        // 加入历史下发缓存
+        msgMemory.getMsgMap().put(sendMsg.getKey(), sendMsg);
+
+        StoreGroup storeGroup = new StoreGroup();
+        // 当前表
+        Map summary = storeGroup.getSummary();
+
+        // 字典表
+        List<DetailInfo> detailList = storeGroup.getDetailList();
+
+        List<PointUnit> unitList = sendMsg.getUnitList();
+        ByteBuf buf = Unpooled.copiedBuffer(content);
+        for (int i = 0; i < unitList.size(); i++) {
+            PointUnit pointUnit = unitList.get(i);
+
+            int type = pointUnit.getType();
+            if (5 == type) {
+
+                unpackUnit(content, pointUnit, summary, detailList);
+                break;
+            }
+
+            // 按字(两个字节)解析
+            if (buf.readableBytes() > 2) {
+                byte[] bytes = new byte[2];
+                buf.readBytes(bytes);
+
+                unpackUnit(bytes, pointUnit, summary, detailList);
+            } else {
+                log.error("字节长度不足, 数据解析异常!");
+            }
         }
 
-        String canCode = String.valueOf(dtuHeader.getCode());
-        FunctionInfo functionInfo = (FunctionInfo) functionSetCacheProvider.get(deviceInfo.getSoftVersion());
-        CanPackage canPackage = functionInfo.getCanPackages().get(canCode);
-        if (canPackage == null){
-
-            log.warn("未配置的功能码[{}]", canCode);
-            return;
-        }
-
-        Map paramValues = parsePackage(content, canPackage.getItemList());
-        updateStatus(dtuHeader, paramValues);
+        updateSummary(equipId, summary);
+        updateDetail(equipId, detailList);
     }
 
     @Override
@@ -91,80 +114,112 @@ public class DtuDataProcess implements IDataProcess {
     }
 
 
-    /**
-     * 按字节解析
-     * @param b
-     * @param items
-     * @return
-     */
-    protected Map parseByte(byte b, String[] items){
-        Map map = new HashMap();
-        for (int i = 0; i < items.length; i++){
-
-            int value = (b >> i) & 0x01;
-            map.put(items[i], value);
-        }
-
-        return map;
-    }
-
-    protected Map parsePackage(byte[] content, List<NodeItem> nodeItems) {
-        Map packageValues = new HashMap();
-
-        for (NodeItem item : nodeItems) {
-            try {
-                packageValues.put(item.getField(), parseItem(content, item));
-            } catch (Exception e) {
-                log.error("解析表达式错误：", e);
+    private void unpackUnit(byte[] bytes, PointUnit pointUnit, Map summary, List<DetailInfo> detailList) {
+        int type = pointUnit.getType();
+        // bit类型
+        if (5 == type || 1 == type) {
+            StringBuilder strb = new StringBuilder();
+            for (int i = 0; i < bytes.length; i++) {
+                byte b = bytes[i];
+                strb.append(CommonUtil.bytes2BinaryStr(b));
             }
-        }
+            String binaryStr = strb.toString();
 
-        return packageValues;
-    }
+            int length = pointUnit.getTags().length;
+            if (binaryStr.length() - length > -1) {
+                for (int i = 0; i < length; i++) {
+                    PointInfo p = pointUnit.getPoints()[i];
 
-    protected String parseItem(byte[] data, NodeItem item) throws ScriptException {
+                    String k = p.getTag();
+                    String v = binaryStr.substring(i, i + 1);
 
-        String tVal;
-        byte[] val = CommonUtil.byteToByte(data, item.getByteStart(), item.getByteLen(), item.getEndian());
-        int tempVal = CommonUtil.byte2int(val);
-        if (item.isOnlyByte()) {
-            tVal = CommonUtil.parseExp(tempVal, item.getExpression(), item.getType());
-        } else {
-            int biteVal = CommonUtil.getBits(tempVal, item.getBitStart(), item.getBitLen());
-            tVal = CommonUtil.parseExp(biteVal, item.getExpression(), item.getType());
-        }
+                    // 当前表
+                    if (p.getSaveType() == 1) {
+                        String f = p.getField();
+                        summary.put(f, v);
+                    }
 
-        return tVal;
-    }
+                    // 详情表
+                    DetailInfo d = new DetailInfo();
+                    d.setPointId(p.getId());
+                    d.setTag(k);
+                    d.setValue(v);
+                    detailList.add(d);
+                }
+            }
 
-
-    public void updateStatus(DtuHeader dtuHeader, Map paramValues){
-        String deviceId = dtuHeader.getDeviceId();
-        if (!deviceCacheProvider.containsKey(deviceId)){
-
-            log.warn("设备不存在[{}]!", deviceId);
             return;
         }
-        DeviceInfo deviceInfo = (DeviceInfo) deviceCacheProvider.get(deviceId);
 
+        if (3 == type || 4 == type) {
+            PointInfo p = pointUnit.getPoints()[0];
+            String v = String.valueOf(CommonUtil.bytesToLong(bytes));
+
+            // 1:float;2:int;3:hex
+            String dataType = p.getDataType();
+            if ("float".equalsIgnoreCase(dataType)) {
+                v = String.valueOf(Float.intBitsToFloat(Integer.parseInt(v)));
+            } else if ("hex".equalsIgnoreCase(dataType)) {
+                v = String.format("%02X", Integer.valueOf(v));
+            }
+
+            String k = p.getTag();
+
+            // 当前表
+            if (p.getSaveType() == 1) {
+                String f = p.getField();
+                summary.put(f, v);
+            }
+
+            // 详情表
+            DetailInfo d = new DetailInfo();
+            d.setPointId(p.getId());
+            d.setTag(k);
+            d.setValue(v);
+            detailList.add(d);
+        }
+    }
+
+    /**
+     * 更新当前信息
+     *
+     * @param equipId
+     * @param paramValues
+     */
+    public void updateSummary(long equipId, Map paramValues) {
         List list = new ArrayList();
         StringBuilder sqlBuilder = new StringBuilder("UPDATE equipment_info SET ");
-        paramValues.keySet().forEach(k -> {
-            sqlBuilder.append(k).append("=?, ");
+        for (Iterator iterator = paramValues.keySet().iterator(); iterator.hasNext(); ) {
+            String key = (String) iterator.next();
 
-            Object val = paramValues.get(k);
+            sqlBuilder.append(key).append("=?, ");
+            Object val = paramValues.get(key);
             list.add(val);
-        });
+        }
 
         // 最新时间
         sqlBuilder.append("lastTime").append("=?, ");
-        list.add(new Date(dtuHeader.getTime()));
+        list.add(new Date());
 
-        log.info("更新设备[{}]状态...", deviceId);
-        String sql = sqlBuilder.substring(0, sqlBuilder.length() - 2) + " WHERE equipmentId=" + deviceInfo.getId();
+        log.info("更新设备[{}]状态...", equipId);
+        String sql = sqlBuilder.substring(0, sqlBuilder.length() - 2) + " WHERE equipmentId=" + equipId;
         jdbcTemplate.update(sql, list.toArray());
+    }
 
-        // 写入kafka
-        kafkaClient.toKafka(deviceInfo.getId(), paramValues);
+    /**
+     * 更新详细新
+     *
+     * @param equipId
+     * @param detailInfoList
+     */
+    public void updateDetail(long equipId, List<DetailInfo> detailInfoList) {
+        if (CollectionUtils.isNotEmpty(detailInfoList)) {
+            detailInfoList.forEach(e -> e.setEquipId(equipId));
+            // 批量更新数据
+            detailInfoJpa.saveAll(detailInfoList);
+
+            // 写入kafka
+            kafkaClient.toKafka(equipId, detailInfoList);
+        }
     }
 }

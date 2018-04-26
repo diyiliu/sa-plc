@@ -1,0 +1,30 @@
+# WEB PROPERTIES
+server:
+  port: 8080
+  context-path: '/'
+
+# SPRING
+spring:
+  # DATASOURCE
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: 'jdbc:mysql://192.168.1.51:3306/shangair?useUnicode=true&characterEncoding=UTF-8'
+    username: root
+    password: 123456
+
+  jpa:
+    show-sql: true
+
+# LOGGING
+logging:
+  level:
+        org.springframework.jdbc: debug
+
+# 自定义配置
+dtu-server-port: 5001
+
+kafka:
+ broker-list: tcloud-161:9092,tcloud-162:9092,tcloud-163:9092
+ row-topic: shangair_rawdata
+ data-topic: shangair_metrics

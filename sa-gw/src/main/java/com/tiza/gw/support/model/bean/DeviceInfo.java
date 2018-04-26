@@ -20,7 +20,7 @@ import javax.persistence.Table;
 public class DeviceInfo {
 
     @Id
-    private int id;
+    private Long id;
 
     private String dtuId;
 
