@@ -9,10 +9,7 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
@@ -50,18 +47,33 @@ public class SenderTask implements ITask {
             return;
         }
 
+        Map<String, Long> blockCache = new HashMap();
         List<SendMsg> temps = new ArrayList();
         while (!msgPool.isEmpty()) {
             SendMsg sendMsg = msgPool.poll();
             String deviceId = sendMsg.getDeviceId();
+
             if (onlineCache.containsKey(deviceId)) {
+                // 设备阻塞状态
+                if (blockCache.containsKey(deviceId)) {
+                    temps.add(sendMsg);
+                    continue;
+                }
+
                 if (isBlock(deviceId)) {
+                    blockCache.put(deviceId, System.currentTimeMillis());
                     if (sendMsg.getTryCount() < 3) {
                         temps.add(sendMsg);
-                    }else {
-                        log.warn("[{}]设备下行[{}]阻塞超时...", deviceId, CommonUtil.bytesToStr(sendMsg.getBytes()));
+                    } else {
+                        log.warn("设备[{}]下行[{}]阻塞超时...", deviceId, CommonUtil.bytesToStr(sendMsg.getBytes()));
                     }
+
                     continue;
+                }
+
+                // 参数设置
+                if (1 == sendMsg.getType()){
+                    log.info("设备[{}]参数[{}]设置...", deviceId, CommonUtil.bytesToStr(sendMsg.getBytes()));
                 }
 
                 ChannelHandlerContext context = (ChannelHandlerContext) onlineCache.get(deviceId);
@@ -99,9 +111,9 @@ public class SenderTask implements ITask {
         if (sendCache.containsKey(deviceId)) {
             MsgMemory msgMemory = (MsgMemory) sendCache.get(deviceId);
             SendMsg current = msgMemory.getCurrent();
-            if (current != null && current.getResult() == 0){
+            if (current != null && current.getResult() == 0) {
 
-                return  true;
+                return true;
             }
         }
 

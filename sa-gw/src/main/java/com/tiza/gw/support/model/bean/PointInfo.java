@@ -52,8 +52,8 @@ public class PointInfo {
     /** 保存数据类型*/
     private Integer saveType;
 
-    /** 数据格式(float/int/hex)*/
-    private String dataType;
+    /** 数据格式(1:float;2:int;3:hex)*/
+    private Integer dataType;
 
     /** 1:只读;2:只写;3:读写*/
     private Integer readWrite;

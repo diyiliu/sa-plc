@@ -37,6 +37,9 @@ public class SendMsg {
     /** 下发功能集节点 */
     private List<PointUnit> unitList;
 
+    /** 数据库指令下发id */
+    private Long rowId;
+
     public int getTryCount() {
         return tryCount.getAndIncrement();
     }

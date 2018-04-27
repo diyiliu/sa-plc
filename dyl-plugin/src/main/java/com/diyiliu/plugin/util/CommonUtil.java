@@ -10,6 +10,7 @@ import javax.script.ScriptException;
 import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -387,7 +388,6 @@ public class CommonUtil {
 
 
     public static int byte2int(byte[] array) {
-
         if (array.length < 4) {
             return byte2short(array);
         }
@@ -402,7 +402,6 @@ public class CommonUtil {
     }
 
     public static short byte2short(byte[] array) {
-
         short r = 0;
         for (int i = 0; i < array.length; i++) {
             r <<= 8;
@@ -472,19 +471,57 @@ public class CommonUtil {
     }
 
     /**
-     * 字节数组转二进制字符串
+     * 字节转二进制字符串
      *
      * @param b
      * @return
      */
-    public static String bytes2BinaryStr(byte b) {
-        StringBuffer strb = new StringBuffer();
+    public static String byte2BinaryStr(byte b) {
+        StringBuffer strBuf = new StringBuffer();
         for (int i = 0; i < 8; i++) {
             int value = (b >> i) & 0x01;
-            strb.append(value);
+            strBuf.append(value);
         }
 
-        return strb.toString();
+        return strBuf.toString();
+    }
+
+    public static String bytes2BinaryStr(byte[] bytes) {
+        StringBuffer strBuf = new StringBuffer();
+        for (byte b : bytes) {
+            strBuf.append(byte2BinaryStr(b));
+        }
+        return strBuf.toString();
+    }
+
+    /**
+     * 二进制字符串转字节数组
+     *
+     * @param str
+     * @return
+     */
+    public static byte binaryStr2Byte(String str) {
+        byte b = 0;
+        int length = str.length() > 8 ? 8 : str.length();
+        for (int i = 0; i < length; i++) {
+            b += Byte.parseByte(str.charAt(i) + "") << i;
+        }
+        return b;
+    }
+
+    public static byte[] binaryStr2Bytes(String str) {
+        int t = str.length() / 8;
+        int length = str.length() % 8 == 0 ? t : t + 1;
+        byte[] bytes = new byte[length];
+        for (int i = 0; i < length; i++) {
+            int index = str.length() > 8 ? 8 : str.length();
+            String strBuf = str.substring(0, index);
+            bytes[i] = binaryStr2Byte(strBuf);
+
+            str = str.substring(index, str.length());
+        }
+
+        return bytes;
     }
 
     public static void main(String[] args) {

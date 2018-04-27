@@ -4,6 +4,7 @@ import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.task.ITask;
 import com.tiza.gw.support.jpa.DeviceInfoJpa;
 import com.tiza.gw.support.jpa.PointInfoJpa;
+import com.tiza.gw.support.model.MsgMemory;
 import com.tiza.gw.support.model.PointUnit;
 import com.tiza.gw.support.model.QueryFrame;
 import com.tiza.gw.support.model.bean.DeviceInfo;
@@ -58,17 +59,16 @@ public class SpringQuartz {
     /**
      * 指令下发
      */
-    @Scheduled(fixedDelay = 3000, initialDelay = 5 * 1000)
+    @Scheduled(fixedDelay = 1000, initialDelay = 5 * 1000)
     public void sendTask() {
         ITask task = new SenderTask(onlineCacheProvider, sendCacheProvider);
         task.execute();
     }
 
-
     /**
      * 定时生成指令
      */
-    @Scheduled(fixedDelay = 60 * 1000, initialDelay = 10 * 1000)
+    @Scheduled(fixedDelay = 5 * 1000, initialDelay = 10 * 1000)
     public void timerTask() {
         ITask task = new TimerTask(deviceCacheProvider, timerCacheProvider, sendCacheProvider);
         task.execute();
@@ -120,6 +120,22 @@ public class SpringQuartz {
         for (Iterator iterator = subKeys.iterator(); iterator.hasNext(); ) {
             String key = (String) iterator.next();
             timerCacheProvider.remove(key);
+        }
+
+        // 删除过期定时消息(更新的功能集和删除的功能集)
+        Collection unionKeys = CollectionUtils.union(tempKeys, subKeys);
+        Set deviceSet = deviceCacheProvider.getKeys();
+        for (Iterator iterator = deviceSet.iterator(); iterator.hasNext(); ) {
+            String key = (String) iterator.next();
+            DeviceInfo deviceInfo = (DeviceInfo) deviceCacheProvider.get(key);
+
+            String deviceId = deviceInfo.getDtuId();
+            if (unionKeys.contains(deviceInfo.getSoftVersion())) {
+                if (sendCacheProvider.containsKey(deviceId)) {
+                    MsgMemory msgMemory = (MsgMemory) sendCacheProvider.get(deviceId);
+                    msgMemory.getMsgMap().clear();
+                }
+            }
         }
     }
 

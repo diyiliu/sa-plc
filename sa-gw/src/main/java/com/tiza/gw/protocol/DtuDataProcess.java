@@ -87,15 +87,20 @@ public class DtuDataProcess implements IDataProcess {
             PointUnit pointUnit = unitList.get(i);
 
             int type = pointUnit.getType();
+
+            // 数字量单独处理
             if (5 == type) {
 
                 unpackUnit(content, pointUnit, summary, detailList);
                 break;
             }
 
+            // 只有dword是四个字节,其他(除数字量)均为二个字节
+            int length = type == 4? 4: 2;
+
             // 按字(两个字节)解析
-            if (buf.readableBytes() > 2) {
-                byte[] bytes = new byte[2];
+            if (buf.readableBytes() >= length) {
+                byte[] bytes = new byte[length];
                 buf.readBytes(bytes);
 
                 unpackUnit(bytes, pointUnit, summary, detailList);
@@ -118,15 +123,10 @@ public class DtuDataProcess implements IDataProcess {
         int type = pointUnit.getType();
         // bit类型
         if (5 == type || 1 == type) {
-            StringBuilder strb = new StringBuilder();
-            for (int i = 0; i < bytes.length; i++) {
-                byte b = bytes[i];
-                strb.append(CommonUtil.bytes2BinaryStr(b));
-            }
-            String binaryStr = strb.toString();
+            String binaryStr = CommonUtil.bytes2BinaryStr(bytes);
 
             int length = pointUnit.getTags().length;
-            if (binaryStr.length() - length > -1) {
+            if (binaryStr.length() - length >= 0) {
                 for (int i = 0; i < length; i++) {
                     PointInfo p = pointUnit.getPoints()[i];
 
@@ -153,18 +153,18 @@ public class DtuDataProcess implements IDataProcess {
 
         if (3 == type || 4 == type) {
             PointInfo p = pointUnit.getPoints()[0];
-            String v = String.valueOf(CommonUtil.bytesToLong(bytes));
+            int val = CommonUtil.byte2int(bytes);
+            String v = String.valueOf(val);
 
             // 1:float;2:int;3:hex
-            String dataType = p.getDataType();
-            if ("float".equalsIgnoreCase(dataType)) {
-                v = String.valueOf(Float.intBitsToFloat(Integer.parseInt(v)));
-            } else if ("hex".equalsIgnoreCase(dataType)) {
-                v = String.format("%02X", Integer.valueOf(v));
+            int dataType = p.getDataType();
+            if (1 == dataType) {
+                v = String.valueOf(Float.intBitsToFloat(val));
+            } else if (3 == dataType) {
+                v = String.format("%02X", val);
             }
 
             String k = p.getTag();
-
             // 当前表
             if (p.getSaveType() == 1) {
                 String f = p.getField();
