@@ -51,4 +51,14 @@ public class TestMain {
 
         System.out.println(CommonUtil.byte2int(bytes));
     }
+
+
+    @Test
+    public void test5(){
+        long l = 863703034045281l;
+        byte[] bytes = CommonUtil.long2Bytes(l, 7);
+
+        System.out.println(CommonUtil.bytesToStr(bytes));
+    }
+
 }

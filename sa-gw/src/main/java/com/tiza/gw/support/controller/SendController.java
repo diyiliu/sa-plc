@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -143,10 +144,14 @@ public class SendController {
             side = pointUnit.getSiteId();
             address = pointUnit.getAddress();
         }
+        // 下发单元
+        List<PointUnit> unitList = new ArrayList();
+        unitList.add(pointUnit);
+
         // 功能码
         int code = pointUnit.getWriteFunction();
 
-        byte[] bytes= toBytes(side, code, address, count, val);
+        byte[] bytes = toBytes(side, code, address, count, val);
         SendMsg sendMsg = new SendMsg();
         sendMsg.setRowId(rowId);
         sendMsg.setDeviceId(dtuId);
@@ -154,8 +159,9 @@ public class SendController {
         sendMsg.setBytes(bytes);
         // 0: 查询; 1: 设置
         sendMsg.setType(1);
-        SenderTask.send(sendMsg);
-        log.info("设备[{}]参数[{},{}]等待下发[{}]...", dtuId, key, value, CommonUtil.bytesToStr(bytes));
+        sendMsg.setUnitList(unitList);
+        SenderTask.send(sendMsg, true);
+        //log.info("设备[{}]参数[{},{}]等待下发[{}]...", dtuId, key, value, CommonUtil.bytesToStr(bytes));
 
         return "设置成功。";
     }

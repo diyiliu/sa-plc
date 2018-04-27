@@ -3,8 +3,11 @@ package com.tiza.gw.support.task;
 import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.task.ITask;
 import com.diyiliu.plugin.util.CommonUtil;
+import com.diyiliu.plugin.util.SpringUtil;
+import com.tiza.gw.support.jpa.SendLogJpa;
 import com.tiza.gw.support.model.MsgMemory;
 import com.tiza.gw.support.model.SendMsg;
+import com.tiza.gw.support.model.bean.SendLog;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
@@ -66,18 +69,24 @@ public class SenderTask implements ITask {
                         temps.add(sendMsg);
                     } else {
                         log.warn("设备[{}]下行[{}]阻塞超时...", deviceId, CommonUtil.bytesToStr(sendMsg.getBytes()));
+
+                        // 参数设置
+                        if (1 == sendMsg.getType()) {
+                            updateLog(sendMsg, 3, "");
+                        }
                     }
 
                     continue;
                 }
 
-                // 参数设置
-                if (1 == sendMsg.getType()){
-                    log.info("设备[{}]参数[{}]设置...", deviceId, CommonUtil.bytesToStr(sendMsg.getBytes()));
-                }
-
                 ChannelHandlerContext context = (ChannelHandlerContext) onlineCache.get(deviceId);
                 context.writeAndFlush(Unpooled.copiedBuffer(sendMsg.getBytes()));
+
+                // 参数设置
+                if (1 == sendMsg.getType()) {
+                    log.info("设备[{}]参数[{}]设置...", deviceId, CommonUtil.bytesToStr(sendMsg.getBytes()));
+                    updateLog(sendMsg, 1, "");
+                }
 
                 MsgMemory msgMemory;
                 if (sendCache.containsKey(deviceId)) {
@@ -101,22 +110,55 @@ public class SenderTask implements ITask {
     }
 
     /**
+     * 更新下发指令状态
+     *
+     * @param msg
+     * @param result
+     * @param replyMsg
+     */
+    public static void updateLog(SendMsg msg, int result, String replyMsg) {
+        SendLogJpa sendLogJpa = SpringUtil.getBean("sendLogJpa");
+
+        SendLog sendLog = sendLogJpa.findById(msg.getRowId().longValue());
+        // 0:未发送;1:已发送;2:成功;3:失败;4:超时;
+        sendLog.setResult(result);
+        sendLog.setSendData(CommonUtil.bytesToStr(msg.getBytes()));
+        sendLog.setReplyData(replyMsg);
+        sendLogJpa.save(sendLog);
+    }
+
+    /**
+     * 清除前面的数据
+     *
+     * @param sendMsg
+     * @param flag
+     */
+    public static void send(SendMsg sendMsg, boolean flag) {
+        if (flag) {
+            msgPool.clear();
+        }
+
+        msgPool.add(sendMsg);
+    }
+
+    /**
      * 判断设备下行指令是否阻塞
      *
      * @param deviceId
      * @return
      */
     private boolean isBlock(String deviceId) {
-
         if (sendCache.containsKey(deviceId)) {
             MsgMemory msgMemory = (MsgMemory) sendCache.get(deviceId);
             SendMsg current = msgMemory.getCurrent();
             if (current != null && current.getResult() == 0) {
+                if (current.getType() == 1) {
+                    updateLog(current, 4, "");
+                }
 
                 return true;
             }
         }
-
 
         return false;
     }

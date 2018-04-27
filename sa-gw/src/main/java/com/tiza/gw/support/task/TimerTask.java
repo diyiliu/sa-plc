@@ -78,7 +78,6 @@ public class TimerTask implements ITask {
         int site = queryFrame.getSite();
         int code = queryFrame.getCode();
         int star = queryFrame.getStart();
-
         int count = queryFrame.getCount().get();
 
         List<PointUnit> unitList = queryFrame.getPointUnits();

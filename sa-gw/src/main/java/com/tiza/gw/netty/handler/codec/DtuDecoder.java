@@ -6,7 +6,9 @@ import com.diyiliu.plugin.util.SpringUtil;
 import com.tiza.gw.support.client.KafkaClient;
 import com.tiza.gw.support.config.Constant;
 import com.tiza.gw.support.model.MsgMemory;
+import com.tiza.gw.support.model.PointUnit;
 import com.tiza.gw.support.model.SendMsg;
+import com.tiza.gw.support.task.SenderTask;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
@@ -35,9 +37,6 @@ public class DtuDecoder extends ByteToMessageDecoder {
 
         // 绑定数据
         Attribute attribute = ctx.channel().attr(AttributeKey.valueOf(Constant.NETTY_DEVICE_ID));
-        // 设备缓存
-        ICache deviceCache = SpringUtil.getBean("deviceCacheProvider");
-
         KafkaClient kafkaClient = SpringUtil.getBean("kafkaClient");
 
         in.markReaderIndex();
@@ -122,12 +121,12 @@ public class DtuDecoder extends ByteToMessageDecoder {
             // CRC校验码
             byte crc0 = in.readByte();
             byte crc1 = in.readByte();
-
             byte[] bytes = Unpooled.copiedBuffer(content, new byte[]{crc0, crc1}).array();
 
             // 写入kafka
             kafkaClient.toKafka(deviceId, bytes, 1);
 
+            // 验证校验位
             byte[] checkCRC = CommonUtil.checkCRC(content);
             if (crc0 != checkCRC[0] || crc1 != checkCRC[1]) {
                 log.error("CRC校验码错误, 断开连接!");
@@ -135,18 +134,19 @@ public class DtuDecoder extends ByteToMessageDecoder {
                 return;
             }
 
-
-            if (type == 1){
+            // 设置应答
+            if (type == 1) {
                 sendMsg.setResult(1);
                 log.info("设备[{}]设置应答[{}]成功。", deviceId, CommonUtil.bytesToStr(bytes));
+                SenderTask.updateLog(sendMsg, 2, CommonUtil.bytesToStr(bytes));
+
+                // 查询设置
+                query(sendMsg);
+
                 return;
             }
 
-            if (deviceCache.containsKey(deviceId)) {
-                out.add(Unpooled.copiedBuffer(content));
-            } else {
-                log.warn("设备[{}]不存在!", deviceId);
-            }
+            out.add(Unpooled.copiedBuffer(content));
         }
     }
 
@@ -158,10 +158,65 @@ public class DtuDecoder extends ByteToMessageDecoder {
      * @param context
      */
     private void register(String deviceId, Attribute attribute, ChannelHandlerContext context) {
-        log.info("设备[{}]注册...", deviceId);
-        attribute.set(deviceId);
+        // 设备缓存
+        ICache deviceCache = SpringUtil.getBean("deviceCacheProvider");
+        if (deviceCache.containsKey(deviceId)) {
+            log.info("设备[{}]注册...", deviceId);
 
-        ICache online = SpringUtil.getBean("onlineCacheProvider");
-        online.put(deviceId, context);
+            attribute.set(deviceId);
+            ICache online = SpringUtil.getBean("onlineCacheProvider");
+            online.put(deviceId, context);
+
+            return;
+        }
+
+        log.warn("设备[{}]不存在, 断开连接!", deviceId);
+        context.close();
+    }
+
+    /**
+     * 查询设置的参数
+     *
+     * @param msg
+     */
+    private void query(SendMsg msg) {
+        PointUnit pointUnit = msg.getUnitList().get(0);
+        if (pointUnit.getFrequency() < 30){
+
+            return;
+        }
+
+        // 类型
+        int type = pointUnit.getType();
+
+        int site = pointUnit.getSiteId();
+        int code = pointUnit.getReadFunction();
+        int star = pointUnit.getAddress();
+        int count = pointUnit.getType() == 4 ? 2 : 1;
+
+        // 数字量
+        if (type == 5) {
+            count = pointUnit.getTags().length;
+        }
+
+        ByteBuf byteBuf = Unpooled.buffer(6);
+        byteBuf.writeByte(site);
+        byteBuf.writeByte(code);
+        byteBuf.writeShort(star);
+        byteBuf.writeShort(count);
+        byte[] bytes = byteBuf.array();
+
+        String key = site + ":" + code + ":" + star;
+
+        SendMsg sendMsg = new SendMsg();
+        sendMsg.setDeviceId(msg.getDeviceId());
+        sendMsg.setCmd(code);
+        sendMsg.setBytes(bytes);
+        // 0: 查询; 1: 设置
+        sendMsg.setType(0);
+        sendMsg.setKey(key);
+        sendMsg.setUnitList(msg.getUnitList());
+
+        SenderTask.send(sendMsg);
     }
 }
