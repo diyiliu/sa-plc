@@ -123,16 +123,17 @@ public class DtuDecoder extends ByteToMessageDecoder {
             byte crc1 = in.readByte();
             byte[] bytes = Unpooled.copiedBuffer(content, new byte[]{crc0, crc1}).array();
 
-            // 写入kafka
-            kafkaClient.toKafka(deviceId, bytes, 1);
-
             // 验证校验位
             byte[] checkCRC = CommonUtil.checkCRC(content);
             if (crc0 != checkCRC[0] || crc1 != checkCRC[1]) {
-                log.error("CRC校验码错误!");
+                log.error("设备[{}]数据[{}], CRC校验码[{}, {}]错误, 断开连接!", deviceId,
+                        CommonUtil.bytesToStr(bytes), String.format("%x", checkCRC[0]), String.format("%x", checkCRC[1]));
                 ctx.close();
                 return;
             }
+
+            // 写入kafka
+            kafkaClient.toKafka(deviceId, bytes, 1);
 
             // 设置应答
             if (type == 1) {
@@ -181,7 +182,7 @@ public class DtuDecoder extends ByteToMessageDecoder {
      */
     private void query(SendMsg msg) {
         PointUnit pointUnit = msg.getUnitList().get(0);
-        if (pointUnit.getFrequency() < 30){
+        if (pointUnit.getFrequency() < 30) {
 
             return;
         }
@@ -217,6 +218,6 @@ public class DtuDecoder extends ByteToMessageDecoder {
         sendMsg.setKey(key);
         sendMsg.setUnitList(msg.getUnitList());
 
-        SenderTask.send(sendMsg);
+        SenderTask.send(sendMsg, true);
     }
 }

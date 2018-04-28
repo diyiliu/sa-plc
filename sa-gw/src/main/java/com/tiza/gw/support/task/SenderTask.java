@@ -150,9 +150,9 @@ public class SenderTask implements ITask {
     public static void send(SendMsg sendMsg, boolean flag) {
         if (flag) {
             setupPool.add(sendMsg);
+        }else {
+            msgPool.add(sendMsg);
         }
-
-        msgPool.add(sendMsg);
     }
 
     public static void send(SendMsg sendMsg) {
