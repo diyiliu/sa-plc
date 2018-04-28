@@ -449,7 +449,6 @@ public class CommonUtil {
      * @return
      */
     public static byte[] checkCRC(byte[] bytes) {
-
         long crc = 0xFFFF;
         for (byte b : bytes) {
             long temp = b & 0x00FF;
@@ -459,7 +458,6 @@ public class CommonUtil {
                     crc >>= 1;
                     crc ^= 0xA001;
                 } else {
-
                     crc >>= 1;
                 }
             }

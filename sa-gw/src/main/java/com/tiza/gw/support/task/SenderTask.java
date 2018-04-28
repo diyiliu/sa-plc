@@ -177,7 +177,7 @@ public class SenderTask implements ITask {
                 }
 
                 // 超时手动置为已处理
-                if (System.currentTimeMillis() - current.getDatetime() > 3 * 1000){
+                if (System.currentTimeMillis() - current.getDatetime() > 10 * 1000){
                     current.setResult(1);
                     log.warn("丢弃超时未应答指令, 设备[{}]内容[{}]!", current.getDeviceId(), CommonUtil.bytesToStr(current.getBytes()));
                 }
