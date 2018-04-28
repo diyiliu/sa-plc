@@ -138,7 +138,7 @@ public class DtuDecoder extends ByteToMessageDecoder {
             // 设置应答
             if (type == 1) {
                 sendMsg.setResult(1);
-                log.info("设备[{}]设置应答[{}]成功。", deviceId, CommonUtil.bytesToStr(bytes));
+                log.info("[设置] 设备[{}]应答[{}, {}]成功。", deviceId, sendMsg.getTags(), CommonUtil.bytesToStr(bytes));
                 SenderTask.updateLog(sendMsg, 2, CommonUtil.bytesToStr(bytes));
 
                 // 查询设置

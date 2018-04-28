@@ -160,6 +160,7 @@ public class SendController {
         // 0: 查询; 1: 设置
         sendMsg.setType(1);
         sendMsg.setUnitList(unitList);
+        sendMsg.setTags(pointUnit.getTags());
         SenderTask.send(sendMsg, true);
         //log.info("设备[{}]参数[{},{}]等待下发[{}]...", dtuId, key, value, CommonUtil.bytesToStr(bytes));
 

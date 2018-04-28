@@ -23,9 +23,13 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Slf4j
 public class SenderTask implements ITask {
-    /** 查询指令 */
+    /**
+     * 查询指令
+     */
     private static Queue<SendMsg> msgPool = new ConcurrentLinkedQueue();
-    /** 设置指令 */
+    /**
+     * 设置指令
+     */
     private static Queue<SendMsg> setupPool = new ConcurrentLinkedQueue();
 
     public SenderTask(ICache onlineCache, ICache sendCache) {
@@ -58,9 +62,9 @@ public class SenderTask implements ITask {
         List<SendMsg> tempSet = new ArrayList();
         while (!msgPool.isEmpty() || !setupPool.isEmpty()) {
             SendMsg sendMsg;
-            if (setupPool.isEmpty()){
+            if (setupPool.isEmpty()) {
                 sendMsg = msgPool.poll();
-            }else {
+            } else {
                 sendMsg = setupPool.poll();
             }
 
@@ -68,9 +72,9 @@ public class SenderTask implements ITask {
             if (onlineCache.containsKey(deviceId)) {
                 // 设备阻塞状态
                 if (blockCache.containsKey(deviceId)) {
-                    if (1 == sendMsg.getType()){
+                    if (1 == sendMsg.getType()) {
                         tempSet.add(sendMsg);
-                    }else {
+                    } else {
                         tempMsg.add(sendMsg);
                     }
 
@@ -80,9 +84,9 @@ public class SenderTask implements ITask {
                 if (isBlock(deviceId)) {
                     blockCache.put(deviceId, System.currentTimeMillis());
                     if (sendMsg.getTryCount() < 10) {
-                        if (1 == sendMsg.getType()){
+                        if (1 == sendMsg.getType()) {
                             tempSet.add(sendMsg);
-                        }else {
+                        } else {
                             tempMsg.add(sendMsg);
                         }
                     } else {
@@ -102,7 +106,7 @@ public class SenderTask implements ITask {
 
                 // 参数设置
                 if (1 == sendMsg.getType()) {
-                    log.info("设备[{}]参数[{}]设置...", deviceId, CommonUtil.bytesToStr(sendMsg.getBytes()));
+                    log.info("[设置] 设备[{}]参数[{}, {}]设置...", deviceId, sendMsg.getTags(), CommonUtil.bytesToStr(sendMsg.getBytes()));
                     updateLog(sendMsg, 1, "");
                 }
 
@@ -135,10 +139,12 @@ public class SenderTask implements ITask {
 
         SendLog sendLog = sendLogJpa.findById(msg.getRowId().longValue());
         // 0:未发送;1:已发送;2:成功;3:失败;4:超时;
-        sendLog.setResult(result);
-        sendLog.setSendData(CommonUtil.bytesToStr(msg.getBytes()));
-        sendLog.setReplyData(replyMsg);
-        sendLogJpa.save(sendLog);
+        if (sendLog != null) {
+            sendLog.setResult(result);
+            sendLog.setSendData(CommonUtil.bytesToStr(msg.getBytes()));
+            sendLog.setReplyData(replyMsg);
+            sendLogJpa.save(sendLog);
+        }
     }
 
     /**
@@ -150,7 +156,7 @@ public class SenderTask implements ITask {
     public static void send(SendMsg sendMsg, boolean flag) {
         if (flag) {
             setupPool.add(sendMsg);
-        }else {
+        } else {
             msgPool.add(sendMsg);
         }
     }
@@ -177,7 +183,7 @@ public class SenderTask implements ITask {
                 }
 
                 // 超时手动置为已处理
-                if (System.currentTimeMillis() - current.getDatetime() > 10 * 1000){
+                if (System.currentTimeMillis() - current.getDatetime() > 10 * 1000) {
                     current.setResult(1);
                     log.warn("丢弃超时未应答指令, 设备[{}]内容[{}]!", current.getDeviceId(), CommonUtil.bytesToStr(current.getBytes()));
                 }
