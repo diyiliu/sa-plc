@@ -154,7 +154,7 @@ public class DtuDataProcess implements IDataProcess {
         if (3 == type || 4 == type) {
             PointInfo p = pointUnit.getPoints()[0];
             int val = CommonUtil.byte2int(bytes);
-            String v = String.valueOf(val);
+            String v = Integer.toString(val);
 
             // 1:float;2:int;3:hex
             int dataType = p.getDataType();

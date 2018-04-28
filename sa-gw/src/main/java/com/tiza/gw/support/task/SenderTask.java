@@ -23,7 +23,10 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Slf4j
 public class SenderTask implements ITask {
+    /** 查询指令 */
     private static Queue<SendMsg> msgPool = new ConcurrentLinkedQueue();
+    /** 设置指令 */
+    private static Queue<SendMsg> setupPool = new ConcurrentLinkedQueue();
 
     public SenderTask(ICache onlineCache, ICache sendCache) {
         this.onlineCache = onlineCache;
@@ -49,24 +52,39 @@ public class SenderTask implements ITask {
             log.warn("无设备在线!");
             return;
         }
-
         Map<String, Long> blockCache = new HashMap();
-        List<SendMsg> temps = new ArrayList();
-        while (!msgPool.isEmpty()) {
-            SendMsg sendMsg = msgPool.poll();
-            String deviceId = sendMsg.getDeviceId();
 
+        List<SendMsg> tempMsg = new ArrayList();
+        List<SendMsg> tempSet = new ArrayList();
+        while (!msgPool.isEmpty() || !setupPool.isEmpty()) {
+            SendMsg sendMsg;
+            if (setupPool.isEmpty()){
+                sendMsg = msgPool.poll();
+            }else {
+                sendMsg = setupPool.poll();
+            }
+
+            String deviceId = sendMsg.getDeviceId();
             if (onlineCache.containsKey(deviceId)) {
                 // 设备阻塞状态
                 if (blockCache.containsKey(deviceId)) {
-                    temps.add(sendMsg);
+                    if (1 == sendMsg.getType()){
+                        tempSet.add(sendMsg);
+                    }else {
+                        tempMsg.add(sendMsg);
+                    }
+
                     continue;
                 }
 
                 if (isBlock(deviceId)) {
                     blockCache.put(deviceId, System.currentTimeMillis());
                     if (sendMsg.getTryCount() < 3) {
-                        temps.add(sendMsg);
+                        if (1 == sendMsg.getType()){
+                            tempSet.add(sendMsg);
+                        }else {
+                            tempMsg.add(sendMsg);
+                        }
                     } else {
                         log.warn("设备[{}]下行[{}]阻塞超时...", deviceId, CommonUtil.bytesToStr(sendMsg.getBytes()));
 
@@ -101,12 +119,8 @@ public class SenderTask implements ITask {
             }
         }
 
-        msgPool.addAll(temps);
-    }
-
-    public static void send(SendMsg sendMsg) {
-
-        msgPool.add(sendMsg);
+        msgPool.addAll(tempMsg);
+        setupPool.addAll(tempSet);
     }
 
     /**
@@ -128,18 +142,24 @@ public class SenderTask implements ITask {
     }
 
     /**
-     * 清除前面的数据
+     * 是否为设置指令
      *
      * @param sendMsg
      * @param flag
      */
     public static void send(SendMsg sendMsg, boolean flag) {
         if (flag) {
-            msgPool.clear();
+            setupPool.add(sendMsg);
         }
 
         msgPool.add(sendMsg);
     }
+
+    public static void send(SendMsg sendMsg) {
+
+        msgPool.add(sendMsg);
+    }
+
 
     /**
      * 判断设备下行指令是否阻塞
@@ -154,6 +174,12 @@ public class SenderTask implements ITask {
             if (current != null && current.getResult() == 0) {
                 if (current.getType() == 1) {
                     updateLog(current, 4, "");
+                }
+
+                // 超时手动置为已处理
+                if (System.currentTimeMillis() - current.getDatetime() > 3 * 1000){
+                    current.setResult(1);
+                    log.warn("丢弃超时未应答指令, 设备[{}]内容[{}]!", current.getDeviceId(), CommonUtil.bytesToStr(current.getBytes()));
                 }
 
                 return true;

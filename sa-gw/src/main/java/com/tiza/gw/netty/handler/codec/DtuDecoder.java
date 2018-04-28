@@ -129,7 +129,7 @@ public class DtuDecoder extends ByteToMessageDecoder {
             // 验证校验位
             byte[] checkCRC = CommonUtil.checkCRC(content);
             if (crc0 != checkCRC[0] || crc1 != checkCRC[1]) {
-                log.error("CRC校验码错误, 断开连接!");
+                log.error("CRC校验码错误!");
                 ctx.close();
                 return;
             }
