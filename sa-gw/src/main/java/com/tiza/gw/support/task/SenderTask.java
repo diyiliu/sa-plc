@@ -79,7 +79,7 @@ public class SenderTask implements ITask {
 
                 if (isBlock(deviceId)) {
                     blockCache.put(deviceId, System.currentTimeMillis());
-                    if (sendMsg.getTryCount() < 3) {
+                    if (sendMsg.getTryCount() < 10) {
                         if (1 == sendMsg.getType()){
                             tempSet.add(sendMsg);
                         }else {
