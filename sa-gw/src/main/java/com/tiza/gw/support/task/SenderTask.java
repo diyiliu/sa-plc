@@ -90,9 +90,8 @@ public class SenderTask implements ITask {
                             tempMsg.add(sendMsg);
                         }
                     } else {
-                        log.warn("设备[{}]下行[{}]阻塞超时...", deviceId, CommonUtil.bytesToStr(sendMsg.getBytes()));
-
-                        // 参数设置
+                        log.warn("设备[{}]下行[{}]阻塞...", deviceId, CommonUtil.bytesToStr(sendMsg.getBytes()));
+                        // 下发失败
                         if (1 == sendMsg.getType()) {
                             updateLog(sendMsg, 3, "");
                         }
@@ -178,14 +177,14 @@ public class SenderTask implements ITask {
             MsgMemory msgMemory = (MsgMemory) sendCache.get(deviceId);
             SendMsg current = msgMemory.getCurrent();
             if (current != null && current.getResult() == 0) {
-                if (current.getType() == 1) {
-                    updateLog(current, 4, "");
-                }
-
-                // 超时手动置为已处理
+                // 超时 手动置为已处理
                 if (System.currentTimeMillis() - current.getDatetime() > 10 * 1000) {
-                    current.setResult(1);
                     log.warn("丢弃超时未应答指令, 设备[{}]内容[{}]!", current.getDeviceId(), CommonUtil.bytesToStr(current.getBytes()));
+
+                    current.setResult(1);
+                    if (current.getType() == 1) {
+                        updateLog(current, 4, "");
+                    }
                 }
 
                 return true;

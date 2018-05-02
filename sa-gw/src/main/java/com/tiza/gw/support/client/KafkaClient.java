@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 
 @Slf4j
-public class KafkaClient extends Thread{
+public class KafkaClient extends Thread {
     private KafkaTemplate kafkaTemplate;
 
     private String rowTopic;
@@ -33,8 +33,8 @@ public class KafkaClient extends Thread{
     @Override
     public void run() {
 
-        while (true){
-            while (!pool.isEmpty()){
+        while (true) {
+            while (!pool.isEmpty()) {
                 TopicMsg tm = pool.poll();
 
                 String topic = tm.getTopic();
@@ -52,7 +52,7 @@ public class KafkaClient extends Thread{
     }
 
     /**
-     *  kafka原始指令存入队列
+     * kafka原始指令存入队列
      *
      * @param deviceId
      * @param bytes
@@ -61,7 +61,6 @@ public class KafkaClient extends Thread{
         log.info("[{}] 设备[{}]原始数据[{}]...", direction == 1 ? "上行" : "下行", deviceId, CommonUtil.bytesToStr(bytes));
 
         long time = System.currentTimeMillis();
-
         Map map = new HashMap();
         map.put("id", deviceId);
         map.put("timestamp", time);
@@ -77,7 +76,7 @@ public class KafkaClient extends Thread{
     }
 
     /**
-     *  kafka解析数据存入队列
+     * kafka解析数据存入队列
      *
      * @param id
      * @param list
@@ -86,7 +85,6 @@ public class KafkaClient extends Thread{
         //log.info("设备[{}]解析数据...", id);
 
         long time = System.currentTimeMillis();
-
         Map map = new HashMap();
         map.put("id", id);
         map.put("timestamp", time);
@@ -99,7 +97,6 @@ public class KafkaClient extends Thread{
 
         pool.add(tm);
     }
-
 
     public void setKafkaTemplate(KafkaTemplate kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;

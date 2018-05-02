@@ -136,7 +136,7 @@ public class DtuDecoder extends ByteToMessageDecoder {
             kafkaClient.toKafka(deviceId, bytes, 1);
 
             // 设置应答
-            if (type == 1) {
+            if (type == 1 && sendMsg.getResult() == 0) {
                 sendMsg.setResult(1);
                 log.info("[设置] 设备[{}]应答[{}, {}]成功。", deviceId, sendMsg.getTags(), CommonUtil.bytesToStr(bytes));
                 SenderTask.updateLog(sendMsg, 2, CommonUtil.bytesToStr(bytes));

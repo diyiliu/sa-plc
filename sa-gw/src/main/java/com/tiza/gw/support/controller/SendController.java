@@ -52,6 +52,7 @@ public class SendController {
     @PostMapping("/setup")
     public String setup(@Param("key") String key, @Param("value") String value,
                         @Param("equipId") String equipId, @Param("rowId") Long rowId, HttpServletResponse response) {
+        //log.info("[{}, {}, {}, {}]", key, value, equipId, rowId);
 
         DeviceInfo deviceInfo = deviceInfoJpa.findById(Long.parseLong(equipId));
         String dtuId = deviceInfo.getDtuId();

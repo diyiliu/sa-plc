@@ -71,13 +71,13 @@ public class DtuDataProcess implements IDataProcess {
         MsgMemory msgMemory = (MsgMemory) sendCacheProvider.get(deviceId);
         SendMsg sendMsg = msgMemory.getCurrent();
         sendMsg.setResult(1);
+
         // 加入历史下发缓存
         msgMemory.getMsgMap().put(sendMsg.getKey(), sendMsg);
 
         StoreGroup storeGroup = new StoreGroup();
         // 当前表
         Map summary = storeGroup.getSummary();
-
         // 字典表
         List<DetailInfo> detailList = storeGroup.getDetailList();
 
@@ -85,7 +85,6 @@ public class DtuDataProcess implements IDataProcess {
         ByteBuf buf = Unpooled.copiedBuffer(content);
         for (int i = 0; i < unitList.size(); i++) {
             PointUnit pointUnit = unitList.get(i);
-
             int type = pointUnit.getType();
 
             // 数字量单独处理
