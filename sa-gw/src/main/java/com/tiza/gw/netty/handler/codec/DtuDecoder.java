@@ -8,6 +8,7 @@ import com.tiza.gw.support.config.Constant;
 import com.tiza.gw.support.model.MsgMemory;
 import com.tiza.gw.support.model.PointUnit;
 import com.tiza.gw.support.model.SendMsg;
+import com.tiza.gw.support.model.bean.DeviceInfo;
 import com.tiza.gw.support.task.SenderTask;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -16,6 +17,7 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.util.Attribute;
 import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
@@ -167,6 +169,13 @@ public class DtuDecoder extends ByteToMessageDecoder {
             attribute.set(deviceId);
             ICache online = SpringUtil.getBean("onlineCacheProvider");
             online.put(deviceId, context);
+
+            DeviceInfo deviceInfo = (DeviceInfo) deviceCache.get(deviceId);
+
+            // 设备在线
+            JdbcTemplate jdbcTemplate = SpringUtil.getBean("jdbcTemplate");
+            String sql = "UPDATE equipment_info SET DtuStatus = 1 WHERE EquipmentId = " + deviceInfo.getId();
+            jdbcTemplate.update(sql);
 
             return;
         }

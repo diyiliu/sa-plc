@@ -7,6 +7,7 @@ import com.tiza.gw.protocol.DtuDataProcess;
 import com.tiza.gw.support.config.Constant;
 import com.tiza.gw.support.model.DtuHeader;
 import com.tiza.gw.support.model.SendMsg;
+import com.tiza.gw.support.model.bean.DeviceInfo;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
@@ -15,6 +16,7 @@ import io.netty.util.Attribute;
 import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
@@ -43,6 +45,16 @@ public class DtuHandler extends ChannelInboundHandlerAdapter {
 
                         ICache online = SpringUtil.getBean("onlineCacheProvider");
                         online.remove(deviceId);
+
+                        ICache deviceCache = SpringUtil.getBean("deviceCacheProvider");
+                        if (deviceCache.containsKey(deviceId)) {
+                            DeviceInfo deviceInfo = (DeviceInfo) deviceCache.get(deviceId);
+
+                            // 设备离线
+                            JdbcTemplate jdbcTemplate = SpringUtil.getBean("jdbcTemplate");
+                            String sql = "UPDATE equipment_info SET DtuStatus = 0 WHERE EquipmentId = " + deviceInfo.getId();
+                            jdbcTemplate.update(sql);
+                        }
                     }
                 }
         );

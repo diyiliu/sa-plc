@@ -14,7 +14,7 @@ spring:
     password: admin@123
 
 # 自定义配置
-dtu-server-port: 5001
+dtu-server-port: 5006
 
 kafka:
  broker-list: HighPressData01:9092,HighPressData02:9092,HighPressData03:9092

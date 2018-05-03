@@ -2,7 +2,7 @@
 # SPRING
 spring:
   profiles:
-    active: dev
+    active: prod
 
   # JSON
   jackson:
@@ -11,7 +11,6 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
 
   jpa:
-    show-sql: true
     hibernate:
      naming:
        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
