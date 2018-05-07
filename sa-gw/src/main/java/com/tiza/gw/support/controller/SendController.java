@@ -10,6 +10,7 @@ import com.tiza.gw.support.model.bean.DetailInfo;
 import com.tiza.gw.support.model.bean.DeviceInfo;
 import com.tiza.gw.support.model.bean.PointInfo;
 import com.tiza.gw.support.task.SenderTask;
+import com.tiza.gw.support.task.TimerTask;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +44,13 @@ public class SendController {
     private ICache writeFnCacheProvider;
 
     @Resource
-    private ICache readFnCacheProvider;
+    private ICache deviceCacheProvider;
+
+    @Resource
+    private ICache sendCacheProvider;
+
+    @Resource
+    private ICache timerCacheProvider;
 
     @Resource
     private DeviceInfoJpa deviceInfoJpa;
@@ -183,16 +190,13 @@ public class SendController {
 
     /**
      * 参数同步
-     *
-     * @param key
+     * @param code
      * @param equipId
      * @param response
      * @return
      */
     @PostMapping("/synchronize")
-    public String synchronize(@Param("key") String key, @Param("equipId") String equipId, HttpServletResponse response) {
-        String[] params = key.split(",");
-
+    public String synchronize(@Param("code") Integer code, @Param("equipId") String equipId, HttpServletResponse response) {
         DeviceInfo deviceInfo = deviceInfoJpa.findById(Long.parseLong(equipId));
         String dtuId = deviceInfo.getDtuId();
         if (!onlineCacheProvider.containsKey(dtuId)) {
@@ -208,33 +212,8 @@ public class SendController {
             return "未配置设备功能集。";
         }
 
-        List<PointUnit> readFnList = (List<PointUnit>) readFnCacheProvider.get(softVersion);
-
-        List<String> pointKeys = new ArrayList();
-        List<PointUnit> pointUnits = new ArrayList();
-        for (String p : params) {
-            if (pointKeys.contains(p)) {
-
-                continue;
-            }
-
-            for (PointUnit unit : readFnList) {
-                String[] tags = unit.getTags();
-                List<String> tagList = Arrays.asList(tags);
-
-                if (tagList.contains(p)) {
-                    pointKeys.addAll(tagList);
-                    pointUnits.add(unit);
-                }
-            }
-        }
-
-        // 下发同步指令
-        for (PointUnit pointUnit : pointUnits) {
-
-            SendMsg sendMsg = toSendMsg(dtuId, pointUnit);
-            SenderTask.send(sendMsg);
-        }
+        TimerTask task = new TimerTask(deviceCacheProvider, timerCacheProvider, sendCacheProvider);
+        task.synchronize(dtuId, code);
 
         return "设置成功";
     }
@@ -251,43 +230,4 @@ public class SendController {
 
         return buf.array();
     }
-
-
-    private SendMsg toSendMsg(String deviceId, PointUnit pointUnit) {
-        int type = pointUnit.getType();
-
-        int site = pointUnit.getSiteId();
-        int code = pointUnit.getReadFunction();
-        int star = pointUnit.getAddress();
-        int count = type == 4 ? 2 : 1;
-
-        if (type == 5) {
-            count = pointUnit.getPoints().length;
-        }
-
-        ByteBuf byteBuf = Unpooled.buffer(6);
-        byteBuf.writeByte(site);
-        byteBuf.writeByte(code);
-        byteBuf.writeShort(star);
-        byteBuf.writeShort(count);
-        byte[] bytes = byteBuf.array();
-
-        String key = site + ":" + code + ":" + star;
-
-        SendMsg sendMsg = new SendMsg();
-        sendMsg.setDeviceId(deviceId);
-        sendMsg.setCmd(code);
-        sendMsg.setBytes(bytes);
-        // 0: 查询; 1: 设置
-        sendMsg.setType(0);
-        sendMsg.setKey(key);
-        sendMsg.setUnitList(new ArrayList() {
-            {
-                this.add(pointUnit);
-            }
-        });
-
-        return sendMsg;
-    }
-
 }
