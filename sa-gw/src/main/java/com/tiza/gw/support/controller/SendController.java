@@ -42,6 +42,8 @@ public class SendController {
     @Resource
     private ICache writeFnCacheProvider;
 
+    @Resource
+    private ICache readFnCacheProvider;
 
     @Resource
     private DeviceInfoJpa deviceInfoJpa;
@@ -49,6 +51,16 @@ public class SendController {
     @Resource
     private DetailInfoJpa detailInfoJpa;
 
+    /**
+     * 参数设置
+     *
+     * @param key
+     * @param value
+     * @param equipId
+     * @param rowId
+     * @param response
+     * @return
+     */
     @PostMapping("/setup")
     public String setup(@Param("key") String key, @Param("value") String value,
                         @Param("equipId") String equipId, @Param("rowId") Long rowId, HttpServletResponse response) {
@@ -168,6 +180,66 @@ public class SendController {
         return "设置成功。";
     }
 
+
+    /**
+     * 参数同步
+     *
+     * @param key
+     * @param equipId
+     * @param response
+     * @return
+     */
+    @PostMapping("/synchronize")
+    public String synchronize(@Param("key") String key, @Param("equipId") String equipId, HttpServletResponse response) {
+        String[] params = key.split(",");
+
+        DeviceInfo deviceInfo = deviceInfoJpa.findById(Long.parseLong(equipId));
+        String dtuId = deviceInfo.getDtuId();
+        if (!onlineCacheProvider.containsKey(dtuId)) {
+
+            response.setStatus(500);
+            return "设备离线。";
+        }
+
+        String softVersion = deviceInfo.getSoftVersion();
+        if (!writeFnCacheProvider.containsKey(softVersion)) {
+
+            response.setStatus(500);
+            return "未配置设备功能集。";
+        }
+
+        List<PointUnit> readFnList = (List<PointUnit>) readFnCacheProvider.get(softVersion);
+
+        List<String> pointKeys = new ArrayList();
+        List<PointUnit> pointUnits = new ArrayList();
+        for (String p : params) {
+            if (pointKeys.contains(p)) {
+
+                continue;
+            }
+
+            for (PointUnit unit : readFnList) {
+                String[] tags = unit.getTags();
+                List<String> tagList = Arrays.asList(tags);
+
+                if (tagList.contains(p)) {
+                    pointKeys.addAll(tagList);
+                    pointUnits.add(unit);
+                }
+            }
+        }
+
+        // 下发同步指令
+        for (PointUnit pointUnit : pointUnits) {
+
+            SendMsg sendMsg = toSendMsg(dtuId, pointUnit);
+            SenderTask.send(sendMsg);
+        }
+
+        return "设置成功";
+    }
+
+
     private byte[] toBytes(int site, int code, int address, int count, int value) {
         ByteBuf buf = Unpooled.buffer(7 + count * 2);
         buf.writeByte(site);
@@ -179,4 +251,43 @@ public class SendController {
 
         return buf.array();
     }
+
+
+    private SendMsg toSendMsg(String deviceId, PointUnit pointUnit) {
+        int type = pointUnit.getType();
+
+        int site = pointUnit.getSiteId();
+        int code = pointUnit.getReadFunction();
+        int star = pointUnit.getAddress();
+        int count = type == 4 ? 2 : 1;
+
+        if (type == 5) {
+            count = pointUnit.getPoints().length;
+        }
+
+        ByteBuf byteBuf = Unpooled.buffer(6);
+        byteBuf.writeByte(site);
+        byteBuf.writeByte(code);
+        byteBuf.writeShort(star);
+        byteBuf.writeShort(count);
+        byte[] bytes = byteBuf.array();
+
+        String key = site + ":" + code + ":" + star;
+
+        SendMsg sendMsg = new SendMsg();
+        sendMsg.setDeviceId(deviceId);
+        sendMsg.setCmd(code);
+        sendMsg.setBytes(bytes);
+        // 0: 查询; 1: 设置
+        sendMsg.setType(0);
+        sendMsg.setKey(key);
+        sendMsg.setUnitList(new ArrayList() {
+            {
+                this.add(pointUnit);
+            }
+        });
+
+        return sendMsg;
+    }
+
 }

@@ -95,7 +95,7 @@ public class DtuDataProcess implements IDataProcess {
             }
 
             // 只有dword是四个字节,其他(除数字量)均为二个字节
-            int length = type == 4? 4: 2;
+            int length = type == 4 ? 4 : 2;
 
             // 按字(两个字节)解析
             if (buf.readableBytes() >= length) {
@@ -213,7 +213,12 @@ public class DtuDataProcess implements IDataProcess {
      */
     public void updateDetail(long equipId, List<DetailInfo> detailInfoList) {
         if (CollectionUtils.isNotEmpty(detailInfoList)) {
-            detailInfoList.forEach(e -> e.setEquipId(equipId));
+            detailInfoList.forEach(e ->
+                    {
+                        e.setEquipId(equipId);
+                        e.setLastTime(new Date());
+                    }
+            );
             // 批量更新数据
             detailInfoJpa.saveAll(detailInfoList);
 

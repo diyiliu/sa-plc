@@ -4,6 +4,7 @@ import com.tiza.gw.support.model.bean.key.DetailKey;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Description: DetailInfo
@@ -27,4 +28,6 @@ public class DetailInfo {
 
     @Column(name = "plcVersionPointId")
     private Long pointId;
+
+    private Date lastTime;
 }
