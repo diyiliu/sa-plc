@@ -4,7 +4,12 @@ import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.cache.ram.RamCacheProvider;
 import com.diyiliu.plugin.util.SpringUtil;
 import com.tiza.gw.netty.server.DtuServer;
+import com.tiza.gw.support.client.HBaseClient;
+import com.tiza.gw.support.config.properties.HBaseProperties;
+import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,14 +23,30 @@ import javax.sql.DataSource;
  */
 
 @Configuration
+@EnableConfigurationProperties(HBaseProperties.class)
 public class SpringConfig {
 
     @Value("${dtu-server-port}")
     private Integer port;
 
+    @Autowired
+    private HBaseProperties hbaseProperties;
+
 
     @Bean
-    public DtuServer dtuServer(){
+    public HBaseClient hbaseClient() {
+        org.apache.hadoop.conf.Configuration config = HBaseConfiguration.create();
+        config.set("hbase.zookeeper.quorum", hbaseProperties.getZookeeperQuorum());
+        config.set("hbase.zookeeper.property.clientPort", hbaseProperties.getZookeeperPort());
+
+        HBaseClient hbaseClient = new HBaseClient();
+        hbaseClient.setConfig(config);
+
+        return hbaseClient;
+    }
+
+    @Bean
+    public DtuServer dtuServer() {
         DtuServer dtuServer = new DtuServer();
         dtuServer.setPort(port);
         dtuServer.init();
@@ -51,7 +72,7 @@ public class SpringConfig {
      * @return
      */
     @Bean
-    public JdbcTemplate jdbcTemplate(DataSource dataSource){
+    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
 
         return new JdbcTemplate(dataSource);
     }
@@ -112,7 +133,6 @@ public class SpringConfig {
 
         return new RamCacheProvider();
     }
-
 
     /**
      * 定时任务缓存

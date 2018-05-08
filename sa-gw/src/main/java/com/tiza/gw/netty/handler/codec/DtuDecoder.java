@@ -8,7 +8,7 @@ import com.tiza.gw.support.config.Constant;
 import com.tiza.gw.support.model.MsgMemory;
 import com.tiza.gw.support.model.PointUnit;
 import com.tiza.gw.support.model.SendMsg;
-import com.tiza.gw.support.model.bean.DeviceInfo;
+import com.tiza.gw.support.dao.dto.DeviceInfo;
 import com.tiza.gw.support.task.SenderTask;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

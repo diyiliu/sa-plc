@@ -2,13 +2,13 @@ package com.tiza.gw.support.controller;
 
 import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.util.CommonUtil;
-import com.tiza.gw.support.jpa.DetailInfoJpa;
-import com.tiza.gw.support.jpa.DeviceInfoJpa;
+import com.tiza.gw.support.dao.jpa.DetailInfoJpa;
+import com.tiza.gw.support.dao.jpa.DeviceInfoJpa;
 import com.tiza.gw.support.model.PointUnit;
 import com.tiza.gw.support.model.SendMsg;
-import com.tiza.gw.support.model.bean.DetailInfo;
-import com.tiza.gw.support.model.bean.DeviceInfo;
-import com.tiza.gw.support.model.bean.PointInfo;
+import com.tiza.gw.support.dao.dto.DetailInfo;
+import com.tiza.gw.support.dao.dto.DeviceInfo;
+import com.tiza.gw.support.dao.dto.PointInfo;
 import com.tiza.gw.support.task.SenderTask;
 import com.tiza.gw.support.task.TimerTask;
 import io.netty.buffer.ByteBuf;

@@ -6,8 +6,7 @@ import com.diyiliu.plugin.util.SpringUtil;
 import com.tiza.gw.protocol.DtuDataProcess;
 import com.tiza.gw.support.config.Constant;
 import com.tiza.gw.support.model.DtuHeader;
-import com.tiza.gw.support.model.SendMsg;
-import com.tiza.gw.support.model.bean.DeviceInfo;
+import com.tiza.gw.support.dao.dto.DeviceInfo;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
@@ -17,8 +16,6 @@ import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import java.util.List;
 
 /**
  * Description: DtuHandler

@@ -46,9 +46,7 @@ public class KafkaProducer {
         return new DefaultKafkaProducerFactory(props);
     }
 
-    /**
-     * 注册实例
-     */
+
     @Bean
     public KafkaTemplate<String, String> kafkaTemplate() {
 
@@ -56,7 +54,7 @@ public class KafkaProducer {
     }
 
     @Bean
-    public KafkaClient kafkaClient(){
+    public KafkaClient kafkaClient() {
         KafkaClient kafkaClient = new KafkaClient();
         kafkaClient.setKafkaTemplate(kafkaTemplate());
         kafkaClient.setRowTopic(kafkaProperties.getRowTopic());

@@ -10,6 +10,10 @@
     <output-test url="file://$MODULE_DIR$/../../dyl-plugin/out/test/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../dyl-plugin">
+      <sourceFolder url="file://$MODULE_DIR$/../../dyl-plugin/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../dyl-plugin/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../dyl-plugin/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../dyl-plugin/src/test/resources" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../dyl-plugin/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../dyl-plugin/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../dyl-plugin/out" />

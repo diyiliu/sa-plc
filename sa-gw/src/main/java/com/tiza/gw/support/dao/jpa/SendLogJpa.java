@@ -1,6 +1,6 @@
-package com.tiza.gw.support.jpa;
+package com.tiza.gw.support.dao.jpa;
 
-import com.tiza.gw.support.model.bean.SendLog;
+import com.tiza.gw.support.dao.dto.SendLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

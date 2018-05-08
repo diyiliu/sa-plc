@@ -1,6 +1,6 @@
 package com.tiza.gw.support.model;
 
-import com.tiza.gw.support.model.bean.DetailInfo;
+import com.tiza.gw.support.dao.dto.DetailInfo;
 import lombok.Data;
 import org.omg.CORBA.Object;
 

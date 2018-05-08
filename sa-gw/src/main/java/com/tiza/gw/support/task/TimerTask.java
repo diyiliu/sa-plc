@@ -6,10 +6,9 @@ import com.tiza.gw.support.model.MsgMemory;
 import com.tiza.gw.support.model.PointUnit;
 import com.tiza.gw.support.model.QueryFrame;
 import com.tiza.gw.support.model.SendMsg;
-import com.tiza.gw.support.model.bean.DeviceInfo;
+import com.tiza.gw.support.dao.dto.DeviceInfo;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 
 import java.util.Iterator;

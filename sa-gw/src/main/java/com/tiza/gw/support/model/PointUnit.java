@@ -1,6 +1,6 @@
 package com.tiza.gw.support.model;
 
-import com.tiza.gw.support.model.bean.PointInfo;
+import com.tiza.gw.support.dao.dto.PointInfo;
 import lombok.Data;
 
 /**

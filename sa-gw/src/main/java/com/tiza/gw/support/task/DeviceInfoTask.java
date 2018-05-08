@@ -2,8 +2,8 @@ package com.tiza.gw.support.task;
 
 import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.task.ITask;
-import com.tiza.gw.support.jpa.DeviceInfoJpa;
-import com.tiza.gw.support.model.bean.DeviceInfo;
+import com.tiza.gw.support.dao.jpa.DeviceInfoJpa;
+import com.tiza.gw.support.dao.dto.DeviceInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 

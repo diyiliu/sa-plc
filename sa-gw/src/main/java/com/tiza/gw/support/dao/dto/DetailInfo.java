@@ -1,9 +1,9 @@
-package com.tiza.gw.support.model.bean;
+package com.tiza.gw.support.dao.dto;
 
-import com.tiza.gw.support.model.bean.key.DetailKey;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,7 +14,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@IdClass(DetailKey.class)
+@IdClass(DetailInfoKey.class)
 @Table(name = "equipment_info_detail")
 public class DetailInfo {
 
@@ -31,3 +31,13 @@ public class DetailInfo {
 
     private Date lastTime;
 }
+
+
+@Data
+class DetailInfoKey implements Serializable {
+
+    private Long equipId;
+
+    private String tag;
+}
+

@@ -1,4 +1,4 @@
-package com.tiza.gw.support.model.bean;
+package com.tiza.gw.support.dao.dto;
 
 import lombok.Data;
 

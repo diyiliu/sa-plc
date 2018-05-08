@@ -1,6 +1,6 @@
-package com.tiza.gw.support.jpa;
+package com.tiza.gw.support.dao.jpa;
 
-import com.tiza.gw.support.model.bean.DetailInfo;
+import com.tiza.gw.support.dao.dto.DetailInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

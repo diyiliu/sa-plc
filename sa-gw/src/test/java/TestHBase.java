@@ -31,27 +31,33 @@ public class TestHBase {
         config.set("hbase.zookeeper.property.clientPort", "2181");
         config.set("hbase.zookeeper.session.timeout", "180000");
 
-        Calendar calendar = Calendar.getInstance();
-        Date now = calendar.getTime();
-        calendar.add(Calendar.DAY_OF_MONTH, -1);
-        Date start = calendar.getTime();
+        Calendar today = Calendar.getInstance();
 
-        String[] tags = new String[]{"MainCurrent"};
-        byte[] startRow = Bytes.add(Bytes.toBytes(1), Bytes.toBytes(start.getTime()));
-        byte[] stopRow = Bytes.add(Bytes.toBytes(1), Bytes.toBytes(now.getTime()));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(0);
+        calendar.set(Calendar.YEAR, today.get(Calendar.YEAR));
+        calendar.set(Calendar.MONTH, today.get(Calendar.MONTH));
+        calendar.set(Calendar.DAY_OF_MONTH, today.get(Calendar.DAY_OF_MONTH));
+
+        long endTime = calendar.getTimeInMillis();
+        calendar.add(Calendar.DAY_OF_MONTH, -10);
+        long startTime = calendar.getTimeInMillis();
+
+        final String tag = "TotalRunTime";
+        byte[] startRow = Bytes.add(Bytes.toBytes(1), Bytes.toBytes(startTime));
+        byte[] stopRow = Bytes.add(Bytes.toBytes(1), Bytes.toBytes(endTime));
         try (Connection connection = ConnectionFactory.createConnection(config)) {
 
             TableName tableName = TableName.valueOf(TABLE_NAME);
             Table table = connection.getTable(tableName);
 
+            byte[] family = Bytes.toBytes(CF_DEFAULT);
             Scan scan = new Scan(startRow, stopRow);
-            scan.addFamily(Bytes.toBytes(CF_DEFAULT));
+            scan.addFamily(family);
 
+            byte[] tagBytes = Bytes.toBytes(tag);
             FilterList qualifierFilters = new FilterList(FilterList.Operator.MUST_PASS_ONE);
-            Arrays.stream(tags).forEach(t -> {
-                QualifierFilter filter = new QualifierFilter(CompareFilter.CompareOp.EQUAL, new BinaryComparator(Bytes.toBytes(t)));
-                qualifierFilters.addFilter(filter);
-            });
+            qualifierFilters.addFilter( new QualifierFilter(CompareFilter.CompareOp.EQUAL, new BinaryComparator(tagBytes)));
             scan.setFilter(qualifierFilters);
 
             ResultScanner rs = table.getScanner(scan);
@@ -65,6 +71,12 @@ public class TestHBase {
                     Map map = new HashMap();
                     map.put("equipId", id);
                     map.put("datetime", DateUtil.dateToString(new Date(timestamp)));
+                    if (r.containsNonEmptyColumn(family, tagBytes)) {
+                        String value = Bytes.toString(r.getValue(family, tagBytes));
+                        String name = new String(tagBytes);
+
+                        map.put(name, value);
+                    }
 
                     list.add(map);
                 }

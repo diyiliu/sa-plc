@@ -1,6 +1,6 @@
-package com.tiza.gw.support.jpa;
+package com.tiza.gw.support.dao.jpa;
 
-import com.tiza.gw.support.model.bean.DeviceInfo;
+import com.tiza.gw.support.dao.dto.DeviceInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

@@ -2,12 +2,15 @@ package com.tiza.gw.support.config;
 
 import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.task.ITask;
-import com.tiza.gw.support.jpa.DeviceInfoJpa;
-import com.tiza.gw.support.jpa.PointInfoJpa;
+import com.tiza.gw.support.client.HBaseClient;
+import com.tiza.gw.support.dao.dto.DailyHour;
+import com.tiza.gw.support.dao.jpa.DailyHourJpa;
+import com.tiza.gw.support.dao.jpa.DeviceInfoJpa;
+import com.tiza.gw.support.dao.jpa.PointInfoJpa;
 import com.tiza.gw.support.model.MsgMemory;
 import com.tiza.gw.support.model.PointUnit;
 import com.tiza.gw.support.model.QueryFrame;
-import com.tiza.gw.support.model.bean.DeviceInfo;
+import com.tiza.gw.support.dao.dto.DeviceInfo;
 import com.tiza.gw.support.task.DeviceInfoTask;
 import com.tiza.gw.support.task.FunctionTask;
 import com.tiza.gw.support.task.SenderTask;
@@ -18,6 +21,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -55,6 +59,12 @@ public class SpringQuartz {
     @Resource
     private PointInfoJpa pointInfoJpa;
 
+    @Resource
+    private DailyHourJpa dailyHourJpa;
+
+    @Resource
+    private HBaseClient hbaseClient;
+
 
     /**
      * 指令下发
@@ -82,7 +92,6 @@ public class SpringQuartz {
         ITask task = new DeviceInfoTask(deviceInfoJpa, deviceCacheProvider);
         task.execute();
     }
-
 
     /**
      * 刷新功能集列表
@@ -139,7 +148,78 @@ public class SpringQuartz {
         }
     }
 
+    /**
+     * 当日运行时长
+     */
+    @Scheduled(cron = "0 5 1 * * ?")
+    public void dailyRunningJob() {
+        Calendar today = Calendar.getInstance();
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(0);
+        calendar.set(Calendar.YEAR, today.get(Calendar.YEAR));
+        calendar.set(Calendar.MONTH, today.get(Calendar.MONTH));
+        calendar.set(Calendar.DAY_OF_MONTH, today.get(Calendar.DAY_OF_MONTH));
+
+        long endTime = calendar.getTimeInMillis();
+        calendar.add(Calendar.DAY_OF_MONTH, -10);
+        long startTime = calendar.getTimeInMillis();
+
+        final String tag = "TotalRunTime";
+        Set set = deviceCacheProvider.getKeys();
+        set.forEach(key -> {
+            DeviceInfo deviceInfo = (DeviceInfo) deviceCacheProvider.get(key);
+            Long id = deviceInfo.getId();
+            try {
+                List<String> values = hbaseClient.scan(id.intValue(), tag, startTime, endTime);
+                long hour = dailyRunning(values);
+
+                DailyHour dailyHour = new DailyHour();
+                dailyHour.setEquipmentId(id);
+                dailyHour.setDay(new Date(startTime));
+                dailyHour.setHour(hour);
+
+                dailyHourJpa.save(dailyHour);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    /**
+     * 当日工作时长
+     *
+     * @param list
+     * @return
+     */
+    private long dailyRunning(List<String> list) {
+        if (CollectionUtils.isEmpty(list) || list.size() == 1) {
+
+            return 0;
+        }
+
+        long first = Long.parseLong(list.get(0));
+        long max = first > 0 ? first : 0;
+        long min = max;
+
+        for (int i = 1; i < list.size(); i++) {
+            long v = Long.parseLong(list.get(i));
+            long temp = v > 0 ? v : 0;
+
+            if (temp > max) max = temp;
+            if (temp < min) min = temp;
+        }
+
+        return max - min;
+    }
+
+
+    /**
+     * 组合同功能码、同频率下发指令
+     *
+     * @param list
+     * @return
+     */
     private List<QueryFrame> combineUnit(List<PointUnit> list) {
         List<QueryFrame> queryFrames = new ArrayList();
 

@@ -17,6 +17,6 @@ spring:
 dtu-server-port: 5006
 
 kafka:
- broker-list: HighPressData01:9092,HighPressData02:9092,HighPressData03:9092
- row-topic: shangair_rawdata
- data-topic: shangair_metrics
+  broker-list: HighPressData01:9092,HighPressData02:9092,HighPressData03:9092
+  row-topic: shangair_rawdata
+  data-topic: shangair_metrics
