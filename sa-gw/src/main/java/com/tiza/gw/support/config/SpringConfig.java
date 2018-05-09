@@ -5,6 +5,7 @@ import com.diyiliu.plugin.cache.ram.RamCacheProvider;
 import com.diyiliu.plugin.util.SpringUtil;
 import com.tiza.gw.netty.server.DtuServer;
 import com.tiza.gw.support.client.HBaseClient;
+import com.tiza.gw.support.client.RedisClient;
 import com.tiza.gw.support.config.properties.HBaseProperties;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 /**
@@ -32,6 +35,17 @@ public class SpringConfig {
     @Autowired
     private HBaseProperties hbaseProperties;
 
+    @Resource
+    private RedisTemplate redisTemplate;
+
+
+    @Bean
+    public RedisClient redisClient(){
+        RedisClient redisClient = new RedisClient();
+        redisClient.setRedisTemplate(redisTemplate);
+
+        return redisClient;
+    }
 
     @Bean
     public HBaseClient hbaseClient() {

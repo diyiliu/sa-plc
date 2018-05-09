@@ -30,6 +30,9 @@ public class DetailInfo {
     private Long pointId;
 
     private Date lastTime;
+
+    @Transient
+    private Long faultId;
 }
 
 

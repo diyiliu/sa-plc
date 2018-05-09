@@ -16,6 +16,12 @@ spring:
   jpa:
     show-sql: false
 
+  # redis
+  redis:
+    database: 3
+    host: 192.168.1.156
+    port: 6379
+
 # LOGGING
 logging:
   level:

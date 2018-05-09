@@ -42,6 +42,7 @@ public class DtuHandler extends ChannelInboundHandlerAdapter {
 
                         ICache online = SpringUtil.getBean("onlineCacheProvider");
                         online.remove(deviceId);
+                        attribute.set(null);
 
                         ICache deviceCache = SpringUtil.getBean("deviceCacheProvider");
                         if (deviceCache.containsKey(deviceId)) {

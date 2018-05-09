@@ -55,6 +55,12 @@ public class PointInfo {
     /** 数据格式(1:float;2:int;3:hex)*/
     private Integer dataType;
 
+    /** 硬件故障类型(0:不是故障;1:紧急报警;2:重要报警;3:一般警示,默认不是故障)*/
+    private Integer faultType;
+
+    /** 故障Id,关联故障表*/
+    private Long faultId;
+
     /** 1:只读;2:只写;3:读写*/
     private Integer readWrite;
 

@@ -70,7 +70,7 @@ public class TimerTask implements ITask {
                     int frequency = frame.getPointUnits().get(0).getFrequency();
                     if (onTime(deviceId, qKey, frequency)) {
                         SendMsg msg = toSendMsg(deviceId, frame);
-                        //SenderTask.send(msg);
+                        SenderTask.send(msg);
                     }
                 }
             }

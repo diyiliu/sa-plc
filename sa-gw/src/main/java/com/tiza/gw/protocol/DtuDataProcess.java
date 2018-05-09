@@ -5,7 +5,10 @@ import com.diyiliu.plugin.model.Header;
 import com.diyiliu.plugin.model.IDataProcess;
 import com.diyiliu.plugin.util.CommonUtil;
 import com.tiza.gw.support.client.KafkaClient;
+import com.tiza.gw.support.client.RedisClient;
+import com.tiza.gw.support.dao.dto.FaultInfo;
 import com.tiza.gw.support.dao.jpa.DetailInfoJpa;
+import com.tiza.gw.support.dao.jpa.FaultInfoJpa;
 import com.tiza.gw.support.model.*;
 import com.tiza.gw.support.dao.dto.DetailInfo;
 import com.tiza.gw.support.dao.dto.DeviceInfo;
@@ -44,6 +47,12 @@ public class DtuDataProcess implements IDataProcess {
 
     @Resource
     private DetailInfoJpa detailInfoJpa;
+
+    @Resource
+    private FaultInfoJpa faultInfoJpa;
+
+    @Resource
+    private RedisClient redisClient;
 
     @Override
     public void init() {
@@ -144,6 +153,11 @@ public class DtuDataProcess implements IDataProcess {
                     d.setTag(k);
                     d.setValue(v);
                     detailList.add(d);
+
+                    // 故障点
+                    if (p.getFaultType() != null && p.getFaultType() > 0) {
+                        d.setFaultId(p.getFaultId());
+                    }
                 }
             }
 
@@ -185,7 +199,7 @@ public class DtuDataProcess implements IDataProcess {
      * @param equipId
      * @param paramValues
      */
-    public void updateSummary(long equipId, Map paramValues) {
+    private void updateSummary(long equipId, Map paramValues) {
         List list = new ArrayList();
         StringBuilder sqlBuilder = new StringBuilder("UPDATE equipment_info SET ");
         for (Iterator iterator = paramValues.keySet().iterator(); iterator.hasNext(); ) {
@@ -211,19 +225,65 @@ public class DtuDataProcess implements IDataProcess {
      * @param equipId
      * @param detailInfoList
      */
-    public void updateDetail(long equipId, List<DetailInfo> detailInfoList) {
+    private void updateDetail(long equipId, List<DetailInfo> detailInfoList) {
         if (CollectionUtils.isNotEmpty(detailInfoList)) {
-            detailInfoList.forEach(e ->
-                    {
-                        e.setEquipId(equipId);
-                        e.setLastTime(new Date());
-                    }
-            );
+            for (DetailInfo detailInfo : detailInfoList) {
+                detailInfo.setEquipId(equipId);
+                detailInfo.setLastTime(new Date());
+
+                // 处理故障报警
+                if (detailInfo.getFaultId() != null) {
+                    dealFault(detailInfo);
+                }
+            }
+
             // 批量更新数据
             detailInfoJpa.saveAll(detailInfoList);
 
             // 写入kafka
             kafkaClient.toKafka(equipId, detailInfoList);
+        }
+    }
+
+    /**
+     * 故障处理
+     *
+     * @param detailInfo
+     */
+    private void dealFault(DetailInfo detailInfo) {
+        String key = detailInfo.getEquipId() + ":" + detailInfo.getTag();
+        int value = Integer.parseInt(detailInfo.getValue());
+
+        boolean flag = redisClient.exists(key);
+
+        // 产生报警
+        if (1 == value && !flag) {
+            FaultInfo faultInfo = new FaultInfo();
+            faultInfo.setEquipId(detailInfo.getEquipId());
+            faultInfo.setFaultId(detailInfo.getFaultId());
+            faultInfo.setPointId(detailInfo.getPointId());
+            faultInfo.setTag(detailInfo.getTag());
+            faultInfo.setValue(detailInfo.getValue());
+            faultInfo.setStartTime(new Date());
+
+            faultInfo = faultInfoJpa.save(faultInfo);
+            if (faultInfo != null) {
+                redisClient.set(key, faultInfo.getId());
+            }
+
+            return;
+        }
+
+        // 解除报警
+        if (0 == value && flag) {
+            long id = (Long) redisClient.get(key);
+            FaultInfo faultInfo = faultInfoJpa.findById(id);
+            faultInfo.setEndTime(new Date());
+
+            faultInfo = faultInfoJpa.save(faultInfo);
+            if (faultInfo != null) {
+                redisClient.remove(key);
+            }
         }
     }
 }

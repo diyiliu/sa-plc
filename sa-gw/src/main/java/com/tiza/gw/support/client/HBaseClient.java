@@ -56,7 +56,6 @@ public class HBaseClient {
             scan.setFilter(qualifierFilters);
 
             ResultScanner rs = table.getScanner(scan);
-            System.out.println(rs.next());
             try {
                 for (Result r = rs.next(); r != null; r = rs.next()) {
                     // rowKey = id + time
