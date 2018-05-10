@@ -13,6 +13,8 @@ import com.tiza.gw.support.task.SenderTask;
 import com.tiza.gw.support.task.TimerTask;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.data.repository.query.Param;
@@ -35,6 +37,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
+@Api(description = "设备指令下发接口")
 public class SendController {
 
     @Resource
@@ -69,6 +72,7 @@ public class SendController {
      * @return
      */
     @PostMapping("/setup")
+    @ApiOperation(value = "参数设置", notes = "设置设备参数")
     public String setup(@Param("key") String key, @Param("value") String value,
                         @Param("equipId") String equipId, @Param("rowId") Long rowId, HttpServletResponse response) {
         //log.info("[{}, {}, {}, {}]", key, value, equipId, rowId);
@@ -190,12 +194,14 @@ public class SendController {
 
     /**
      * 参数同步
+     *
      * @param code
      * @param equipId
      * @param response
      * @return
      */
     @PostMapping("/synchronize")
+    @ApiOperation(value = "同步参数", notes = "刷新指定功能码参数")
     public String synchronize(@Param("code") Integer code, @Param("equipId") String equipId, HttpServletResponse response) {
         DeviceInfo deviceInfo = deviceInfoJpa.findById(Long.parseLong(equipId));
         String dtuId = deviceInfo.getDtuId();

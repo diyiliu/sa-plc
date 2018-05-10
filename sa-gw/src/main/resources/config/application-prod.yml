@@ -16,7 +16,7 @@ spring:
   # redis
   redis:
     database: 3
-    host: 192.168.1.156
+    host: 192.168.1.113
     port: 6379
 
 # 自定义配置
@@ -26,3 +26,7 @@ kafka:
   broker-list: HighPressData01:9092,HighPressData02:9092,HighPressData03:9092
   row-topic: shangair_rawdata
   data-topic: shangair_metrics
+
+hbase:
+  zookeeper-quorum: HighPressData01,HighPressData02,HighPressData03
+  zookeeper-port: 2181
