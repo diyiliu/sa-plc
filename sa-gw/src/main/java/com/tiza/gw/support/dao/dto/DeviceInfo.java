@@ -24,6 +24,6 @@ public class DeviceInfo {
 
     private String dtuId;
 
-    @Column(name = "plcVersionId")
+    @Column(name = "PlcVersionId")
     private String softVersion;
 }

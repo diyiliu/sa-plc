@@ -162,7 +162,7 @@ public class SpringQuartz {
         calendar.set(Calendar.DAY_OF_MONTH, today.get(Calendar.DAY_OF_MONTH));
 
         long endTime = calendar.getTimeInMillis();
-        calendar.add(Calendar.DAY_OF_MONTH, -10);
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
         long startTime = calendar.getTimeInMillis();
 
         final String tag = "TotalRunTime";
@@ -172,12 +172,19 @@ public class SpringQuartz {
             Long id = deviceInfo.getId();
             try {
                 List<String> values = hbaseClient.scan(id.intValue(), tag, startTime, endTime);
-                long hour = dailyRunning(values);
+                double hour = dailyRunning(values);
+
+                double total = 0;
+                if (hour > 0) {
+                    total = Double.parseDouble(values.get(values.size() - 1));
+                }
 
                 DailyHour dailyHour = new DailyHour();
-                dailyHour.setEquipmentId(id);
+                dailyHour.setEquipId(id);
                 dailyHour.setDay(new Date(startTime));
+                dailyHour.setCreateTime(new Date());
                 dailyHour.setHour(hour);
+                dailyHour.setTotalHour(total);
 
                 dailyHourJpa.save(dailyHour);
             } catch (IOException e) {
@@ -192,19 +199,19 @@ public class SpringQuartz {
      * @param list
      * @return
      */
-    private long dailyRunning(List<String> list) {
+    private double dailyRunning(List<String> list) {
         if (CollectionUtils.isEmpty(list) || list.size() == 1) {
 
             return 0;
         }
 
-        long first = Long.parseLong(list.get(0));
-        long max = first > 0 ? first : 0;
-        long min = max;
+        double first = Double.parseDouble(list.get(0));
+        double max = first > 0 ? first : 0;
+        double min = max;
 
         for (int i = 1; i < list.size(); i++) {
-            long v = Long.parseLong(list.get(i));
-            long temp = v > 0 ? v : 0;
+            double v = Double.parseDouble(list.get(i));
+            double temp = v > 0 ? v : 0;
 
             if (temp > max) max = temp;
             if (temp < min) min = temp;

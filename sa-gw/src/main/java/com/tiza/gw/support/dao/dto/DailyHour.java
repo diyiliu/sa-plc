@@ -1,9 +1,9 @@
 package com.tiza.gw.support.dao.dto;
 
+import com.diyiliu.plugin.util.CommonUtil;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,24 +14,33 @@ import java.util.Date;
 
 @Data
 @Entity
-@IdClass(DailyHourKey.class)
-@Table(name = "daily_work_hour")
+@Table(name = "equipment_worktime")
 public class DailyHour {
 
     @Id
-    private Long equipmentId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Id
+    private Long equipId;
+
+    @Column(name = "StatisticDate")
     private Date day;
 
-    @Column(name = "hours")
-    private Long hour;
+    private Date createTime;
+
+    @Column(name = "WorkHours")
+    private Double hour;
+
+    @Column(name = "TotalHours")
+    private Double totalHour;
+
+
+    public void setHour(Double hour) {
+        this.hour = CommonUtil.keepDecimal(hour, 1);
+    }
+
+    public void setTotalHour(Double totalHour) {
+        this.totalHour = CommonUtil.keepDecimal(totalHour, 1);
+    }
 }
 
-@Data
-class DailyHourKey implements Serializable{
-
-    private Long equipmentId;
-
-    private Date day;
-}

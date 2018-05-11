@@ -26,7 +26,7 @@ public class DetailInfo {
 
     private String value;
 
-    @Column(name = "plcVersionPointId")
+    @Column(name = "PlcVersionPointId")
     private Long pointId;
 
     private Date lastTime;

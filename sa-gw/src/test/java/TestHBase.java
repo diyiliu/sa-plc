@@ -40,7 +40,7 @@ public class TestHBase {
         calendar.set(Calendar.DAY_OF_MONTH, today.get(Calendar.DAY_OF_MONTH));
 
         long endTime = calendar.getTimeInMillis();
-        calendar.add(Calendar.DAY_OF_MONTH, -10);
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
         long startTime = calendar.getTimeInMillis();
 
         final String tag = "TotalRunTime";

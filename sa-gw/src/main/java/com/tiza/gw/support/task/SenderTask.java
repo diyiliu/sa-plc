@@ -53,7 +53,7 @@ public class SenderTask implements ITask {
         Set keys = onlineCache.getKeys();
         if (keys.size() < 1) {
 
-            log.warn("无设备在线!");
+            //log.warn("无设备在线!");
             return;
         }
         Map<String, Long> blockCache = new HashMap();

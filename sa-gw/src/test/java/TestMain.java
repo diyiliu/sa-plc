@@ -1,6 +1,8 @@
 import com.diyiliu.plugin.util.CommonUtil;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 /**
  * Description: TestMain
  * Author: DIYILIU
@@ -58,6 +60,20 @@ public class TestMain {
         byte[] bytes = CommonUtil.long2Bytes(l, 7);
 
         System.out.println(CommonUtil.bytesToStr(bytes));
+    }
+
+
+    @Test
+    public void test6(){
+
+        String str = "4.153E-42";
+
+        System.out.println(Double.parseDouble(str));
+
+        BigDecimal bigDecimal = new BigDecimal(str);
+
+        System.out.println(String.format("%.100000f", bigDecimal));
+
     }
 
 }

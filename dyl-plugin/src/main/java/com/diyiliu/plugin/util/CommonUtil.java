@@ -230,7 +230,7 @@ public class CommonUtil {
      * 保留小数
      *
      * @param num
-     * @param precision
+     * @param precision ( * 0.00001 进制转换)
      * @param digit
      * @return
      */
