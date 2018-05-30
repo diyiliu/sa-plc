@@ -1,4 +1,5 @@
 # WEB PROPERTIES
+# 接口测试页面 swagger-ui.html
 server:
   port: 5008
   context-path: '/'

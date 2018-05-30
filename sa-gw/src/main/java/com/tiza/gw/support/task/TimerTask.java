@@ -32,6 +32,11 @@ public class TimerTask implements ITask {
     private ICache deviceCache;
 
     /**
+     * 在线设备
+     */
+    private ICache onlineCache;
+
+    /**
      * 功能集定时任务
      */
     private ICache timerCache;
@@ -41,7 +46,8 @@ public class TimerTask implements ITask {
      */
     private ICache sendCache;
 
-    public TimerTask(ICache deviceCache, ICache timerCache, ICache sendCache) {
+    public TimerTask(ICache onlineCache, ICache deviceCache, ICache timerCache, ICache sendCache) {
+        this.onlineCache = onlineCache;
         this.deviceCache = deviceCache;
         this.timerCache = timerCache;
         this.sendCache = sendCache;
@@ -49,11 +55,11 @@ public class TimerTask implements ITask {
 
     @Override
     public void execute() {
-        Set set = deviceCache.getKeys();
+        Set set = onlineCache.getKeys();
         for (Iterator iterator = set.iterator(); iterator.hasNext(); ) {
             String deviceId = (String) iterator.next();
-            DeviceInfo deviceInfo = (DeviceInfo) deviceCache.get(deviceId);
 
+            DeviceInfo deviceInfo = (DeviceInfo) deviceCache.get(deviceId);
             String version = deviceInfo.getSoftVersion();
 
             Map<Integer, List<QueryFrame>> fnQuery = (Map<Integer, List<QueryFrame>>) timerCache.get(version);
@@ -79,6 +85,7 @@ public class TimerTask implements ITask {
 
     /**
      * 参数同步
+     *
      * @param deviceId
      * @param fnCode
      */
@@ -87,7 +94,7 @@ public class TimerTask implements ITask {
         String version = deviceInfo.getSoftVersion();
 
         Map<Integer, List<QueryFrame>> fnQuery = (Map<Integer, List<QueryFrame>>) timerCache.get(version);
-        if (MapUtils.isNotEmpty(fnQuery) && fnQuery.containsKey(fnCode)){
+        if (MapUtils.isNotEmpty(fnQuery) && fnQuery.containsKey(fnCode)) {
             List<QueryFrame> frameList = fnQuery.get(fnCode);
             for (QueryFrame frame : frameList) {
                 SendMsg msg = toSendMsg(deviceId, frame);
@@ -144,7 +151,6 @@ public class TimerTask implements ITask {
         if (sendCache.containsKey(deviceId)) {
             MsgMemory msgMemory = (MsgMemory) sendCache.get(deviceId);
             SendMsg msg = msgMemory.getMsgMap().get(qKey);
-
             if (msg == null) {
 
                 return true;

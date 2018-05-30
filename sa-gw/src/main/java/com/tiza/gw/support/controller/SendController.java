@@ -218,7 +218,7 @@ public class SendController {
             return "未配置设备功能集。";
         }
 
-        TimerTask task = new TimerTask(deviceCacheProvider, timerCacheProvider, sendCacheProvider);
+        TimerTask task = new TimerTask(onlineCacheProvider, deviceCacheProvider, timerCacheProvider, sendCacheProvider);
         task.synchronize(dtuId, code);
 
         return "设置成功";

@@ -16,6 +16,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
+ * 指令下发任务
+ *
  * Description: SenderTask
  * Author: DIYILIU
  * Update: 2018-01-29 10:45

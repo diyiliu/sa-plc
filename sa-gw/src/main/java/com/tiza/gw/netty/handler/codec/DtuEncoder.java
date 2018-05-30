@@ -10,6 +10,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import io.netty.util.Attribute;
 import io.netty.util.AttributeKey;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Description: DtuEncoder
@@ -52,7 +53,9 @@ public class DtuEncoder extends MessageToByteEncoder {
         Attribute attribute = context.channel().attr(AttributeKey.valueOf(Constant.NETTY_DEVICE_ID));
         String deviceId = (String) attribute.get();
 
-        KafkaClient kafkaClient = SpringUtil.getBean("kafkaClient");
-        kafkaClient.toKafka(deviceId, bytes, 2);
+        if (StringUtils.isNotEmpty(deviceId)){
+            KafkaClient kafkaClient = SpringUtil.getBean("kafkaClient");
+            kafkaClient.toKafka(deviceId, bytes, 2);
+        }
     }
 }

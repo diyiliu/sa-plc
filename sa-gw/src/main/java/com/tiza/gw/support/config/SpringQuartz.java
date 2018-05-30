@@ -80,7 +80,7 @@ public class SpringQuartz {
      */
     @Scheduled(fixedDelay = 5 * 1000, initialDelay = 10 * 1000)
     public void timerTask() {
-        ITask task = new TimerTask(deviceCacheProvider, timerCacheProvider, sendCacheProvider);
+        ITask task = new TimerTask(onlineCacheProvider, deviceCacheProvider, timerCacheProvider, sendCacheProvider);
         task.execute();
     }
 

@@ -54,9 +54,6 @@ public class DtuDecoder extends ByteToMessageDecoder {
             deviceId = new String(content);
             byte[] bytes = Unpooled.copiedBuffer(new byte[]{b1, b2, b2}, content).array();
 
-            // 写入kafka
-            kafkaClient.toKafka(deviceId, bytes, 1);
-
             if (0x40 == b1) {
                 register(deviceId, attribute, ctx);
             } else if (0x24 == b1) {
@@ -64,6 +61,12 @@ public class DtuDecoder extends ByteToMessageDecoder {
                 if (attribute.get() == null) {
                     register(deviceId, attribute, ctx);
                 }
+            }
+
+            // 不记录异常数据
+            if (ctx.channel().isOpen()){
+                // 写入kafka
+                kafkaClient.toKafka(deviceId, bytes, 1);
             }
         } else {
             deviceId = (String) attribute.get();
