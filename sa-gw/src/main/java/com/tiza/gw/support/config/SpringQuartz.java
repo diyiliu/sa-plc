@@ -247,7 +247,7 @@ public class SpringQuartz {
             PointUnit unit = list.get(i);
             // 类型(1:bit;2:byte;3:word;4:dword;5:digital)
             int type = unit.getType();
-            int frequency = unit.getFrequency();
+            long frequency = unit.getFrequency();
             int address = unit.getAddress();
 
             boolean newQuery = true;

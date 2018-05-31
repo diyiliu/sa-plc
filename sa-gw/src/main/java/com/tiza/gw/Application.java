@@ -2,7 +2,6 @@ package com.tiza.gw;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Description: Application
@@ -10,7 +9,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Update: 2018-04-13 15:02
  */
 
-@EnableSwagger2
 @SpringBootApplication
 public class Application {
 

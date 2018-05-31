@@ -64,7 +64,7 @@ public class DtuDecoder extends ByteToMessageDecoder {
             }
 
             // 不记录异常数据
-            if (ctx.channel().isOpen()){
+            if (ctx.channel().isOpen()) {
                 // 写入kafka
                 kafkaClient.toKafka(deviceId, bytes, 1);
             }
@@ -77,8 +77,10 @@ public class DtuDecoder extends ByteToMessageDecoder {
             }
             in.resetReaderIndex();
 
-            // 读取 地址(byte) + 功能码(byte)
-            in.readShort();
+            // 从站地址
+            int site = in.readByte();
+            // 功能码
+            int code = in.readByte();
 
             // 判断上行数据类型
             ICache sendCache = SpringUtil.getBean("sendCacheProvider");
@@ -90,9 +92,20 @@ public class DtuDecoder extends ByteToMessageDecoder {
 
             MsgMemory msgMemory = (MsgMemory) sendCache.get(deviceId);
             SendMsg sendMsg = msgMemory.getCurrent();
-
             // 指令类型
             int type = sendMsg.getType();
+
+            // 查询匹配 从站地址, 功能码
+            if (type == 0) {
+                PointUnit unit = sendMsg.getUnitList().get(0);
+                if (site != unit.getSiteId() || code != unit.getReadFunction()) {
+                    log.error("设备[{}], 从站地址[{}, {}], 功能码[{}, {}], 上下行不匹配, 断开连接!",
+                            deviceId, site, unit.getSiteId(), code, unit.getReadFunction());
+                    ctx.close();
+                    return;
+                }
+            }
+
             byte[] content = null;
             switch (type) {
                 case 0: // 查询应答

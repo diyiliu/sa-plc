@@ -36,7 +36,7 @@ public class PointUnit {
     private Integer address;
 
     /** 查询频率*/
-    private Integer frequency;
+    private Long frequency;
 
     /** 查询单元*/
     private QueryFrame queryFrame;

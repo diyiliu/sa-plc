@@ -4,10 +4,10 @@ import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.task.ITask;
 import com.diyiliu.plugin.util.CommonUtil;
 import com.diyiliu.plugin.util.SpringUtil;
+import com.tiza.gw.support.dao.dto.SendLog;
 import com.tiza.gw.support.dao.jpa.SendLogJpa;
 import com.tiza.gw.support.model.MsgMemory;
 import com.tiza.gw.support.model.SendMsg;
-import com.tiza.gw.support.dao.dto.SendLog;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
@@ -52,12 +52,6 @@ public class SenderTask implements ITask {
 
     @Override
     public void execute() {
-        Set keys = onlineCache.getKeys();
-        if (keys.size() < 1) {
-
-            //log.warn("无设备在线!");
-            return;
-        }
         Map<String, Long> blockCache = new HashMap();
 
         List<SendMsg> tempMsg = new ArrayList();
@@ -71,6 +65,21 @@ public class SenderTask implements ITask {
             }
 
             String deviceId = sendMsg.getDeviceId();
+
+            // 过滤重复查询
+            /*
+            if (sendCache.containsKey(deviceId)) {
+                String qKey = sendMsg.getKey();
+                long frequency = sendMsg.getUnitList().get(0).getFrequency();
+                MsgMemory msgMemory = (MsgMemory) sendCache.get(deviceId);
+                SendMsg msg = msgMemory.getMsgMap().get(qKey);
+                if (msg != null && (System.currentTimeMillis() - msg.getDateTime() < frequency * 1000)) {
+
+                    continue;
+                }
+            }
+            */
+
             if (onlineCache.containsKey(deviceId)) {
                 // 设备阻塞状态
                 if (blockCache.containsKey(deviceId)) {
@@ -119,7 +128,7 @@ public class SenderTask implements ITask {
                     msgMemory.setDeviceId(deviceId);
                     sendCache.put(deviceId, msgMemory);
                 }
-                sendMsg.setDatetime(System.currentTimeMillis());
+                sendMsg.setDateTime(System.currentTimeMillis());
                 msgMemory.setCurrent(sendMsg);
             }
         }
@@ -180,7 +189,7 @@ public class SenderTask implements ITask {
             SendMsg current = msgMemory.getCurrent();
             if (current != null && current.getResult() == 0) {
                 // 超时 手动置为已处理
-                if (System.currentTimeMillis() - current.getDatetime() > 10 * 1000) {
+                if (System.currentTimeMillis() - current.getDateTime() > 20 * 1000) {
                     log.warn("丢弃超时未应答指令, 设备[{}]内容[{}]!", current.getDeviceId(), CommonUtil.bytesToStr(current.getBytes()));
 
                     current.setResult(1);

@@ -32,7 +32,7 @@ public class SendMsg {
     private String key;
 
     /** 下发时间 */
-    private Long datetime;
+    private Long dateTime;
 
     /** 下发功能集节点 */
     private List<PointUnit> unitList;
@@ -42,6 +42,8 @@ public class SendMsg {
 
     /** 数据库指令下发id */
     private Long rowId;
+
+
 
     public int getTryCount() {
         return tryCount.getAndIncrement();

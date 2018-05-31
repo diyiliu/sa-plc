@@ -9,6 +9,7 @@ import com.tiza.gw.support.model.SendMsg;
 import com.tiza.gw.support.dao.dto.DeviceInfo;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;
 
 import java.util.Iterator;
@@ -24,6 +25,7 @@ import java.util.Set;
  * Update: 2018-04-25 14:03
  */
 
+@Slf4j
 public class TimerTask implements ITask {
 
     /**
@@ -73,7 +75,7 @@ public class TimerTask implements ITask {
 
                 for (QueryFrame frame : frameList) {
                     String qKey = frame.getSite() + ":" + frame.getCode() + ":" + frame.getStart();
-                    int frequency = frame.getPointUnits().get(0).getFrequency();
+                    long frequency = frame.getPointUnits().get(0).getFrequency();
                     if (onTime(deviceId, qKey, frequency)) {
                         SendMsg msg = toSendMsg(deviceId, frame);
                         SenderTask.send(msg);
@@ -139,15 +141,14 @@ public class TimerTask implements ITask {
         return sendMsg;
     }
 
-
     /**
-     * 是否到下发时间
+     * 校验查询频率
      *
      * @param qKey
      * @param interval
      * @return
      */
-    private boolean onTime(String deviceId, String qKey, int interval) {
+    private boolean onTime(String deviceId, String qKey, long interval) {
         if (sendCache.containsKey(deviceId)) {
             MsgMemory msgMemory = (MsgMemory) sendCache.get(deviceId);
             SendMsg msg = msgMemory.getMsgMap().get(qKey);
@@ -156,7 +157,7 @@ public class TimerTask implements ITask {
                 return true;
             }
 
-            if (System.currentTimeMillis() - msg.getDatetime() < interval * 1000) {
+            if (System.currentTimeMillis() - msg.getDateTime() < interval * 1000) {
 
                 return false;
             }

@@ -47,7 +47,7 @@ public class PointInfo {
     private Integer position;
 
     /** 查询频率*/
-    private Integer frequency;
+    private Long frequency;
 
     /** 保存数据类型*/
     private Integer saveType;

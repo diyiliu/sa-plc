@@ -58,7 +58,7 @@ public class KafkaClient extends Thread {
      * @param bytes
      */
     public void toKafka(String deviceId, byte[] bytes, int direction) {
-        log.info("[{}] 设备[{}]原始数据[{}]...", direction == 1 ? "上行" : "下行", deviceId, CommonUtil.bytesToStr(bytes));
+        log.debug("[{}] 设备[{}]原始数据[{}]...", direction == 1 ? "上行" : "下行", deviceId, CommonUtil.bytesToStr(bytes));
 
         long time = System.currentTimeMillis();
         Map map = new HashMap();

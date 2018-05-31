@@ -8,6 +8,7 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Description: Swagger2Config
@@ -16,6 +17,7 @@ import springfox.documentation.spring.web.plugins.Docket;
  */
 
 @Configuration
+@EnableSwagger2
 public class Swagger2Config {
 
     @Bean
@@ -33,7 +35,7 @@ public class Swagger2Config {
                 .title("springboot利用swagger构建api文档")
                 .description("简单优雅的restfun风格,个人主页http://diyiliu.cc")
                 .termsOfServiceUrl("http://diyiliu.cc")
-                .version("1.0")
+                .version("2.0")
                 .build();
     }
 }

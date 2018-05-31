@@ -13,7 +13,6 @@
             <option value="$PROJECT_DIR$/sa-gw" />
           </set>
         </option>
-        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>
