@@ -62,8 +62,12 @@ public class TimerTask implements ITask {
             String deviceId = (String) iterator.next();
 
             DeviceInfo deviceInfo = (DeviceInfo) deviceCache.get(deviceId);
-            String version = deviceInfo.getSoftVersion();
+            if (deviceInfo == null){
 
+                continue;
+            }
+
+            String version = deviceInfo.getSoftVersion();
             Map<Integer, List<QueryFrame>> fnQuery = (Map<Integer, List<QueryFrame>>) timerCache.get(version);
             for (Iterator<Integer> iter = fnQuery.keySet().iterator(); iter.hasNext(); ) {
                 int fnCode = iter.next();
@@ -157,7 +161,7 @@ public class TimerTask implements ITask {
                 return true;
             }
 
-            if (System.currentTimeMillis() - msg.getDateTime() < interval * 1000) {
+            if ((System.currentTimeMillis() - msg.getDateTime()) * 0.001 < interval) {
 
                 return false;
             }

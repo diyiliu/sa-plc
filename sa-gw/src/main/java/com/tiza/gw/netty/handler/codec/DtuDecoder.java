@@ -192,6 +192,7 @@ public class DtuDecoder extends ByteToMessageDecoder {
             JdbcTemplate jdbcTemplate = SpringUtil.getBean("jdbcTemplate");
             String sql = "UPDATE equipment_info SET DtuStatus = 1 WHERE EquipmentId = " + deviceInfo.getId();
             jdbcTemplate.update(sql);
+            log.warn("设备[{}]上线[{}]", deviceId, sql);
 
             return;
         }

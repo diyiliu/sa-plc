@@ -131,6 +131,7 @@ public class SpringQuartz {
             timerCacheProvider.remove(key);
         }
 
+        /*
         // 删除过期定时消息(更新的功能集和删除的功能集)
         Collection unionKeys = CollectionUtils.union(tempKeys, subKeys);
         Set deviceSet = deviceCacheProvider.getKeys();
@@ -146,6 +147,7 @@ public class SpringQuartz {
                 }
             }
         }
+        */
     }
 
     /**

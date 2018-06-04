@@ -66,8 +66,8 @@ public class SenderTask implements ITask {
 
             String deviceId = sendMsg.getDeviceId();
 
-            // 过滤重复查询
             /*
+            // 过滤重复查询
             if (sendCache.containsKey(deviceId)) {
                 String qKey = sendMsg.getKey();
                 long frequency = sendMsg.getUnitList().get(0).getFrequency();
