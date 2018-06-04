@@ -2,13 +2,13 @@ package com.tiza.gw.support.controller;
 
 import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.util.CommonUtil;
+import com.tiza.gw.support.dao.dto.DetailInfo;
+import com.tiza.gw.support.dao.dto.DeviceInfo;
+import com.tiza.gw.support.dao.dto.PointInfo;
 import com.tiza.gw.support.dao.jpa.DetailInfoJpa;
 import com.tiza.gw.support.dao.jpa.DeviceInfoJpa;
 import com.tiza.gw.support.model.PointUnit;
 import com.tiza.gw.support.model.SendMsg;
-import com.tiza.gw.support.dao.dto.DetailInfo;
-import com.tiza.gw.support.dao.dto.DeviceInfo;
-import com.tiza.gw.support.dao.dto.PointInfo;
 import com.tiza.gw.support.task.SenderTask;
 import com.tiza.gw.support.task.TimerTask;
 import io.netty.buffer.ByteBuf;
@@ -17,8 +17,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -73,8 +73,8 @@ public class SendController {
      */
     @PostMapping("/setup")
     @ApiOperation(value = "参数设置", notes = "设置设备参数")
-    public String setup(@Param("key") String key, @Param("value") String value,
-                        @Param("equipId") String equipId, @Param("rowId") Long rowId, HttpServletResponse response) {
+    public String setup(@RequestParam("key") String key, @RequestParam("value") String value,
+                        @RequestParam("equipId") String equipId, @RequestParam("rowId") Long rowId, HttpServletResponse response) {
         //log.info("[{}, {}, {}, {}]", key, value, equipId, rowId);
 
         DeviceInfo deviceInfo = deviceInfoJpa.findById(Long.parseLong(equipId));
@@ -202,7 +202,7 @@ public class SendController {
      */
     @PostMapping("/synchronize")
     @ApiOperation(value = "同步参数", notes = "刷新指定功能码参数")
-    public String synchronize(@Param("code") Integer code, @Param("equipId") String equipId, HttpServletResponse response) {
+    public String synchronize(@RequestParam("code") Integer code, @RequestParam("equipId") String equipId, HttpServletResponse response) {
         DeviceInfo deviceInfo = deviceInfoJpa.findById(Long.parseLong(equipId));
         String dtuId = deviceInfo.getDtuId();
         if (!onlineCacheProvider.containsKey(dtuId)) {
