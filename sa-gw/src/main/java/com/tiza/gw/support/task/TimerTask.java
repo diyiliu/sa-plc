@@ -62,7 +62,7 @@ public class TimerTask implements ITask {
             String deviceId = (String) iterator.next();
 
             DeviceInfo deviceInfo = (DeviceInfo) deviceCache.get(deviceId);
-            if (deviceInfo == null){
+            if (deviceInfo == null) {
 
                 continue;
             }
@@ -104,7 +104,7 @@ public class TimerTask implements ITask {
             List<QueryFrame> frameList = fnQuery.get(fnCode);
             for (QueryFrame frame : frameList) {
                 SendMsg msg = toSendMsg(deviceId, frame);
-                SenderTask.send(msg);
+                SenderTask.send(msg, true);
             }
         }
     }

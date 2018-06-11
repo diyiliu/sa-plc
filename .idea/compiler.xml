@@ -5,6 +5,12 @@
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="com.tiza.dyl-plugin.main" target="1.8" />
+      <module name="com.tiza.dyl-plugin.test" target="1.8" />
+      <module name="com.tiza.sa-gw.main" target="1.8" />
+      <module name="com.tiza.sa-gw.test" target="1.8" />
+      <module name="com.tiza.sa-plc.main" target="1.8" />
+      <module name="com.tiza.sa-plc.test" target="1.8" />
       <module name="dyl-plugin_main" target="1.8" />
       <module name="dyl-plugin_test" target="1.8" />
       <module name="sa-gw_main" target="1.8" />

@@ -17,6 +17,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -133,13 +134,17 @@ public class DtuDataProcess implements IDataProcess {
         if (5 == type || 1 == type) {
             String binaryStr = CommonUtil.bytes2BinaryStr(bytes);
 
+            int address = pointUnit.getAddress();
             int length = pointUnit.getTags().length;
             if (binaryStr.length() - length >= 0) {
                 for (int i = 0; i < length; i++) {
                     PointInfo p = pointUnit.getPoints()[i];
 
                     String k = p.getTag();
-                    String v = binaryStr.substring(i, i + 1);
+
+                    int offset = (p.getAddress() - address) * 8;
+                    int position = offset + p.getPosition();
+                    String v = binaryStr.substring(position, position + 1);
 
                     // 当前表
                     if (p.getSaveType() == 1) {
@@ -200,6 +205,10 @@ public class DtuDataProcess implements IDataProcess {
      * @param paramValues
      */
     private void updateSummary(long equipId, Map paramValues) {
+        if (MapUtils.isEmpty(paramValues)) {
+            return;
+        }
+
         List list = new ArrayList();
         StringBuilder sqlBuilder = new StringBuilder("UPDATE equipment_info SET ");
         for (Iterator iterator = paramValues.keySet().iterator(); iterator.hasNext(); ) {

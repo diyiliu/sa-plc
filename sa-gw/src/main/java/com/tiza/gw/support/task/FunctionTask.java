@@ -133,7 +133,7 @@ public class FunctionTask implements ITask {
                     List<PointInfo> pList = unitMap.get(address);
 
                     PointUnit pointUnit = new PointUnit();
-                    renderFirst(pointUnit, list);
+                    renderFirst(pointUnit, pList);
 
                     String[] tags = new String[pList.size()];
                     PointInfo[] points = new PointInfo[pList.size()];
