@@ -93,6 +93,18 @@ public class SpringConfig {
 
 
     /**
+     * 故障缓存
+     *
+     * @return
+     */
+    @Bean
+    public ICache faultCacheProvider() {
+
+        return new RamCacheProvider();
+    }
+
+
+    /**
      * 设备注册缓存
      *
      * @return

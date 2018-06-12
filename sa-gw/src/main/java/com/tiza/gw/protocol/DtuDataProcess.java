@@ -5,14 +5,13 @@ import com.diyiliu.plugin.model.Header;
 import com.diyiliu.plugin.model.IDataProcess;
 import com.diyiliu.plugin.util.CommonUtil;
 import com.tiza.gw.support.client.KafkaClient;
-import com.tiza.gw.support.client.RedisClient;
+import com.tiza.gw.support.dao.dto.DetailInfo;
+import com.tiza.gw.support.dao.dto.DeviceInfo;
 import com.tiza.gw.support.dao.dto.FaultInfo;
+import com.tiza.gw.support.dao.dto.PointInfo;
 import com.tiza.gw.support.dao.jpa.DetailInfoJpa;
 import com.tiza.gw.support.dao.jpa.FaultInfoJpa;
 import com.tiza.gw.support.model.*;
-import com.tiza.gw.support.dao.dto.DetailInfo;
-import com.tiza.gw.support.dao.dto.DeviceInfo;
-import com.tiza.gw.support.dao.dto.PointInfo;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +52,7 @@ public class DtuDataProcess implements IDataProcess {
     private FaultInfoJpa faultInfoJpa;
 
     @Resource
-    private RedisClient redisClient;
+    private ICache faultCacheProvider;
 
     @Override
     public void init() {
@@ -80,6 +79,10 @@ public class DtuDataProcess implements IDataProcess {
 
         MsgMemory msgMemory = (MsgMemory) sendCacheProvider.get(deviceId);
         SendMsg sendMsg = msgMemory.getCurrent();
+        if (1 == sendMsg.getResult()){
+
+            return;
+        }
         sendMsg.setResult(1);
 
         // 加入历史下发缓存
@@ -263,35 +266,37 @@ public class DtuDataProcess implements IDataProcess {
         String key = detailInfo.getEquipId() + ":" + detailInfo.getTag();
         int value = Integer.parseInt(detailInfo.getValue());
 
-        boolean flag = redisClient.exists(key);
+        synchronized (key) {
+            boolean flag = faultCacheProvider.containsKey(key);
 
-        // 产生报警
-        if (1 == value && !flag) {
-            FaultInfo faultInfo = new FaultInfo();
-            faultInfo.setEquipId(detailInfo.getEquipId());
-            faultInfo.setFaultId(detailInfo.getFaultId());
-            faultInfo.setPointId(detailInfo.getPointId());
-            faultInfo.setTag(detailInfo.getTag());
-            faultInfo.setValue(detailInfo.getValue());
-            faultInfo.setStartTime(new Date());
+            // 产生报警
+            if (1 == value && !flag) {
+                FaultInfo faultInfo = new FaultInfo();
+                faultInfo.setEquipId(detailInfo.getEquipId());
+                faultInfo.setFaultId(detailInfo.getFaultId());
+                faultInfo.setPointId(detailInfo.getPointId());
+                faultInfo.setTag(detailInfo.getTag());
+                faultInfo.setValue(detailInfo.getValue());
+                faultInfo.setStartTime(new Date());
 
-            faultInfo = faultInfoJpa.save(faultInfo);
-            if (faultInfo != null) {
-                redisClient.set(key, faultInfo.getId());
+                faultInfo = faultInfoJpa.save(faultInfo);
+                if (faultInfo != null) {
+                    faultCacheProvider.put(key, faultInfo.getId());
+                }
+
+                return;
             }
 
-            return;
-        }
+            // 解除报警
+            if (0 == value && flag) {
+                long id = (Long) faultCacheProvider.get(key);
+                FaultInfo faultInfo = faultInfoJpa.findById(id);
+                faultInfo.setEndTime(new Date());
 
-        // 解除报警
-        if (0 == value && flag) {
-            long id = (Long) redisClient.get(key);
-            FaultInfo faultInfo = faultInfoJpa.findById(id);
-            faultInfo.setEndTime(new Date());
-
-            faultInfo = faultInfoJpa.save(faultInfo);
-            if (faultInfo != null) {
-                redisClient.remove(key);
+                faultInfo = faultInfoJpa.save(faultInfo);
+                if (faultInfo != null) {
+                    faultCacheProvider.remove(key);
+                }
             }
         }
     }
