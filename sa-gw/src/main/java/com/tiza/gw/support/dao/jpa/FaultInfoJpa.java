@@ -15,6 +15,8 @@ public interface FaultInfoJpa extends JpaRepository<FaultInfo, Long> {
 
     FaultInfo findById(long id);
 
+/*
     @Query("select f from FaultInfo f where endTime is null or endTime < startTime")
     List<FaultInfo> findByEndTimeIsNullOrEndTimeBeforeStartTime();
+*/
 }

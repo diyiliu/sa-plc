@@ -1,7 +1,10 @@
 import com.diyiliu.plugin.util.CommonUtil;
+import com.tiza.gw.support.model.TopicMsg;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Description: TestMain
@@ -74,6 +77,28 @@ public class TestMain {
 
         System.out.println(String.format("%.100000f", bigDecimal));
 
+    }
+
+    @Test
+    public void test7(){
+        List<TopicMsg> list = new ArrayList();
+
+        TopicMsg tm1 = new TopicMsg();
+        tm1.setTopic("1");
+
+        TopicMsg tm2 = new TopicMsg();
+        tm2.setTopic("2");
+
+        TopicMsg tm3 = new TopicMsg();
+        tm3.setTopic("3");
+
+        list.add(tm1);
+        list.add(tm2);
+        list.add(tm3);
+
+        list.removeIf(i -> i.getTopic().equals("1"));
+
+        System.out.println(list.size());
     }
 
 }

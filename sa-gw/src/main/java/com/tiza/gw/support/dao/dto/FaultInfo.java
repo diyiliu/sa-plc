@@ -36,4 +36,7 @@ public class FaultInfo {
 
     @Column(name = "FaultEndTime")
     private Date endTime;
+
+    @Transient
+    private Integer faultType;
 }

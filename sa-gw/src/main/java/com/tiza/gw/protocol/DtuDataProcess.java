@@ -4,6 +4,7 @@ import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.model.Header;
 import com.diyiliu.plugin.model.IDataProcess;
 import com.diyiliu.plugin.util.CommonUtil;
+import com.diyiliu.plugin.util.JacksonUtil;
 import com.tiza.gw.support.client.KafkaClient;
 import com.tiza.gw.support.dao.dto.DetailInfo;
 import com.tiza.gw.support.dao.dto.DeviceInfo;
@@ -17,11 +18,13 @@ import io.netty.buffer.Unpooled;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
+import org.apache.kafka.common.security.JaasUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Description: DtuDataProcess
@@ -79,7 +82,7 @@ public class DtuDataProcess implements IDataProcess {
 
         MsgMemory msgMemory = (MsgMemory) sendCacheProvider.get(deviceId);
         SendMsg sendMsg = msgMemory.getCurrent();
-        if (1 == sendMsg.getResult()){
+        if (1 == sendMsg.getResult()) {
 
             return;
         }
@@ -163,8 +166,9 @@ public class DtuDataProcess implements IDataProcess {
                     detailList.add(d);
 
                     // 故障点
-                    if (p.getFaultType() != null && p.getFaultType() > 0) {
+                    if (p.getFaultId() != null && p.getFaultType() > 0) {
                         d.setFaultId(p.getFaultId());
+                        d.setFaultType(p.getFaultType());
                     }
                 }
             }
@@ -263,11 +267,23 @@ public class DtuDataProcess implements IDataProcess {
      * @param detailInfo
      */
     private void dealFault(DetailInfo detailInfo) {
-        String key = detailInfo.getEquipId() + ":" + detailInfo.getTag();
+        Long key = detailInfo.getEquipId();
         int value = Integer.parseInt(detailInfo.getValue());
 
         synchronized (key) {
-            boolean flag = faultCacheProvider.containsKey(key);
+            List<FaultInfo> list = (List<FaultInfo>) faultCacheProvider.get(key);
+
+            boolean flag = false;
+            FaultInfo currentFault = null;
+            if (CollectionUtils.isNotEmpty(list)) {
+                for (FaultInfo info : list) {
+                    if (info.getTag().equals(detailInfo.getTag())) {
+                        flag = true;
+                        currentFault = info;
+                        break;
+                    }
+                }
+            }
 
             // 产生报警
             if (1 == value && !flag) {
@@ -278,10 +294,20 @@ public class DtuDataProcess implements IDataProcess {
                 faultInfo.setTag(detailInfo.getTag());
                 faultInfo.setValue(detailInfo.getValue());
                 faultInfo.setStartTime(new Date());
+                faultInfo.setFaultType(detailInfo.getFaultType());
 
                 faultInfo = faultInfoJpa.save(faultInfo);
                 if (faultInfo != null) {
-                    faultCacheProvider.put(key, faultInfo.getId());
+                    if (CollectionUtils.isEmpty(list)) {
+                        list = new ArrayList();
+                        list.add(faultInfo);
+                        faultCacheProvider.put(key, list);
+                    } else {
+                        list.add(faultInfo);
+                    }
+
+                    // 更新当前状态
+                    updateAlarm(list);
                 }
 
                 return;
@@ -289,15 +315,39 @@ public class DtuDataProcess implements IDataProcess {
 
             // 解除报警
             if (0 == value && flag) {
-                long id = (Long) faultCacheProvider.get(key);
+                long id = currentFault.getId();
                 FaultInfo faultInfo = faultInfoJpa.findById(id);
                 faultInfo.setEndTime(new Date());
 
                 faultInfo = faultInfoJpa.save(faultInfo);
                 if (faultInfo != null) {
-                    faultCacheProvider.remove(key);
+                    list.removeIf(f -> f.getTag().equals(detailInfo.getTag()));
+
+                    // 更新当前状态
+                    if (CollectionUtils.isEmpty(list)) {
+                        String sql = "UPDATE equipment_info SET HardAlarmStatus = 0 where equipmentId = " + key;
+                        jdbcTemplate.update(sql);
+                    } else {
+                        updateAlarm(list);
+                    }
                 }
             }
         }
+    }
+
+
+    /**
+     * 更新当前报警等级
+     *
+     * @param list
+     */
+    private void updateAlarm(List<FaultInfo> list) {
+        list = list.stream().sorted(Comparator.comparing(FaultInfo::getFaultType)).collect(Collectors.toList());
+        FaultInfo faultInfo = list.get(0);
+        String sql = "UPDATE equipment_info SET HardAlarmStatus = " + faultInfo.getFaultType() + " where equipmentId = " + faultInfo.getEquipId();
+        jdbcTemplate.update(sql);
+
+        System.out.println(JacksonUtil.toJson(list));
+        System.out.println(sql);
     }
 }

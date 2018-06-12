@@ -33,6 +33,9 @@ public class DetailInfo {
 
     @Transient
     private Long faultId;
+
+    @Transient
+    private Integer faultType;
 }
 
 

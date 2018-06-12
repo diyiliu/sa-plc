@@ -8,9 +8,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.sql.ResultSet;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Description: DataInitialize
@@ -35,12 +39,30 @@ public class DataInitialize implements ApplicationListener {
      */
     private void synchRedis(){
         ICache faultCache = SpringUtil.getBean("faultCacheProvider");
-        FaultInfoJpa faultInfoJpa = SpringUtil.getBean("faultInfoJpa");
+        JdbcTemplate jdbcTemplate = SpringUtil.getBean("jdbcTemplate");
 
-        List<FaultInfo> faultInfoList = faultInfoJpa.findByEndTimeIsNullOrEndTimeBeforeStartTime();
-        for (FaultInfo faultInfo: faultInfoList){
-            String key = faultInfo.getEquipId() + ":" + faultInfo.getTag();
-            faultCache.put(key, faultInfo.getId());
-        }
+        
+        String sql = "SELECT " +
+                " f.*, c.`Level` " +
+                "FROM " +
+                " equipment_fault f " +
+                "LEFT JOIN fault_code c ON c.id = f.FaultId " +
+                "WHERE " +
+                " f.FaultEndTime IS NULL " +
+                "OR f.FaultEndTime < f.FaultStartTime";
+
+
+        List<FaultInfo> faultInfoList = jdbcTemplate.query(sql, (ResultSet rs, int rowNum) -> {
+            FaultInfo faultInfo = new FaultInfo();
+            faultInfo.setId(rs.getLong("id"));
+            faultInfo.setFaultType(rs.getInt("level"));
+            faultInfo.setEquipId(rs.getLong("equipId"));
+            faultInfo.setTag(rs.getString("tag"));
+
+            return faultInfo;
+        });
+
+        Map<Long, List<FaultInfo>> listMap = faultInfoList.stream().collect(Collectors.groupingBy(FaultInfo::getEquipId));
+        faultCache.put(listMap);
     }
 }
