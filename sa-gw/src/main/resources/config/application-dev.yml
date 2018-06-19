@@ -1,6 +1,6 @@
 # WEB PROPERTIES
 server:
-  port: 5008
+  port: 5009
   context-path: '/'
 
 # SPRING
@@ -23,7 +23,7 @@ spring:
     port: 6379
 
 # 自定义配置
-dtu-server-port: 5001
+dtu-server-port: 5002
 
 kafka:
   broker-list: tcloud-161:9092,tcloud-162:9092,tcloud-163:9092

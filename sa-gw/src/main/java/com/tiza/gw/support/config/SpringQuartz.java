@@ -4,16 +4,12 @@ import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.task.ITask;
 import com.tiza.gw.support.client.HBaseClient;
 import com.tiza.gw.support.dao.dto.DailyHour;
-import com.tiza.gw.support.dao.jpa.DailyHourJpa;
-import com.tiza.gw.support.dao.jpa.DeviceInfoJpa;
-import com.tiza.gw.support.dao.jpa.PointInfoJpa;
+import com.tiza.gw.support.dao.jpa.*;
 import com.tiza.gw.support.model.MsgMemory;
 import com.tiza.gw.support.model.PointUnit;
 import com.tiza.gw.support.model.QueryFrame;
 import com.tiza.gw.support.dao.dto.DeviceInfo;
-import com.tiza.gw.support.task.DeviceInfoTask;
-import com.tiza.gw.support.task.FunctionTask;
-import com.tiza.gw.support.task.SenderTask;
+import com.tiza.gw.support.task.*;
 import com.tiza.gw.support.task.TimerTask;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.context.annotation.Configuration;
@@ -64,6 +60,32 @@ public class SpringQuartz {
 
     @Resource
     private HBaseClient hbaseClient;
+
+    @Resource
+    private MaintainInfoJpa maintainInfoJpa;
+
+    @Resource
+    private MaintainRemindJpa maintainRemindJpa;
+
+    @Resource
+    private MaintainLogJpa maintainLogJpa;
+
+    @Resource
+    private DeviceCurrentStatusJpa deviceCurrentStatusJpa;
+
+
+    @Scheduled(cron = "0 24 10 * * ?")
+    public void maintainTask(){
+        MaintainTask mtTask = new MaintainTask();
+        mtTask.setDeviceCache(deviceCacheProvider);
+        mtTask.setMaintainInfoJpa(maintainInfoJpa);
+        mtTask.setMaintainLogJpa(maintainLogJpa);
+        mtTask.setMaintainRemindJpa(maintainRemindJpa);
+        mtTask.setDeviceCurrentStatusJpa(deviceCurrentStatusJpa);
+
+        mtTask.execute();
+    }
+
 
 
     /**

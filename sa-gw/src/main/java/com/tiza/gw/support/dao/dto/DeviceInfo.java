@@ -2,10 +2,8 @@ package com.tiza.gw.support.dao.dto;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
 
 
 /**
@@ -24,6 +22,14 @@ public class DeviceInfo {
 
     private String dtuId;
 
+    /** 出厂日期 */
+    private Date factoryDate;
+
     @Column(name = "PlcVersionId")
     private String softVersion;
+
+    private Long maintainPolicyId;
+
+    @Transient
+    private Double workHours;
 }

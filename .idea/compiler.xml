@@ -15,6 +15,8 @@
       <module name="dyl-plugin_test" target="1.8" />
       <module name="sa-gw_main" target="1.8" />
       <module name="sa-gw_test" target="1.8" />
+      <module name="sa-maintain_main" target="1.8" />
+      <module name="sa-maintain_test" target="1.8" />
       <module name="sa-plc-dyl-plugin_main" target="1.8" />
       <module name="sa-plc-dyl-plugin_test" target="1.8" />
       <module name="sa-plc-sa-gw_main" target="1.8" />
