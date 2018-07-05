@@ -19,6 +19,7 @@ import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -57,10 +58,7 @@ public class DtuDecoder extends ByteToMessageDecoder {
             if (0x40 == b1) {
                 register(deviceId, attribute, ctx);
             } else if (0x24 == b1) {
-                // 未注册重新注册
-                if (attribute.get() == null) {
-                    register(deviceId, attribute, ctx);
-                }
+                register(deviceId, attribute, ctx);
             }
 
             // 不记录异常数据
@@ -180,20 +178,21 @@ public class DtuDecoder extends ByteToMessageDecoder {
         // 设备缓存
         ICache deviceCache = SpringUtil.getBean("deviceCacheProvider");
         if (deviceCache.containsKey(deviceId)) {
-            log.info("设备[{}]注册...", deviceId);
-
-            attribute.set(deviceId);
             ICache online = SpringUtil.getBean("onlineCacheProvider");
-            online.put(deviceId, context);
+            if (attribute.get() == null || !online.containsKey(deviceId)) {
+                log.info("设备[{}]注册...", deviceId);
 
-            DeviceInfo deviceInfo = (DeviceInfo) deviceCache.get(deviceId);
+                attribute.set(deviceId);
+                online.put(deviceId, context);
 
-            // 设备在线
-            JdbcTemplate jdbcTemplate = SpringUtil.getBean("jdbcTemplate");
-            String sql = "UPDATE equipment_info SET DtuStatus = 1 WHERE EquipmentId = " + deviceInfo.getId();
-            jdbcTemplate.update(sql);
-            log.warn("设备[{}]上线[{}]", deviceId, sql);
+                DeviceInfo deviceInfo = (DeviceInfo) deviceCache.get(deviceId);
+                // 设备在线
+                JdbcTemplate jdbcTemplate = SpringUtil.getBean("jdbcTemplate");
+                String sql = "UPDATE equipment_info SET DtuStatus = 1, LastTime = ? WHERE EquipmentId = ?";
 
+                jdbcTemplate.update(sql, new Object[]{new Date(), deviceInfo.getId()});
+                log.warn("设备[{}]上线[{}]", deviceId, sql);
+            }
             return;
         }
 

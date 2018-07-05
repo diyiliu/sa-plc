@@ -7,8 +7,9 @@ import com.tiza.gw.support.dao.jpa.DeviceCurrentStatusJpa;
 import com.tiza.gw.support.dao.jpa.MaintainInfoJpa;
 import com.tiza.gw.support.dao.jpa.MaintainLogJpa;
 import com.tiza.gw.support.dao.jpa.MaintainRemindJpa;
-import org.springframework.data.domain.Sort;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.data.domain.Sort;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
  * Update: 2018-06-14 09:02
  */
 
+@Slf4j
 public class MaintainTask implements ITask {
 
     private MaintainInfoJpa maintainInfoJpa;
@@ -33,6 +35,8 @@ public class MaintainTask implements ITask {
 
     @Override
     public void execute() {
+        log.info("保养提醒分析 ... ");
+
         Map<String, Object> deviceInfoMap = deviceCache.get(deviceCache.getKeys());
         Set<Long> policyIds = deviceInfoMap.keySet().stream().map(e -> {
             DeviceInfo deviceInfo = (DeviceInfo) deviceInfoMap.get(e);
@@ -46,6 +50,10 @@ public class MaintainTask implements ITask {
         for (Iterator<String> iterator = deviceSet.iterator(); iterator.hasNext(); ) {
             String key = iterator.next();
             DeviceInfo deviceInfo = (DeviceInfo) deviceInfoMap.get(key);
+
+            if (deviceInfo.getId() != 94){
+                continue;
+            }
 
             DeviceCurrentStatus currentStatus = deviceCurrentStatusJpa.findByEquipId(deviceInfo.getId());
             deviceInfo.setWorkHours(currentStatus.getTotalWorkTime());
@@ -77,7 +85,7 @@ public class MaintainTask implements ITask {
     }
 
     private void dealMaintain(MaintainInfo maintainInfo, MaintainLog maintainLog, DeviceInfo deviceInfo) {
-        double workHour = deviceInfo.getWorkHours();
+        double workHour = deviceInfo.getWorkHours() == null ? 0 : deviceInfo.getWorkHours();
         int month = calcMonth(deviceInfo.getFactoryDate(), new Date());
 
         boolean isPeriod = maintainInfo.getIsPeriod() == 1 ? true : false;
@@ -114,12 +122,21 @@ public class MaintainTask implements ITask {
                 }
             }
 
+            double hourGap = workHour;
             if (maintainLog != null) {
-                workHour = workHour - maintainLog.getWorkHour();
+                hourGap = workHour - maintainLog.getWorkHour();
             }
 
             // 保养提醒
-            if (mtHour > workHour) {
+            if (hourGap >= mtHour) {
+                if (CollectionUtils.isNotEmpty(reminds)) {
+                    MaintainRemind lastRemind = reminds.get(0);
+
+                    if (workHour - lastRemind.getWorkHours() < mtHour){
+
+                        return;
+                    }
+                }
 
                 maintainRemindJpa.save(remind);
             }
@@ -127,7 +144,7 @@ public class MaintainTask implements ITask {
     }
 
     private void dealMajor(List<MaintainInfo> majorList, MaintainLog maintainLog, DeviceInfo deviceInfo) {
-        double workHour = deviceInfo.getWorkHours();
+        double workHour = deviceInfo.getWorkHours() == null ? 0 : deviceInfo.getWorkHours();
         int month = calcMonth(deviceInfo.getFactoryDate(), new Date());
 
         if (CollectionUtils.isEmpty(majorList)) {
@@ -152,7 +169,7 @@ public class MaintainTask implements ITask {
                     }
                 }
 
-                List<MaintainRemind> reminds = maintainRemindJpa.findByEquipIdAndPolicyDetailId(deviceInfo.getId(), mtInfo.getId(), Sort.by(Sort.Direction.DESC, "workHours"));
+                List<MaintainRemind> reminds = maintainRemindJpa.findByEquipIdAndPolicyId(deviceInfo.getId(), mtInfo.getPolicyId(), Sort.by(Sort.Direction.DESC, "workHours"));
                 if (CollectionUtils.isNotEmpty(reminds)) {
                     MaintainRemind lastRemind = reminds.get(0);
                     if (lastRemind.getStatus() == 1) {

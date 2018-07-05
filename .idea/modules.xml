@@ -2,15 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dyl-plugin/dyl-plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/dyl-plugin/dyl-plugin.iml" group="dyl-plugin" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dyl-plugin/dyl-plugin_main.iml" filepath="$PROJECT_DIR$/.idea/modules/dyl-plugin/dyl-plugin_main.iml" group="dyl-plugin" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dyl-plugin/dyl-plugin_test.iml" filepath="$PROJECT_DIR$/.idea/modules/dyl-plugin/dyl-plugin_test.iml" group="dyl-plugin" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sa-gw/sa-gw.iml" filepath="$PROJECT_DIR$/.idea/modules/sa-gw/sa-gw.iml" group="sa-gw" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sa-gw/sa-gw_main.iml" filepath="$PROJECT_DIR$/.idea/modules/sa-gw/sa-gw_main.iml" group="sa-gw" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sa-gw/sa-gw_test.iml" filepath="$PROJECT_DIR$/.idea/modules/sa-gw/sa-gw_test.iml" group="sa-gw" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sa-plc.iml" filepath="$PROJECT_DIR$/.idea/modules/sa-plc.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sa-plc_main.iml" filepath="$PROJECT_DIR$/.idea/modules/sa-plc_main.iml" group="sa-plc" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sa-plc_test.iml" filepath="$PROJECT_DIR$/.idea/modules/sa-plc_test.iml" group="sa-plc" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dyl-plugin/com.tiza.dyl-plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/dyl-plugin/com.tiza.dyl-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dyl-plugin/com.tiza.dyl-plugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dyl-plugin/com.tiza.dyl-plugin.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dyl-plugin/com.tiza.dyl-plugin.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dyl-plugin/com.tiza.dyl-plugin.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sa-gw/com.tiza.sa-gw.iml" filepath="$PROJECT_DIR$/.idea/modules/sa-gw/com.tiza.sa-gw.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sa-gw/com.tiza.sa-gw.main.iml" filepath="$PROJECT_DIR$/.idea/modules/sa-gw/com.tiza.sa-gw.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sa-gw/com.tiza.sa-gw.test.iml" filepath="$PROJECT_DIR$/.idea/modules/sa-gw/com.tiza.sa-gw.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.tiza.sa-plc.iml" filepath="$PROJECT_DIR$/.idea/modules/com.tiza.sa-plc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.tiza.sa-plc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.tiza.sa-plc.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.tiza.sa-plc.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.tiza.sa-plc.test.iml" />
     </modules>
   </component>
 </project>

@@ -42,7 +42,6 @@ public class DtuHandler extends ChannelInboundHandlerAdapter {
 
                         ICache online = SpringUtil.getBean("onlineCacheProvider");
                         online.remove(deviceId);
-                        attribute.set(null);
 
                         ICache deviceCache = SpringUtil.getBean("deviceCacheProvider");
                         if (deviceCache.containsKey(deviceId)) {
@@ -51,9 +50,9 @@ public class DtuHandler extends ChannelInboundHandlerAdapter {
                             // 设备离线
                             JdbcTemplate jdbcTemplate = SpringUtil.getBean("jdbcTemplate");
                             String sql = "UPDATE equipment_info SET DtuStatus = 0 WHERE EquipmentId = " + deviceInfo.getId();
-                            jdbcTemplate.update(sql);
 
-                            log.warn("设备[{}]离线[{}]", deviceId, sql);
+                            // jdbcTemplate.update(sql);
+                            // log.warn("设备[{}]离线[{}]", deviceId, sql);
                         }
                     }
                 }

@@ -4,11 +4,10 @@ import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.task.ITask;
 import com.tiza.gw.support.client.HBaseClient;
 import com.tiza.gw.support.dao.dto.DailyHour;
+import com.tiza.gw.support.dao.dto.DeviceInfo;
 import com.tiza.gw.support.dao.jpa.*;
-import com.tiza.gw.support.model.MsgMemory;
 import com.tiza.gw.support.model.PointUnit;
 import com.tiza.gw.support.model.QueryFrame;
-import com.tiza.gw.support.dao.dto.DeviceInfo;
 import com.tiza.gw.support.task.*;
 import com.tiza.gw.support.task.TimerTask;
 import org.apache.commons.collections.CollectionUtils;
@@ -74,7 +73,8 @@ public class SpringQuartz {
     private DeviceCurrentStatusJpa deviceCurrentStatusJpa;
 
 
-    @Scheduled(cron = "0 24 10 * * ?")
+    // @Scheduled(cron = "0 24 10 * * ?")
+    @Scheduled(fixedDelay = 60 * 1000, initialDelay = 5 * 1000)
     public void maintainTask(){
         MaintainTask mtTask = new MaintainTask();
         mtTask.setDeviceCache(deviceCacheProvider);
@@ -85,8 +85,6 @@ public class SpringQuartz {
 
         mtTask.execute();
     }
-
-
 
     /**
      * 指令下发
