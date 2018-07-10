@@ -241,7 +241,7 @@ public class DtuDataProcess implements IDataProcess {
      * @param equipId
      * @param detailInfoList
      */
-    private void updateDetail(long equipId, List<DetailInfo> detailInfoList) {
+    public void updateDetail(long equipId, List<DetailInfo> detailInfoList) {
         if (CollectionUtils.isNotEmpty(detailInfoList)) {
             for (DetailInfo detailInfo : detailInfoList) {
                 detailInfo.setEquipId(equipId);
@@ -266,7 +266,7 @@ public class DtuDataProcess implements IDataProcess {
      *
      * @param detailInfo
      */
-    private void dealFault(DetailInfo detailInfo) {
+    public void dealFault(DetailInfo detailInfo) {
         Long key = detailInfo.getEquipId();
         int value = Integer.parseInt(detailInfo.getValue());
 
@@ -295,6 +295,7 @@ public class DtuDataProcess implements IDataProcess {
                 faultInfo.setValue(detailInfo.getValue());
                 faultInfo.setStartTime(new Date());
                 faultInfo.setFaultType(detailInfo.getFaultType());
+                faultInfo.setAlarmType(1);
 
                 faultInfo = faultInfoJpa.save(faultInfo);
                 if (faultInfo != null) {

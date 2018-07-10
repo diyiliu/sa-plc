@@ -91,6 +91,16 @@ public class SpringConfig {
         return new JdbcTemplate(dataSource);
     }
 
+    /**
+     * 自定义报警缓存
+     *
+     * @return
+     */
+    @Bean
+    public ICache alarmCacheProvider() {
+
+        return new RamCacheProvider();
+    }
 
     /**
      * 故障缓存
@@ -105,7 +115,7 @@ public class SpringConfig {
 
 
     /**
-     * 设备注册缓存
+     * 设备在线缓存
      *
      * @return
      */

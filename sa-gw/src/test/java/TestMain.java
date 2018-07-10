@@ -2,6 +2,10 @@ import com.diyiliu.plugin.util.CommonUtil;
 import com.tiza.gw.support.model.TopicMsg;
 import org.junit.Test;
 
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.SimpleBindings;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +18,7 @@ import java.util.List;
 public class TestMain {
 
     @Test
-    public void test(){
+    public void test() {
         byte[] bytes = new byte[]{1, 1};
         StringBuilder strb = new StringBuilder();
         for (int i = bytes.length - 1; i > 0; i--) {
@@ -27,17 +31,17 @@ public class TestMain {
     }
 
     @Test
-    public void test2(){
+    public void test2() {
         String str = "41D8";
 
         byte[] bytes = CommonUtil.hexStringToBytes(str);
 
-        int i =  CommonUtil.byte2int(bytes);
+        int i = CommonUtil.byte2int(bytes);
         System.out.println(Float.intBitsToFloat(i));
     }
 
     @Test
-    public void test3(){
+    public void test3() {
         byte b = 5;
 
         String str = CommonUtil.byte2BinaryStr(b);
@@ -48,7 +52,7 @@ public class TestMain {
     }
 
     @Test
-    public void test4(){
+    public void test4() {
         String str = "0000000010000000";
 
         byte[] bytes = CommonUtil.binaryStr2Bytes(str);
@@ -58,7 +62,7 @@ public class TestMain {
 
 
     @Test
-    public void test5(){
+    public void test5() {
         long l = 863703034045281l;
         byte[] bytes = CommonUtil.long2Bytes(l, 7);
 
@@ -67,7 +71,7 @@ public class TestMain {
 
 
     @Test
-    public void test6(){
+    public void test6() {
 
         String str = "4.153E-42";
 
@@ -80,7 +84,7 @@ public class TestMain {
     }
 
     @Test
-    public void test7(){
+    public void test7() {
         List<TopicMsg> list = new ArrayList();
 
         TopicMsg tm1 = new TopicMsg();
@@ -99,6 +103,20 @@ public class TestMain {
         list.removeIf(i -> i.getTopic().equals("1"));
 
         System.out.println(list.size());
+    }
+
+
+    @Test
+    public void test8() throws Exception {
+
+        ScriptEngineManager factory = new ScriptEngineManager();
+        ScriptEngine engine = factory.getEngineByName("JavaScript");
+
+        SimpleBindings bindings = new SimpleBindings();
+        bindings.put("$value", "1");
+
+        Object o = engine.eval("$value > 10 && $value > 10 ;", bindings);
+        System.out.println(o.equals(true));
     }
 
 }

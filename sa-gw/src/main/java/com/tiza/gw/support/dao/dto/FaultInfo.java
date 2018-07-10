@@ -39,4 +39,9 @@ public class FaultInfo {
 
     @Transient
     private Integer faultType;
+
+    // 1:故障报警;2:自定义报警
+    private Integer alarmType;
+
+    private Long alarmPolicyId;
 }

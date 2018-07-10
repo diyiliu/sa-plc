@@ -51,7 +51,7 @@ public class MaintainTask implements ITask {
             String key = iterator.next();
             DeviceInfo deviceInfo = (DeviceInfo) deviceInfoMap.get(key);
 
-            if (deviceInfo.getId() != 94){
+            if (deviceInfo.getDebugTime() == null) {
                 continue;
             }
 
@@ -86,7 +86,7 @@ public class MaintainTask implements ITask {
 
     private void dealMaintain(MaintainInfo maintainInfo, MaintainLog maintainLog, DeviceInfo deviceInfo) {
         double workHour = deviceInfo.getWorkHours() == null ? 0 : deviceInfo.getWorkHours();
-        int month = calcMonth(deviceInfo.getFactoryDate(), new Date());
+        int month = calcMonth(deviceInfo.getDebugTime(), new Date());
 
         boolean isPeriod = maintainInfo.getIsPeriod() == 1 ? true : false;
         List<MaintainRemind> reminds = maintainRemindJpa.findByEquipIdAndPolicyDetailId(deviceInfo.getId(), maintainInfo.getId(), Sort.by(Sort.Direction.DESC, "workHours"));
@@ -132,7 +132,7 @@ public class MaintainTask implements ITask {
                 if (CollectionUtils.isNotEmpty(reminds)) {
                     MaintainRemind lastRemind = reminds.get(0);
 
-                    if (workHour - lastRemind.getWorkHours() < mtHour){
+                    if (workHour - lastRemind.getWorkHours() < mtHour) {
 
                         return;
                     }
@@ -145,7 +145,7 @@ public class MaintainTask implements ITask {
 
     private void dealMajor(List<MaintainInfo> majorList, MaintainLog maintainLog, DeviceInfo deviceInfo) {
         double workHour = deviceInfo.getWorkHours() == null ? 0 : deviceInfo.getWorkHours();
-        int month = calcMonth(deviceInfo.getFactoryDate(), new Date());
+        int month = calcMonth(deviceInfo.getDebugTime(), new Date());
 
         if (CollectionUtils.isEmpty(majorList)) {
             return;
