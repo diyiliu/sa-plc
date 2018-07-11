@@ -1,6 +1,6 @@
 # WEB PROPERTIES
 server:
-  port: 5009
+  port: 5008
   context-path: '/'
 
 # SPRING
@@ -14,7 +14,7 @@ spring:
     password: 123456
 
   jpa:
-    show-sql: true
+    show-sql: false
 
   # redis
   redis:
@@ -23,7 +23,7 @@ spring:
     port: 6379
 
 # 自定义配置
-dtu-server-port: 5002
+dtu-server-port: 5001
 
 kafka:
   broker-list: tcloud-161:9092,tcloud-162:9092,tcloud-163:9092
