@@ -6,10 +6,7 @@ import com.diyiliu.plugin.model.IDataProcess;
 import com.diyiliu.plugin.util.CommonUtil;
 import com.diyiliu.plugin.util.JacksonUtil;
 import com.tiza.gw.support.client.KafkaClient;
-import com.tiza.gw.support.dao.dto.DetailInfo;
-import com.tiza.gw.support.dao.dto.DeviceInfo;
-import com.tiza.gw.support.dao.dto.FaultInfo;
-import com.tiza.gw.support.dao.dto.PointInfo;
+import com.tiza.gw.support.dao.dto.*;
 import com.tiza.gw.support.dao.jpa.DetailInfoJpa;
 import com.tiza.gw.support.dao.jpa.FaultInfoJpa;
 import com.tiza.gw.support.model.*;
@@ -18,11 +15,14 @@ import io.netty.buffer.Unpooled;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
-import org.apache.kafka.common.security.JaasUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+import javax.script.SimpleBindings;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,16 +37,10 @@ import java.util.stream.Collectors;
 public class DtuDataProcess implements IDataProcess {
 
     @Resource
-    private ICache deviceCacheProvider;
-
-    @Resource
-    private ICache sendCacheProvider;
+    private KafkaClient kafkaClient;
 
     @Resource
     private JdbcTemplate jdbcTemplate;
-
-    @Resource
-    private KafkaClient kafkaClient;
 
     @Resource
     private DetailInfoJpa detailInfoJpa;
@@ -55,7 +49,17 @@ public class DtuDataProcess implements IDataProcess {
     private FaultInfoJpa faultInfoJpa;
 
     @Resource
+    private ICache deviceCacheProvider;
+
+    @Resource
+    private ICache sendCacheProvider;
+
+    @Resource
     private ICache faultCacheProvider;
+
+    @Resource
+    private ICache alarmCacheProvider;
+
 
     @Override
     public void init() {
@@ -125,7 +129,7 @@ public class DtuDataProcess implements IDataProcess {
         }
 
         updateSummary(equipId, summary);
-        updateDetail(equipId, detailList);
+        updateDetail(deviceInfo, detailList);
     }
 
     @Override
@@ -236,13 +240,15 @@ public class DtuDataProcess implements IDataProcess {
     }
 
     /**
-     * 更新详细新
+     * 更新详细信息
      *
-     * @param equipId
+     * @param deviceInfo
      * @param detailInfoList
      */
-    public void updateDetail(long equipId, List<DetailInfo> detailInfoList) {
+    private void updateDetail(DeviceInfo deviceInfo, List<DetailInfo> detailInfoList) {
         if (CollectionUtils.isNotEmpty(detailInfoList)) {
+            long equipId = deviceInfo.getId();
+
             for (DetailInfo detailInfo : detailInfoList) {
                 detailInfo.setEquipId(equipId);
                 detailInfo.setLastTime(new Date());
@@ -258,6 +264,9 @@ public class DtuDataProcess implements IDataProcess {
 
             // 写入kafka
             kafkaClient.toKafka(equipId, detailInfoList);
+
+            // 处理自定义报警
+            doAlarm(deviceInfo, detailInfoList);
         }
     }
 
@@ -266,7 +275,7 @@ public class DtuDataProcess implements IDataProcess {
      *
      * @param detailInfo
      */
-    public void dealFault(DetailInfo detailInfo) {
+    private void dealFault(DetailInfo detailInfo) {
         Long key = detailInfo.getEquipId();
         int value = Integer.parseInt(detailInfo.getValue());
 
@@ -350,5 +359,156 @@ public class DtuDataProcess implements IDataProcess {
 
         System.out.println(JacksonUtil.toJson(list));
         System.out.println(sql);
+    }
+
+
+    public void doAlarm(DeviceInfo deviceInfo, List<DetailInfo> detailInfoList) {
+        List<AlarmInfo> alarmInfoList = deviceInfo.getAlarmInfoList();
+        if (CollectionUtils.isEmpty(alarmInfoList)) {
+
+            return;
+        }
+
+        for (DetailInfo detailInfo : detailInfoList) {
+            long pointId = detailInfo.getPointId();
+            String value = detailInfo.getValue();
+
+            for (AlarmInfo alarmInfo : alarmInfoList) {
+
+                List<Long> pointIds = alarmInfo.getPointIds();
+                if (pointIds.contains(pointId)) {
+                    int i = pointIds.indexOf(pointId);
+                    AlarmDetail alarmDetail = alarmInfo.getAlarmDetails().get(i);
+                    boolean flag = executeScript(alarmDetail.getExpression(), value);
+
+                    dealAlarm(deviceInfo, alarmInfo, alarmDetail, flag);
+                }
+            }
+        }
+    }
+
+    private void dealAlarm(DeviceInfo deviceInfo, AlarmInfo alarmInfo, AlarmDetail alarmDetail, boolean flag) {
+        long equipId = deviceInfo.getId();
+        String key = equipId + ":" + alarmInfo.getId();
+
+        long detailId = alarmDetail.getId();
+        if (alarmCacheProvider.containsKey(key)) {
+            AlarmGroup alarmGroup = (AlarmGroup) alarmCacheProvider.get(key);
+            Map<Long, AlarmItem> itemMap = alarmGroup.getItemMap();
+
+            // 是否报警
+            if (flag) {
+                if (!itemMap.containsKey(detailId)) {
+                    AlarmItem item = new AlarmItem();
+                    item.setId(detailId);
+                    item.setDuration(alarmDetail.getDuration());
+                    item.setStartTime(System.currentTimeMillis());
+
+                    itemMap.put(detailId, item);
+                }
+
+                // 报警处理
+                updateAlarm(deviceInfo, alarmInfo, alarmGroup, 1);
+            }
+            // 解除报警
+            else {
+                if (itemMap.containsKey(detailId) && alarmGroup.getStartTime() != null) {
+
+                    updateAlarm(deviceInfo, alarmInfo, alarmGroup, 0);
+                }
+            }
+
+        } else {
+            if (flag) {
+                AlarmItem item = new AlarmItem();
+                item.setId(detailId);
+                item.setDuration(alarmDetail.getDuration());
+                item.setStartTime(System.currentTimeMillis());
+
+                AlarmGroup alarmGroup = new AlarmGroup();
+                alarmGroup.setItemMap(new HashMap() {
+                    {
+                        this.put(detailId, item);
+                    }
+                });
+
+                alarmCacheProvider.put(key, alarmGroup);
+            }
+        }
+    }
+
+    private void updateAlarm(DeviceInfo deviceInfo, AlarmInfo alarmInfo, AlarmGroup alarmGroup, int result) {
+        // 产生报警
+        if (result == 1) {
+            Map<Long, AlarmItem> itemMap = alarmGroup.getItemMap();
+
+            boolean alarm = true;
+            Set<Long> set = itemMap.keySet();
+            for (Iterator<Long> iterator = set.iterator(); iterator.hasNext(); ) {
+                long key = iterator.next();
+                AlarmItem item = itemMap.get(key);
+                if (System.currentTimeMillis() - item.getStartTime() > item.getDuration() * 1000) {
+                    item.setStatus(1);
+                } else {
+                    alarm = false;
+                }
+            }
+
+            if (alarm && alarmGroup.getStartTime() == null
+                    && alarmInfo.getAlarmDetails().size() == itemMap.size()) {
+
+                FaultInfo faultInfo = new FaultInfo();
+                faultInfo.setFaultId(alarmInfo.getFaultId());
+                faultInfo.setEquipId(deviceInfo.getId());
+                faultInfo.setStartTime(new Date());
+                faultInfo.setAlarmType(2);
+                faultInfo.setAlarmPolicyId(alarmInfo.getId());
+
+                faultInfo = faultInfoJpa.save(faultInfo);
+                if (faultInfo != null) {
+                    log.info("产生报警[{}, {}]", deviceInfo.getId(), faultInfo.getAlarmPolicyId());
+                    alarmGroup.setStartTime(new Date());
+                    alarmGroup.setId(faultInfo.getId());
+                }
+            }
+
+            return;
+        }
+        // 解除报警
+        if (result == 0 && alarmGroup.getId() != null) {
+            long equipId = deviceInfo.getId();
+            String key = equipId + ":" + alarmInfo.getId();
+
+            long fId = alarmGroup.getId();
+
+            FaultInfo faultInfo = faultInfoJpa.findById(fId);
+            faultInfo.setEndTime(new Date());
+            faultInfo = faultInfoJpa.save(faultInfo);
+            if (faultInfo != null) {
+                log.info("解除报警[{}, {}]", deviceInfo.getId(), faultInfo.getAlarmPolicyId());
+                alarmCacheProvider.remove(key);
+            }
+        }
+    }
+
+    private boolean executeScript(String script, String value) {
+        ScriptEngineManager factory = new ScriptEngineManager();
+        ScriptEngine engine = factory.getEngineByName("JavaScript");
+
+        SimpleBindings bindings = new SimpleBindings();
+        bindings.put("$value", value);
+        try {
+            Object object = engine.eval(script, bindings);
+            if (object == null || !(object instanceof Boolean)) {
+                return false;
+            } else {
+                return (boolean) object;
+            }
+        } catch (ScriptException e) {
+            e.printStackTrace();
+            log.error("解析表达式错误[{}, {}]", script, e.getMessage());
+        }
+
+        return false;
     }
 }

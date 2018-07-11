@@ -55,6 +55,10 @@ public class MaintainTask implements ITask {
                 continue;
             }
 
+            if (deviceInfo.getId() != 94){
+                continue;
+            }
+
             DeviceCurrentStatus currentStatus = deviceCurrentStatusJpa.findByEquipId(deviceInfo.getId());
             deviceInfo.setWorkHours(currentStatus.getTotalWorkTime());
 

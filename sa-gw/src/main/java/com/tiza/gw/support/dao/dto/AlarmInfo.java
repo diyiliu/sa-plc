@@ -32,6 +32,8 @@ public class AlarmInfo {
     @JoinColumn(name = "PolicyId")
     private List<AlarmDetail> alarmDetails;
 
+    private Long faultId;
+
     @Transient
     private List<Long> pointIds;
 
