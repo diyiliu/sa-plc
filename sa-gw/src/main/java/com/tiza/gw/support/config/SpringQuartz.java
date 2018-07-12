@@ -73,8 +73,8 @@ public class SpringQuartz {
     private DeviceCurrentStatusJpa deviceCurrentStatusJpa;
 
 
-    // @Scheduled(cron = "0 24 10 * * ?")
-    @Scheduled(fixedDelay = 60 * 1000, initialDelay = 5 * 1000)
+    @Scheduled(cron = "0 5 0 * * ?")
+    //@Scheduled(fixedDelay = 60 * 1000, initialDelay = 5 * 1000)
     public void maintainTask(){
         MaintainTask mtTask = new MaintainTask();
         mtTask.setDeviceCache(deviceCacheProvider);
