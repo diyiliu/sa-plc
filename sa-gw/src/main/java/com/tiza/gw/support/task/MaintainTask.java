@@ -55,9 +55,12 @@ public class MaintainTask implements ITask {
                 continue;
             }
 
-            if (deviceInfo.getId() != 94){
+/*
+
+            if (deviceInfo.getId() != 94) {
                 continue;
             }
+*/
 
             DeviceCurrentStatus currentStatus = deviceCurrentStatusJpa.findByEquipId(deviceInfo.getId());
             deviceInfo.setWorkHours(currentStatus.getTotalWorkTime());
@@ -111,7 +114,7 @@ public class MaintainTask implements ITask {
         if (!isPeriod && CollectionUtils.isEmpty(reminds)) {
 
             // 保养提醒
-            if (mtHour > workHour) {
+            if (workHour > mtHour) {
 
                 maintainRemindJpa.save(remind);
             }
@@ -155,48 +158,66 @@ public class MaintainTask implements ITask {
             return;
         }
 
-        for (int i = majorList.size() - 1; i >= 0; i--) {
-            MaintainInfo mtInfo = majorList.get(i);
+        boolean isFit = false;
+        MaintainInfo fitMt = null;
+        if (maintainLog != null) {
+            double workHourGap = deviceInfo.getWorkHours() - maintainLog.getWorkHour();
+            int monthGap = calcMonth(maintainLog.getMaintainTime(), new Date());
 
-            if (workHour > mtInfo.getWorkHoursBegin() || month > mtInfo.getBuyMonthsBegin()) {
-                if (maintainLog != null) {
-                    double workHourGap = deviceInfo.getWorkHours() - maintainLog.getWorkHour();
-                    int monthGap = calcMonth(maintainLog.getMaintainTime(), new Date());
-
-                    if (i > 0) {
-                        MaintainInfo preMtInfo = majorList.get(i - 1);
-                        if ((workHourGap < mtInfo.getWorkHoursBegin() - preMtInfo.getWorkHoursBegin()) &&
-                                (monthGap < mtInfo.getBuyMonthsBegin() - preMtInfo.getBuyMonthsBegin())) {
-
-                            continue;
-                        }
-                    }
+            int index = 0;
+            for (int i = 0; i < majorList.size(); i++) {
+                if (maintainLog.getItemId() == majorList.get(i).getItemId()) {
+                    index = i;
+                    break;
                 }
-
-                List<MaintainRemind> reminds = maintainRemindJpa.findByEquipIdAndPolicyId(deviceInfo.getId(), mtInfo.getPolicyId(), Sort.by(Sort.Direction.DESC, "workHours"));
-                if (CollectionUtils.isNotEmpty(reminds)) {
-                    MaintainRemind lastRemind = reminds.get(0);
-                    if (lastRemind.getStatus() == 1) {
-
-                        return;
-                    }
-                }
-
-                MaintainRemind remind = new MaintainRemind();
-                remind.setEquipId(deviceInfo.getId());
-                remind.setPolicyId(mtInfo.getPolicyId());
-                remind.setPolicyDetailId(mtInfo.getId());
-                remind.setWorkHours(workHour);
-                remind.setBuyMonths(Double.valueOf(month));
-
-                remind.setTimes(reminds.size() + 1);
-                remind.setCreateTime(new Date());
-                remind.setStatus(1);
-
-                maintainRemindJpa.save(remind);
-                continue;
             }
 
+            fitMt = majorList.get(0);
+            double intervalHour = fitMt.getWorkHoursBegin();
+            double intervalMonth = fitMt.getBuyMonthsBegin();
+            if (index + 1 < majorList.size()) {
+                fitMt = majorList.get(index + 1);
+                intervalHour = majorList.get(index + 1).getWorkHoursBegin() - majorList.get(index).getWorkHoursBegin();
+                intervalMonth = majorList.get(index + 1).getBuyMonthsBegin() - majorList.get(index).getBuyMonthsBegin();
+            }
+
+            if (workHourGap >= intervalHour || monthGap >= intervalMonth){
+                isFit = true;
+            }
+        } else {
+            for (int i = majorList.size() - 1; i >= 0; i--) {
+                MaintainInfo mtInfo = majorList.get(i);
+                if (workHour >= mtInfo.getWorkHoursBegin() || month >= mtInfo.getBuyMonthsBegin()) {
+                    isFit = true;
+                    fitMt = mtInfo;
+                    break;
+                }
+            }
+        }
+
+        if (isFit){
+            List<MaintainRemind> reminds = maintainRemindJpa.findByEquipIdAndPolicyIdAndIsMajor(deviceInfo.getId(), fitMt.getPolicyId(), 1, Sort.by(Sort.Direction.DESC, new String[]{"workHours", "CreateTime"}));
+            if (CollectionUtils.isNotEmpty(reminds)) {
+                MaintainRemind lastRemind = reminds.get(0);
+                if (lastRemind.getStatus() == 1) {
+
+                    return;
+                }
+            }
+
+            MaintainRemind remind = new MaintainRemind();
+            remind.setEquipId(deviceInfo.getId());
+            remind.setPolicyId(fitMt.getPolicyId());
+            remind.setPolicyDetailId(fitMt.getId());
+            remind.setWorkHours(workHour);
+            remind.setBuyMonths(Double.valueOf(month));
+
+            remind.setTimes(reminds.size() + 1);
+            remind.setCreateTime(new Date());
+            remind.setStatus(1);
+            remind.setIsMajor(1);
+
+            maintainRemindJpa.save(remind);
         }
     }
 

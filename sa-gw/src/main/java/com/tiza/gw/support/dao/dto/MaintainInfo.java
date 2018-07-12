@@ -25,6 +25,7 @@ public class MaintainInfo {
 
     private Integer isPeriod;
 
+    // 1:是;0:否
     @Column(name = "isPrior")
     private Integer isMajor;
 

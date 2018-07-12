@@ -101,6 +101,7 @@ public class DtuDataProcess implements IDataProcess {
         // 字典表
         List<DetailInfo> detailList = storeGroup.getDetailList();
 
+        boolean isOk = true;
         List<PointUnit> unitList = sendMsg.getUnitList();
         ByteBuf buf = Unpooled.copiedBuffer(content);
         for (int i = 0; i < unitList.size(); i++) {
@@ -125,11 +126,15 @@ public class DtuDataProcess implements IDataProcess {
                 unpackUnit(bytes, pointUnit, summary, detailList);
             } else {
                 log.error("字节长度不足, 数据解析异常!");
+                isOk = false;
+                break;
             }
         }
 
-        updateSummary(equipId, summary);
-        updateDetail(deviceInfo, detailList);
+        if (isOk) {
+            updateSummary(equipId, summary);
+            updateDetail(deviceInfo, detailList);
+        }
     }
 
     @Override
@@ -149,7 +154,6 @@ public class DtuDataProcess implements IDataProcess {
             if (binaryStr.length() - length >= 0) {
                 for (int i = 0; i < length; i++) {
                     PointInfo p = pointUnit.getPoints()[i];
-
                     String k = p.getTag();
 
                     int offset = (p.getAddress() - address) * 8;

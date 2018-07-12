@@ -37,4 +37,8 @@ public class MaintainRemind {
     private Integer times;
 
     private Integer status;
+
+    //1:是;0:否
+    @Column(name = "isPrior")
+    private Integer isMajor = 0;
 }

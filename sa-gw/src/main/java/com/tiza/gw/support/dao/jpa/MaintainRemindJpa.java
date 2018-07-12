@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface MaintainRemindJpa extends JpaRepository<MaintainRemind, Long> {
 
-    List<MaintainRemind> findByEquipIdAndPolicyId(long equipId, long policyId, Sort sort);
+    List<MaintainRemind> findByEquipIdAndPolicyIdAndIsMajor(long equipId, long policyId, int isMajor, Sort sort);
 
     List<MaintainRemind> findByEquipIdAndPolicyDetailId(long equipId, long detailId, Sort sort);
 }
