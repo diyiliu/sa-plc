@@ -1,4 +1,5 @@
 import com.diyiliu.plugin.util.CommonUtil;
+import com.diyiliu.plugin.util.DateUtil;
 import com.tiza.gw.support.model.TopicMsg;
 import org.junit.Test;
 
@@ -8,6 +9,8 @@ import javax.script.ScriptEngineManager;
 import javax.script.SimpleBindings;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -117,6 +120,14 @@ public class TestMain {
 
         Object o = engine.eval("$value > 10 && $value > 10 ;", bindings);
         System.out.println(o.equals(true));
+    }
+
+    @Test
+    public void test9(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date(0));
+
+        System.out.println(DateUtil.dateToString(calendar.getTime()));
     }
 
 }

@@ -3,6 +3,9 @@ package com.tiza.gw.support.dao.jpa;
 import com.tiza.gw.support.dao.dto.DailyHour;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * Description: DailyHourJpa
  * Author: DIYILIU
@@ -11,4 +14,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface DailyHourJpa extends JpaRepository<DailyHour, Long> {
 
 
+    List<DailyHour> findByEquipIdAndDay(long equipId, Date date);
 }

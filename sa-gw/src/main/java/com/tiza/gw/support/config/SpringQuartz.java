@@ -75,7 +75,7 @@ public class SpringQuartz {
 
     @Scheduled(cron = "0 5 0 * * ?")
     //@Scheduled(fixedDelay = 60 * 1000, initialDelay = 5 * 1000)
-    public void maintainTask(){
+    public void maintainTask() {
         MaintainTask mtTask = new MaintainTask();
         mtTask.setDeviceCache(deviceCacheProvider);
         mtTask.setMaintainInfoJpa(maintainInfoJpa);
@@ -182,64 +182,52 @@ public class SpringQuartz {
         calendar.set(Calendar.YEAR, today.get(Calendar.YEAR));
         calendar.set(Calendar.MONTH, today.get(Calendar.MONTH));
         calendar.set(Calendar.DAY_OF_MONTH, today.get(Calendar.DAY_OF_MONTH));
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
 
         long endTime = calendar.getTimeInMillis();
         calendar.add(Calendar.DAY_OF_MONTH, -1);
         long startTime = calendar.getTimeInMillis();
+
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        Date yesterday = calendar.getTime();
 
         final String tag = "TotalRunTime";
         Set set = deviceCacheProvider.getKeys();
         set.forEach(key -> {
             DeviceInfo deviceInfo = (DeviceInfo) deviceCacheProvider.get(key);
             Long id = deviceInfo.getId();
+
+            double last = 0;
+            List<DailyHour> lastHours = dailyHourJpa.findByEquipIdAndDay(id, yesterday);
+            if (CollectionUtils.isNotEmpty(lastHours)) {
+                last = lastHours.get(0).getTotalHour();
+            }
+
             try {
                 List<String> values = hbaseClient.scan(id.intValue(), tag, startTime, endTime);
-                double hour = dailyRunning(values);
-
-                double total = 0;
-                if (hour > 0) {
-                    total = Double.parseDouble(values.get(values.size() - 1));
+                // 当日最大
+                double max;
+                if (CollectionUtils.isEmpty(values)) {
+                    max = last;
+                }else {
+                    max = Double.valueOf(values.get(values.size() - 1));
                 }
+
+                // 当日工作时间
+                double hour = max - last;
 
                 DailyHour dailyHour = new DailyHour();
                 dailyHour.setEquipId(id);
                 dailyHour.setDay(new Date(startTime));
                 dailyHour.setCreateTime(new Date());
                 dailyHour.setHour(hour);
-                dailyHour.setTotalHour(total);
+                dailyHour.setTotalHour(max);
 
                 dailyHourJpa.save(dailyHour);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-    }
-
-    /**
-     * 当日工作时长
-     *
-     * @param list
-     * @return
-     */
-    private double dailyRunning(List<String> list) {
-        if (CollectionUtils.isEmpty(list) || list.size() == 1) {
-
-            return 0;
-        }
-
-        double first = Double.parseDouble(list.get(0));
-        double max = first > 0 ? first : 0;
-        double min = max;
-
-        for (int i = 1; i < list.size(); i++) {
-            double v = Double.parseDouble(list.get(i));
-            double temp = v > 0 ? v : 0;
-
-            if (temp > max) max = temp;
-            if (temp < min) min = temp;
-        }
-
-        return max - min;
     }
 
 

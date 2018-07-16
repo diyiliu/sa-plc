@@ -220,18 +220,17 @@ public class DtuDataProcess implements IDataProcess {
      * @param paramValues
      */
     private void updateSummary(long equipId, Map paramValues) {
-        if (MapUtils.isEmpty(paramValues)) {
-            return;
-        }
-
         List list = new ArrayList();
         StringBuilder sqlBuilder = new StringBuilder("UPDATE equipment_info SET ");
-        for (Iterator iterator = paramValues.keySet().iterator(); iterator.hasNext(); ) {
-            String key = (String) iterator.next();
 
-            sqlBuilder.append(key).append("=?, ");
-            Object val = paramValues.get(key);
-            list.add(val);
+        if (MapUtils.isNotEmpty(paramValues)) {
+            for (Iterator iterator = paramValues.keySet().iterator(); iterator.hasNext(); ) {
+                String key = (String) iterator.next();
+
+                sqlBuilder.append(key).append("=?, ");
+                Object val = paramValues.get(key);
+                list.add(val);
+            }
         }
 
         // 最新时间
