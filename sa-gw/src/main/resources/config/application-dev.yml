@@ -16,12 +16,6 @@ spring:
   jpa:
     show-sql: false
 
-  # redis
-  redis:
-    database: 3
-    host: 192.168.1.161
-    port: 6379
-
 # 自定义配置
 dtu-server-port: 5001
 

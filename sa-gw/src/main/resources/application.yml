@@ -18,5 +18,3 @@ spring:
 # LOGGING
 logging:
   config: 'classpath:logback.xml'
-  level:
-   root: info

@@ -46,7 +46,6 @@ public class KafkaProducer {
         return new DefaultKafkaProducerFactory(props);
     }
 
-
     @Bean
     public KafkaTemplate<String, String> kafkaTemplate() {
 

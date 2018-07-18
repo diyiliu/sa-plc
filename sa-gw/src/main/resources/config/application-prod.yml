@@ -14,12 +14,6 @@ spring:
     username: root
     password: admin@123
 
-  # redis
-  redis:
-    database: 3
-    host: 192.168.1.113
-    port: 6379
-
 # 自定义配置
 dtu-server-port: 5006
 

@@ -12,6 +12,7 @@ import com.tiza.gw.support.task.*;
 import com.tiza.gw.support.task.TimerTask;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -173,7 +174,7 @@ public class SpringQuartz {
     /**
      * 当日运行时长
      */
-    @Scheduled(cron = "0 5 1 * * ?")
+    @Scheduled(cron = "0 30 1 * * ?")
     public void dailyRunningJob() {
         Calendar today = Calendar.getInstance();
 
@@ -188,8 +189,6 @@ public class SpringQuartz {
         calendar.add(Calendar.DAY_OF_MONTH, -1);
         long startTime = calendar.getTimeInMillis();
 
-        calendar.add(Calendar.DAY_OF_MONTH, -1);
-        Date yesterday = calendar.getTime();
 
         final String tag = "TotalRunTime";
         Set set = deviceCacheProvider.getKeys();
@@ -198,7 +197,7 @@ public class SpringQuartz {
             Long id = deviceInfo.getId();
 
             double last = 0;
-            List<DailyHour> lastHours = dailyHourJpa.findByEquipIdAndDay(id, yesterday);
+            List<DailyHour> lastHours = dailyHourJpa.findByEquipId(id, Sort.by(Sort.Direction.DESC, new String[]{"day", "totalHour"}));
             if (CollectionUtils.isNotEmpty(lastHours)) {
                 last = lastHours.get(0).getTotalHour();
             }
@@ -209,7 +208,7 @@ public class SpringQuartz {
                 double max;
                 if (CollectionUtils.isEmpty(values)) {
                     max = last;
-                }else {
+                } else {
                     max = Double.valueOf(values.get(values.size() - 1));
                 }
 

@@ -2,6 +2,7 @@ package com.tiza.gw.support.task;
 
 import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.task.ITask;
+import com.diyiliu.plugin.util.CommonUtil;
 import com.tiza.gw.support.dao.dto.*;
 import com.tiza.gw.support.dao.jpa.DeviceCurrentStatusJpa;
 import com.tiza.gw.support.dao.jpa.MaintainInfoJpa;
@@ -93,7 +94,7 @@ public class MaintainTask implements ITask {
 
     private void dealMaintain(MaintainInfo maintainInfo, MaintainLog maintainLog, DeviceInfo deviceInfo) {
         double workHour = deviceInfo.getWorkHours() == null ? 0 : deviceInfo.getWorkHours();
-        int month = calcMonth(deviceInfo.getDebugTime(), new Date());
+        double month = calcMonth(deviceInfo.getDebugTime(), new Date());
 
         boolean isPeriod = maintainInfo.getIsPeriod() == 1 ? true : false;
         List<MaintainRemind> reminds = maintainRemindJpa.findByEquipIdAndPolicyDetailId(deviceInfo.getId(), maintainInfo.getId(), Sort.by(Sort.Direction.DESC, "workHours"));
@@ -103,7 +104,7 @@ public class MaintainTask implements ITask {
         remind.setPolicyId(maintainInfo.getPolicyId());
         remind.setPolicyDetailId(maintainInfo.getId());
         remind.setWorkHours(workHour);
-        remind.setBuyMonths(Double.valueOf(month));
+        remind.setBuyMonths(month);
 
         remind.setTimes(reminds.size() + 1);
         remind.setCreateTime(new Date());
@@ -152,17 +153,18 @@ public class MaintainTask implements ITask {
 
     private void dealMajor(List<MaintainInfo> majorList, MaintainLog maintainLog, DeviceInfo deviceInfo) {
         double workHour = deviceInfo.getWorkHours() == null ? 0 : deviceInfo.getWorkHours();
-        int month = calcMonth(deviceInfo.getDebugTime(), new Date());
+        double month = calcMonth(deviceInfo.getDebugTime(), new Date());
 
         if (CollectionUtils.isEmpty(majorList)) {
             return;
         }
 
+        double monthGap = 0;
         boolean isFit = false;
         MaintainInfo fitMt = null;
         if (maintainLog != null) {
             double workHourGap = deviceInfo.getWorkHours() - maintainLog.getWorkHour();
-            int monthGap = calcMonth(maintainLog.getMaintainTime(), new Date());
+            monthGap = calcMonth(maintainLog.getMaintainTime(), new Date());
 
             int index = 0;
             for (int i = 0; i < majorList.size(); i++) {
@@ -181,7 +183,7 @@ public class MaintainTask implements ITask {
                 intervalMonth = majorList.get(index + 1).getBuyMonthsBegin() - majorList.get(index).getBuyMonthsBegin();
             }
 
-            if (workHourGap >= intervalHour || monthGap >= intervalMonth){
+            if (workHourGap >= intervalHour || monthGap >= intervalMonth) {
                 isFit = true;
             }
         } else {
@@ -195,7 +197,7 @@ public class MaintainTask implements ITask {
             }
         }
 
-        if (isFit){
+        if (isFit) {
             List<MaintainRemind> reminds = maintainRemindJpa.findByEquipIdAndPolicyIdAndIsMajor(deviceInfo.getId(), fitMt.getPolicyId(), 1, Sort.by(Sort.Direction.DESC, new String[]{"workHours", "CreateTime"}));
             if (CollectionUtils.isNotEmpty(reminds)) {
                 MaintainRemind lastRemind = reminds.get(0);
@@ -216,22 +218,29 @@ public class MaintainTask implements ITask {
             remind.setCreateTime(new Date());
             remind.setStatus(1);
             remind.setIsMajor(1);
+            remind.setIntervalMonth(monthGap);
 
             maintainRemindJpa.save(remind);
         }
     }
 
-    private int calcMonth(Date date1, Date date2) {
+    private double calcMonth(Date date1, Date date2) {
         Calendar past = Calendar.getInstance();
         past.setTime(date1);
-
         Calendar now = Calendar.getInstance();
         now.setTime(date2);
-
         int year = now.get(Calendar.YEAR) - past.get(Calendar.YEAR);
         int month = now.get(Calendar.MONTH) - past.get(Calendar.MONTH);
+        double day = (now.get(Calendar.DAY_OF_MONTH) - past.get(Calendar.DAY_OF_MONTH)) / 30;
 
-        return year * 12 + month;
+        return CommonUtil.keepDecimal(year * 12 + month + day, 1);
+
+        /*
+        // 秒
+        double interval = (date2.getTime() - date1.getTime()) * 0.001;
+        // 月
+        return CommonUtil.keepDecimal(interval / (3600 * 24 * 30), 1);
+        */
     }
 
     public void setMaintainInfoJpa(MaintainInfoJpa maintainInfoJpa) {

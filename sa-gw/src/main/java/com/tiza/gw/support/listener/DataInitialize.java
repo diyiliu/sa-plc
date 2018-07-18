@@ -40,7 +40,6 @@ public class DataInitialize implements ApplicationListener {
     @Resource
     private ICache faultCacheProvider;
 
-
     @Resource
     private ICache alarmCacheProvider;
 
