@@ -219,7 +219,7 @@ public class SpringQuartz {
                 dailyHour.setEquipId(id);
                 dailyHour.setDay(new Date(startTime));
                 dailyHour.setCreateTime(new Date());
-                dailyHour.setHour(hour);
+                dailyHour.setHour(hour > 24 ? 0 : hour);
                 dailyHour.setTotalHour(max);
 
                 dailyHourJpa.save(dailyHour);
