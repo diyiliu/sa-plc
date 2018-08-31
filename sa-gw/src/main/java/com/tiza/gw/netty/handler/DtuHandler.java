@@ -1,12 +1,10 @@
 package com.tiza.gw.netty.handler;
 
-import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.util.CommonUtil;
 import com.diyiliu.plugin.util.SpringUtil;
 import com.tiza.gw.protocol.DtuDataProcess;
 import com.tiza.gw.support.config.Constant;
 import com.tiza.gw.support.model.DtuHeader;
-import com.tiza.gw.support.dao.dto.DeviceInfo;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
@@ -15,7 +13,6 @@ import io.netty.util.Attribute;
 import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  * Description: DtuHandler
@@ -40,20 +37,8 @@ public class DtuHandler extends ChannelInboundHandlerAdapter {
                     if (StringUtils.isNotEmpty(deviceId)) {
                         log.info("设备[{}]断开连接...", deviceId);
 
-                        ICache online = SpringUtil.getBean("onlineCacheProvider");
-                        online.remove(deviceId);
-
-                        ICache deviceCache = SpringUtil.getBean("deviceCacheProvider");
-                        if (deviceCache.containsKey(deviceId)) {
-                            DeviceInfo deviceInfo = (DeviceInfo) deviceCache.get(deviceId);
-
-                            // 设备离线
-                            JdbcTemplate jdbcTemplate = SpringUtil.getBean("jdbcTemplate");
-                            String sql = "UPDATE equipment_info SET DtuStatus = 0 WHERE EquipmentId = " + deviceInfo.getId();
-
-                            // jdbcTemplate.update(sql);
-                            // log.warn("设备[{}]离线[{}]", deviceId, sql);
-                        }
+                        DtuDataProcess dataProcess = SpringUtil.getBean("dtuDataProcess");
+                        dataProcess.offline(deviceId);
                     }
                 }
         );

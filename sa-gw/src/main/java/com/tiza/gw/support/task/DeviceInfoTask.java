@@ -6,7 +6,10 @@ import com.tiza.gw.support.dao.jpa.DeviceInfoJpa;
 import com.tiza.gw.support.dao.dto.DeviceInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -16,22 +19,21 @@ import java.util.*;
  */
 
 @Slf4j
+@Service
 public class DeviceInfoTask implements ITask {
 
-    private ICache deviceCache;
+    @Resource
+    private ICache deviceCacheProvider;
 
-    private DeviceInfoJpa deviceDao;
+    @Resource
+    private DeviceInfoJpa deviceInfoJpa;
 
-    public DeviceInfoTask(DeviceInfoJpa deviceDao, ICache deviceCache) {
-        this.deviceDao = deviceDao;
-        this.deviceCache = deviceCache;
-    }
 
-    @Override
+    @Scheduled(fixedRate = 10 * 60 * 1000, initialDelay = 3 * 1000)
     public void execute() {
         log.info("刷新设备列表...");
-        List<DeviceInfo> list = deviceDao.findAll();
-        refresh(list, deviceCache);
+        List<DeviceInfo> list = deviceInfoJpa.findAll();
+        refresh(list, deviceCacheProvider);
     }
 
     private void refresh(List<DeviceInfo> deviceList, ICache deviceCache) {

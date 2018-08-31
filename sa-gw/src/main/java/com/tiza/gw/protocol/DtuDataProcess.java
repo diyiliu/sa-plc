@@ -5,6 +5,7 @@ import com.diyiliu.plugin.model.Header;
 import com.diyiliu.plugin.model.IDataProcess;
 import com.diyiliu.plugin.util.CommonUtil;
 import com.diyiliu.plugin.util.JacksonUtil;
+import com.diyiliu.plugin.util.SpringUtil;
 import com.tiza.gw.support.client.KafkaClient;
 import com.tiza.gw.support.dao.dto.*;
 import com.tiza.gw.support.dao.jpa.DetailInfoJpa;
@@ -60,6 +61,9 @@ public class DtuDataProcess implements IDataProcess {
     @Resource
     private ICache alarmCacheProvider;
 
+    @Resource
+    private ICache onlineCacheProvider;
+
 
     @Override
     public void init() {
@@ -102,6 +106,9 @@ public class DtuDataProcess implements IDataProcess {
         List<DetailInfo> detailList = storeGroup.getDetailList();
 
         boolean isOk = true;
+        // 是否数字量
+        boolean isDigital = false;
+
         List<PointUnit> unitList = sendMsg.getUnitList();
         ByteBuf buf = Unpooled.copiedBuffer(content);
         for (int i = 0; i < unitList.size(); i++) {
@@ -110,14 +117,13 @@ public class DtuDataProcess implements IDataProcess {
 
             // 数字量单独处理
             if (5 == type) {
-
+                isDigital = true;
                 unpackUnit(content, pointUnit, summary, detailList);
                 break;
             }
 
             // 只有dword是四个字节,其他(除数字量)均为二个字节
             int length = type == 4 ? 4 : 2;
-
             // 按字(两个字节)解析
             if (buf.readableBytes() >= length) {
                 byte[] bytes = new byte[length];
@@ -131,15 +137,43 @@ public class DtuDataProcess implements IDataProcess {
             }
         }
 
+        // 上下行匹配
         if (isOk) {
+            if (!isDigital && buf.readableBytes() > 0){
+                log.info("数据解析不完整(非数字量包!)");
+                return;
+            }
+
             updateSummary(equipId, summary);
             updateDetail(deviceInfo, detailList);
+        }else {
+            log.error("数据异常!");
         }
     }
 
     @Override
     public byte[] pack(Header header, Object... argus) {
         return new byte[0];
+    }
+
+
+    /**
+     * 设备离线
+     *
+     * @param deviceId
+     */
+    public void offline(String deviceId) {
+        onlineCacheProvider.remove(deviceId);
+        sendCacheProvider.remove(deviceId);
+         /*
+        ICache deviceCache = SpringUtil.getBean("deviceCacheProvider");
+        if (deviceCache.containsKey(deviceId)) {
+            DeviceInfo deviceInfo = (DeviceInfo) deviceCache.get(deviceId);
+            String sql = "UPDATE equipment_info SET DtuStatus = 0 WHERE EquipmentId = " + deviceInfo.getId();
+            jdbcTemplate.update(sql);
+            log.warn("设备[{}]离线[{}]", deviceId, sql);
+        }
+        */
     }
 
 

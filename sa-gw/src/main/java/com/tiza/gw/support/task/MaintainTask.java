@@ -11,7 +11,10 @@ import com.tiza.gw.support.dao.jpa.MaintainRemindJpa;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -22,23 +25,29 @@ import java.util.stream.Collectors;
  */
 
 @Slf4j
+@Service
 public class MaintainTask implements ITask {
 
+    @Resource
     private MaintainInfoJpa maintainInfoJpa;
 
+    @Resource
     private MaintainRemindJpa maintainRemindJpa;
 
+    @Resource
     private MaintainLogJpa maintainLogJpa;
 
+    @Resource
     private DeviceCurrentStatusJpa deviceCurrentStatusJpa;
 
-    private ICache deviceCache;
+    @Resource
+    private ICache deviceCacheProvider;
 
-    @Override
+    @Scheduled(cron = "0 5 0 * * ?")
     public void execute() {
         log.info("保养提醒分析 ... ");
 
-        Map<String, Object> deviceInfoMap = deviceCache.get(deviceCache.getKeys());
+        Map<String, Object> deviceInfoMap = deviceCacheProvider.get(deviceCacheProvider.getKeys());
         Set<Long> policyIds = deviceInfoMap.keySet().stream().map(e -> {
             DeviceInfo deviceInfo = (DeviceInfo) deviceInfoMap.get(e);
             return deviceInfo.getMaintainPolicyId();
@@ -55,13 +64,6 @@ public class MaintainTask implements ITask {
             if (deviceInfo.getDebugTime() == null) {
                 continue;
             }
-
-/*
-
-            if (deviceInfo.getId() != 94) {
-                continue;
-            }
-*/
 
             DeviceCurrentStatus currentStatus = deviceCurrentStatusJpa.findByEquipId(deviceInfo.getId());
             deviceInfo.setWorkHours(currentStatus.getTotalWorkTime());
@@ -234,32 +236,5 @@ public class MaintainTask implements ITask {
         double day = (now.get(Calendar.DAY_OF_MONTH) - past.get(Calendar.DAY_OF_MONTH)) / 30;
 
         return CommonUtil.keepDecimal(year * 12 + month + day, 1);
-
-        /*
-        // 秒
-        double interval = (date2.getTime() - date1.getTime()) * 0.001;
-        // 月
-        return CommonUtil.keepDecimal(interval / (3600 * 24 * 30), 1);
-        */
-    }
-
-    public void setMaintainInfoJpa(MaintainInfoJpa maintainInfoJpa) {
-        this.maintainInfoJpa = maintainInfoJpa;
-    }
-
-    public void setMaintainRemindJpa(MaintainRemindJpa maintainRemindJpa) {
-        this.maintainRemindJpa = maintainRemindJpa;
-    }
-
-    public void setMaintainLogJpa(MaintainLogJpa maintainLogJpa) {
-        this.maintainLogJpa = maintainLogJpa;
-    }
-
-    public void setDeviceCurrentStatusJpa(DeviceCurrentStatusJpa deviceCurrentStatusJpa) {
-        this.deviceCurrentStatusJpa = deviceCurrentStatusJpa;
-    }
-
-    public void setDeviceCache(ICache deviceCache) {
-        this.deviceCache = deviceCache;
     }
 }

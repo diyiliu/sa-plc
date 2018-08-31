@@ -47,19 +47,13 @@ public class SendController {
     private ICache writeFnCacheProvider;
 
     @Resource
-    private ICache deviceCacheProvider;
-
-    @Resource
-    private ICache sendCacheProvider;
-
-    @Resource
-    private ICache timerCacheProvider;
-
-    @Resource
     private DeviceInfoJpa deviceInfoJpa;
 
     @Resource
     private DetailInfoJpa detailInfoJpa;
+
+    @Resource
+    private TimerTask timerTask;
 
     /**
      * 参数设置
@@ -218,8 +212,7 @@ public class SendController {
             return "未配置设备功能集。";
         }
 
-        TimerTask task = new TimerTask(onlineCacheProvider, deviceCacheProvider, timerCacheProvider, sendCacheProvider);
-        task.synchronize(dtuId, code);
+        timerTask.synchronize(dtuId, code);
 
         return "设置成功";
     }

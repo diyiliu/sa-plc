@@ -11,7 +11,10 @@ import com.tiza.gw.support.model.SendMsg;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -24,6 +27,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 
 @Slf4j
+@Service
 public class SenderTask implements ITask {
     /**
      * 查询指令
@@ -34,23 +38,22 @@ public class SenderTask implements ITask {
      */
     private static Queue<SendMsg> setupPool = new ConcurrentLinkedQueue();
 
-    public SenderTask(ICache onlineCache, ICache sendCache) {
-        this.onlineCache = onlineCache;
-        this.sendCache = sendCache;
-    }
 
     /**
      * 在线设备
      */
-    private ICache onlineCache;
+    @Resource
+    private ICache onlineCacheProvider;
+
 
     /**
      * 发送缓存
      */
-    private ICache sendCache;
+    @Resource
+    private ICache sendCacheProvider;
 
 
-    @Override
+    @Scheduled(fixedDelay = 1000, initialDelay = 5 * 1000)
     public void execute() {
         Map<String, Long> blockCache = new HashMap();
 
@@ -80,7 +83,7 @@ public class SenderTask implements ITask {
             }
             */
 
-            if (onlineCache.containsKey(deviceId)) {
+            if (onlineCacheProvider.containsKey(deviceId)) {
                 // 设备阻塞状态
                 if (blockCache.containsKey(deviceId)) {
                     if (1 == sendMsg.getType()) {
@@ -111,7 +114,7 @@ public class SenderTask implements ITask {
                     continue;
                 }
 
-                ChannelHandlerContext context = (ChannelHandlerContext) onlineCache.get(deviceId);
+                ChannelHandlerContext context = (ChannelHandlerContext) onlineCacheProvider.get(deviceId);
                 context.writeAndFlush(Unpooled.copiedBuffer(sendMsg.getBytes()));
 
                 // 参数设置
@@ -121,12 +124,12 @@ public class SenderTask implements ITask {
                 }
 
                 MsgMemory msgMemory;
-                if (sendCache.containsKey(deviceId)) {
-                    msgMemory = (MsgMemory) sendCache.get(deviceId);
+                if (sendCacheProvider.containsKey(deviceId)) {
+                    msgMemory = (MsgMemory) sendCacheProvider.get(deviceId);
                 } else {
                     msgMemory = new MsgMemory();
                     msgMemory.setDeviceId(deviceId);
-                    sendCache.put(deviceId, msgMemory);
+                    sendCacheProvider.put(deviceId, msgMemory);
                 }
                 sendMsg.setDateTime(System.currentTimeMillis());
                 msgMemory.setCurrent(sendMsg);
@@ -184,8 +187,8 @@ public class SenderTask implements ITask {
      * @return
      */
     private boolean isBlock(String deviceId) {
-        if (sendCache.containsKey(deviceId)) {
-            MsgMemory msgMemory = (MsgMemory) sendCache.get(deviceId);
+        if (sendCacheProvider.containsKey(deviceId)) {
+            MsgMemory msgMemory = (MsgMemory) sendCacheProvider.get(deviceId);
             SendMsg current = msgMemory.getCurrent();
             if (current != null && current.getResult() == 0) {
                 // 超时 手动置为已处理

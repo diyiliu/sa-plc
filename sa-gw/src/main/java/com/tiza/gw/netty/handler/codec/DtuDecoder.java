@@ -41,6 +41,8 @@ public class DtuDecoder extends ByteToMessageDecoder {
         // 绑定数据
         Attribute attribute = ctx.channel().attr(AttributeKey.valueOf(Constant.NETTY_DEVICE_ID));
         KafkaClient kafkaClient = SpringUtil.getBean("kafkaClient");
+        // 下发缓存
+        ICache sendCache = SpringUtil.getBean("sendCacheProvider");
 
         in.markReaderIndex();
         byte b1 = in.readByte();
@@ -61,11 +63,12 @@ public class DtuDecoder extends ByteToMessageDecoder {
                 register(deviceId, attribute, ctx);
             }
 
-            // 不记录异常数据
-            if (ctx.channel().isOpen()) {
-                // 写入kafka
-                kafkaClient.toKafka(deviceId, bytes, 1);
+            // 清除下发缓存
+            if (sendCache.containsKey(deviceId)) {
+                sendCache.remove(deviceId);
             }
+            // 写入kafka
+            kafkaClient.toKafka(deviceId, bytes, 1);
         } else {
             deviceId = (String) attribute.get();
             if (deviceId == null) {
@@ -79,9 +82,6 @@ public class DtuDecoder extends ByteToMessageDecoder {
             int site = in.readByte();
             // 功能码
             int code = in.readByte();
-
-            // 判断上行数据类型
-            ICache sendCache = SpringUtil.getBean("sendCacheProvider");
             if (!sendCache.containsKey(deviceId)) {
                 log.error("数据异常, 找不到下行数据与之对应。");
                 ctx.close();

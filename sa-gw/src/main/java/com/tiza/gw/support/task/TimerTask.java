@@ -11,7 +11,10 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -26,49 +29,48 @@ import java.util.Set;
  */
 
 @Slf4j
+@Service
 public class TimerTask implements ITask {
 
     /**
      * 设备缓存
      */
-    private ICache deviceCache;
+    @Resource
+    private ICache deviceCacheProvider;
 
     /**
      * 在线设备
      */
-    private ICache onlineCache;
+    @Resource
+    private ICache onlineCacheProvider;
 
     /**
      * 功能集定时任务
      */
-    private ICache timerCache;
+    @Resource
+    private ICache timerCacheProvider;
 
     /**
      * 发送缓存
      */
-    private ICache sendCache;
+    @Resource
+    private ICache sendCacheProvider;
 
-    public TimerTask(ICache onlineCache, ICache deviceCache, ICache timerCache, ICache sendCache) {
-        this.onlineCache = onlineCache;
-        this.deviceCache = deviceCache;
-        this.timerCache = timerCache;
-        this.sendCache = sendCache;
-    }
 
-    @Override
+    @Scheduled(fixedRate = 5 * 1000, initialDelay = 10 * 1000)
     public void execute() {
-        Set set = onlineCache.getKeys();
+        Set set = onlineCacheProvider.getKeys();
         for (Iterator iterator = set.iterator(); iterator.hasNext(); ) {
             String deviceId = (String) iterator.next();
 
-            DeviceInfo deviceInfo = (DeviceInfo) deviceCache.get(deviceId);
+            DeviceInfo deviceInfo = (DeviceInfo) deviceCacheProvider.get(deviceId);
             if (deviceInfo == null) {
 
                 continue;
             }
 
             String version = deviceInfo.getSoftVersion();
-            Map<Integer, List<QueryFrame>> fnQuery = (Map<Integer, List<QueryFrame>>) timerCache.get(version);
+            Map<Integer, List<QueryFrame>> fnQuery = (Map<Integer, List<QueryFrame>>) timerCacheProvider.get(version);
             for (Iterator<Integer> iter = fnQuery.keySet().iterator(); iter.hasNext(); ) {
                 int fnCode = iter.next();
 
@@ -96,10 +98,10 @@ public class TimerTask implements ITask {
      * @param fnCode
      */
     public void synchronize(String deviceId, Integer fnCode) {
-        DeviceInfo deviceInfo = (DeviceInfo) deviceCache.get(deviceId);
+        DeviceInfo deviceInfo = (DeviceInfo) deviceCacheProvider.get(deviceId);
         String version = deviceInfo.getSoftVersion();
 
-        Map<Integer, List<QueryFrame>> fnQuery = (Map<Integer, List<QueryFrame>>) timerCache.get(version);
+        Map<Integer, List<QueryFrame>> fnQuery = (Map<Integer, List<QueryFrame>>) timerCacheProvider.get(version);
         if (MapUtils.isNotEmpty(fnQuery) && fnQuery.containsKey(fnCode)) {
             List<QueryFrame> frameList = fnQuery.get(fnCode);
             for (QueryFrame frame : frameList) {
@@ -153,8 +155,8 @@ public class TimerTask implements ITask {
      * @return
      */
     private boolean onTime(String deviceId, String qKey, long interval) {
-        if (sendCache.containsKey(deviceId)) {
-            MsgMemory msgMemory = (MsgMemory) sendCache.get(deviceId);
+        if (sendCacheProvider.containsKey(deviceId)) {
+            MsgMemory msgMemory = (MsgMemory) sendCacheProvider.get(deviceId);
             SendMsg msg = msgMemory.getMsgMap().get(qKey);
             if (msg == null) {
 
