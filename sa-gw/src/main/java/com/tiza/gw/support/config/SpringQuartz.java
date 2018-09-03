@@ -79,7 +79,10 @@ public class SpringQuartz {
                 }
 
                 // 当日工作时间
-                double hour = max - last;
+                double hour = 0;
+                if (last > 0 && max > last) {
+                    hour = max - last;
+                }
 
                 DailyHour dailyHour = new DailyHour();
                 dailyHour.setEquipId(id);
