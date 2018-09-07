@@ -16,11 +16,13 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * 指令下发任务
- *
+ * <p>
  * Description: SenderTask
  * Author: DIYILIU
  * Update: 2018-01-29 10:45
@@ -53,6 +55,12 @@ public class SenderTask implements ITask {
     private ICache sendCacheProvider;
 
 
+    /**
+     * 生产缓存
+     **/
+    private static ConcurrentMap<String, Long> produceMap = new ConcurrentHashMap();
+
+
     @Scheduled(fixedDelay = 1000, initialDelay = 5 * 1000)
     public void execute() {
         Map<String, Long> blockCache = new HashMap();
@@ -71,12 +79,12 @@ public class SenderTask implements ITask {
 
             /*
             // 过滤重复查询
-            if (sendCache.containsKey(deviceId)) {
+            if (sendCacheProvider.containsKey(deviceId)) {
                 String qKey = sendMsg.getKey();
                 long frequency = sendMsg.getUnitList().get(0).getFrequency();
-                MsgMemory msgMemory = (MsgMemory) sendCache.get(deviceId);
+                MsgMemory msgMemory = (MsgMemory) sendCacheProvider.get(deviceId);
                 SendMsg msg = msgMemory.getMsgMap().get(qKey);
-                if (msg != null && (System.currentTimeMillis() - msg.getDateTime() < frequency * 1000)) {
+                if (msg != null && (System.currentTimeMillis() - msg.getDateTime()) * 0.001 < frequency) {
 
                     continue;
                 }
@@ -113,6 +121,9 @@ public class SenderTask implements ITask {
 
                     continue;
                 }
+
+                String proKey = deviceId + "_" + sendMsg.getKey();
+                produceMap.remove(proKey);
 
                 ChannelHandlerContext context = (ChannelHandlerContext) onlineCacheProvider.get(deviceId);
                 context.writeAndFlush(Unpooled.copiedBuffer(sendMsg.getBytes()));
@@ -170,13 +181,21 @@ public class SenderTask implements ITask {
         if (flag) {
             setupPool.add(sendMsg);
         } else {
-            msgPool.add(sendMsg);
+            send(sendMsg);
         }
     }
 
-    public static void send(SendMsg sendMsg) {
+    public static boolean send(SendMsg sendMsg) {
+        String proKey = sendMsg.getDeviceId() + "_" + sendMsg.getKey();
+        if (produceMap.containsKey(proKey)) {
 
+            return false;
+        }
+
+        produceMap.put(proKey, System.currentTimeMillis());
         msgPool.add(sendMsg);
+
+        return true;
     }
 
 

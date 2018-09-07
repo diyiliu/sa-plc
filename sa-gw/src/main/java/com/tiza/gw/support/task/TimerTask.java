@@ -2,6 +2,7 @@ package com.tiza.gw.support.task;
 
 import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.task.ITask;
+import com.diyiliu.plugin.util.JacksonUtil;
 import com.tiza.gw.support.model.MsgMemory;
 import com.tiza.gw.support.model.PointUnit;
 import com.tiza.gw.support.model.QueryFrame;
@@ -19,6 +20,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * 定时查询任务
@@ -63,13 +66,12 @@ public class TimerTask implements ITask {
         for (Iterator iterator = set.iterator(); iterator.hasNext(); ) {
             String deviceId = (String) iterator.next();
 
-            DeviceInfo deviceInfo = (DeviceInfo) deviceCacheProvider.get(deviceId);
-            if (deviceInfo == null) {
-
+            if (!deviceCacheProvider.containsKey(deviceId)) {
                 continue;
             }
-
+            DeviceInfo deviceInfo = (DeviceInfo) deviceCacheProvider.get(deviceId);
             String version = deviceInfo.getSoftVersion();
+
             Map<Integer, List<QueryFrame>> fnQuery = (Map<Integer, List<QueryFrame>>) timerCacheProvider.get(version);
             for (Iterator<Integer> iter = fnQuery.keySet().iterator(); iter.hasNext(); ) {
                 int fnCode = iter.next();
@@ -82,9 +84,17 @@ public class TimerTask implements ITask {
                 for (QueryFrame frame : frameList) {
                     String qKey = frame.getSite() + ":" + frame.getCode() + ":" + frame.getStart();
                     long frequency = frame.getPointUnits().get(0).getFrequency();
+
                     if (onTime(deviceId, qKey, frequency)) {
                         SendMsg msg = toSendMsg(deviceId, frame);
-                        SenderTask.send(msg);
+
+                        if (SenderTask.send(msg)) {
+                            if (qKey.equals("2:3:124")) {
+                                log.warn("设备[{}]生产查询指令[{}]成功!", deviceId, qKey);
+                            }
+                        } else {
+                            log.warn("设备[{}]生产查询指令[{}]失败!", deviceId, qKey);
+                        }
                     }
                 }
             }

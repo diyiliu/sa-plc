@@ -90,6 +90,12 @@ public class DtuDecoder extends ByteToMessageDecoder {
 
             MsgMemory msgMemory = (MsgMemory) sendCache.get(deviceId);
             SendMsg sendMsg = msgMemory.getCurrent();
+            if (sendMsg == null || sendMsg.getResult() == 1){
+                log.error("过滤异常数据。");
+                ctx.close();
+                return;
+            }
+
             // 指令类型
             int type = sendMsg.getType();
 

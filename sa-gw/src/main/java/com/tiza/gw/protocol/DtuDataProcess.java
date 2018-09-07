@@ -164,7 +164,12 @@ public class DtuDataProcess implements IDataProcess {
      */
     public void offline(String deviceId) {
         onlineCacheProvider.remove(deviceId);
-        sendCacheProvider.remove(deviceId);
+
+        if (sendCacheProvider.containsKey(deviceId)){
+            MsgMemory msgMemory = (MsgMemory) sendCacheProvider.get(deviceId);
+            msgMemory.setCurrent(null);
+        }
+
          /*
         ICache deviceCache = SpringUtil.getBean("deviceCacheProvider");
         if (deviceCache.containsKey(deviceId)) {
