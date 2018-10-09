@@ -130,4 +130,10 @@ public class TestMain {
         System.out.println(DateUtil.dateToString(calendar.getTime()));
     }
 
+    @Test
+    public void test10(){
+
+        System.out.println(Float.floatToIntBits(315.0f));
+    }
+
 }

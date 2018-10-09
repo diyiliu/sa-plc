@@ -2,12 +2,11 @@ package com.tiza.gw.support.task;
 
 import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.task.ITask;
-import com.diyiliu.plugin.util.JacksonUtil;
+import com.tiza.gw.support.dao.dto.DeviceInfo;
 import com.tiza.gw.support.model.MsgMemory;
 import com.tiza.gw.support.model.PointUnit;
 import com.tiza.gw.support.model.QueryFrame;
 import com.tiza.gw.support.model.SendMsg;
-import com.tiza.gw.support.dao.dto.DeviceInfo;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +19,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * 定时查询任务
@@ -88,12 +85,8 @@ public class TimerTask implements ITask {
                     if (onTime(deviceId, qKey, frequency)) {
                         SendMsg msg = toSendMsg(deviceId, frame);
 
-                        if (SenderTask.send(msg)) {
-                            if (qKey.equals("2:3:124")) {
-                                log.warn("设备[{}]生产查询指令[{}]成功!", deviceId, qKey);
-                            }
-                        } else {
-                            log.warn("设备[{}]生产查询指令[{}]失败!", deviceId, qKey);
+                        if (!SenderTask.send(msg)) {
+                            log.info("设备[{}]生产查询指令[{}]失败!", deviceId, qKey);
                         }
                     }
                 }

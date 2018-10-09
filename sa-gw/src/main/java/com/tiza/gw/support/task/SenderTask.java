@@ -74,8 +74,12 @@ public class SenderTask implements ITask {
             } else {
                 sendMsg = setupPool.poll();
             }
-
             String deviceId = sendMsg.getDeviceId();
+
+            String proKey = deviceId + "_" + sendMsg.getKey();
+            if (produceMap.containsKey(proKey)){
+                produceMap.remove(proKey);
+            }
 
             /*
             // 过滤重复查询
@@ -121,9 +125,6 @@ public class SenderTask implements ITask {
 
                     continue;
                 }
-
-                String proKey = deviceId + "_" + sendMsg.getKey();
-                produceMap.remove(proKey);
 
                 ChannelHandlerContext context = (ChannelHandlerContext) onlineCacheProvider.get(deviceId);
                 context.writeAndFlush(Unpooled.copiedBuffer(sendMsg.getBytes()));
@@ -181,13 +182,14 @@ public class SenderTask implements ITask {
         if (flag) {
             setupPool.add(sendMsg);
         } else {
-            send(sendMsg);
+            msgPool.add(sendMsg);
         }
     }
 
     public static boolean send(SendMsg sendMsg) {
         String proKey = sendMsg.getDeviceId() + "_" + sendMsg.getKey();
-        if (produceMap.containsKey(proKey)) {
+        if (produceMap.containsKey(proKey) &&
+                produceMap.get(proKey) - System.currentTimeMillis() < 60 * 1000) {
 
             return false;
         }

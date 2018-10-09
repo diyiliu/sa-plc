@@ -43,7 +43,7 @@ public class MaintainTask implements ITask {
     @Resource
     private ICache deviceCacheProvider;
 
-    @Scheduled(cron = "0 5 0 * * ?")
+    @Scheduled(cron = "0 10 0 * * ?")
     public void execute() {
         log.info("保养提醒分析 ... ");
 
@@ -99,7 +99,7 @@ public class MaintainTask implements ITask {
         double month = calcMonth(deviceInfo.getDebugTime(), new Date());
 
         boolean isPeriod = maintainInfo.getIsPeriod() == 1 ? true : false;
-        List<MaintainRemind> reminds = maintainRemindJpa.findByEquipIdAndPolicyDetailId(deviceInfo.getId(), maintainInfo.getId(), Sort.by(Sort.Direction.DESC, "workHours"));
+        List<MaintainRemind> reminds = maintainRemindJpa.findByEquipIdAndPolicyDetailId(deviceInfo.getId(), maintainInfo.getId(), Sort.by(Sort.Direction.DESC, new String[]{"CreateTime", "workHours"}));
 
         MaintainRemind remind = new MaintainRemind();
         remind.setEquipId(deviceInfo.getId());
@@ -200,7 +200,7 @@ public class MaintainTask implements ITask {
         }
 
         if (isFit) {
-            List<MaintainRemind> reminds = maintainRemindJpa.findByEquipIdAndPolicyIdAndIsMajor(deviceInfo.getId(), fitMt.getPolicyId(), 1, Sort.by(Sort.Direction.DESC, new String[]{"workHours", "CreateTime"}));
+            List<MaintainRemind> reminds = maintainRemindJpa.findByEquipIdAndPolicyIdAndIsMajor(deviceInfo.getId(), fitMt.getPolicyId(), 1, Sort.by(Sort.Direction.DESC, new String[]{"CreateTime", "workHours"}));
             if (CollectionUtils.isNotEmpty(reminds)) {
                 MaintainRemind lastRemind = reminds.get(0);
                 if (lastRemind.getStatus() == 1) {

@@ -65,8 +65,10 @@ public class DtuDecoder extends ByteToMessageDecoder {
 
             // 清除下发缓存
             if (sendCache.containsKey(deviceId)) {
-                sendCache.remove(deviceId);
+                MsgMemory msgMemory = (MsgMemory) sendCache.get(deviceId);
+                msgMemory.setCurrent(null);
             }
+
             // 写入kafka
             kafkaClient.toKafka(deviceId, bytes, 1);
         } else {
@@ -90,7 +92,7 @@ public class DtuDecoder extends ByteToMessageDecoder {
 
             MsgMemory msgMemory = (MsgMemory) sendCache.get(deviceId);
             SendMsg sendMsg = msgMemory.getCurrent();
-            if (sendMsg == null || sendMsg.getResult() == 1){
+            if (sendMsg == null || sendMsg.getResult() == 1) {
                 log.error("过滤异常数据。");
                 ctx.close();
                 return;

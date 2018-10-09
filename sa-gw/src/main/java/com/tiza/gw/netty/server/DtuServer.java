@@ -14,10 +14,6 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 /**
  * Description: DtuServer
  * Author: DIYILIU
@@ -29,18 +25,9 @@ import java.util.concurrent.TimeUnit;
 public class DtuServer extends Thread {
     private int port;
 
-    private ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-
-
-
     public void init() {
 
         this.start();
-
-        executor.scheduleWithFixedDelay(() -> {
-
-
-        }, 5, 1, TimeUnit.SECONDS);
     }
 
     @Override
@@ -53,7 +40,8 @@ public class DtuServer extends Thread {
 
             b.group(bossGroup, workGroup)
                     .channel(NioServerSocketChannel.class)
-                    .option(ChannelOption.SO_BACKLOG, 1000)
+                    .option(ChannelOption.SO_BACKLOG, 1024)
+                    .childOption(ChannelOption.TCP_NODELAY, true)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) {

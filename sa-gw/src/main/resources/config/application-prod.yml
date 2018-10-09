@@ -14,6 +14,13 @@ spring:
     username: root
     password: admin@123
 
+  # JPA
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: false
+
 # 自定义配置
 dtu-server-port: 5006
 
