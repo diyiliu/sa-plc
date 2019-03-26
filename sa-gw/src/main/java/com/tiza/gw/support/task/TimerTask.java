@@ -22,7 +22,6 @@ import java.util.Set;
 
 /**
  * 定时查询任务
- * <p>
  * Description: TimerTask
  * Author: DIYILIU
  * Update: 2018-04-25 14:03

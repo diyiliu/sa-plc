@@ -22,7 +22,6 @@ import java.util.concurrent.ConcurrentMap;
 
 /**
  * 指令下发任务
- * <p>
  * Description: SenderTask
  * Author: DIYILIU
  * Update: 2018-01-29 10:45
@@ -80,20 +79,6 @@ public class SenderTask implements ITask {
             if (produceMap.containsKey(proKey)){
                 produceMap.remove(proKey);
             }
-
-            /*
-            // 过滤重复查询
-            if (sendCacheProvider.containsKey(deviceId)) {
-                String qKey = sendMsg.getKey();
-                long frequency = sendMsg.getUnitList().get(0).getFrequency();
-                MsgMemory msgMemory = (MsgMemory) sendCacheProvider.get(deviceId);
-                SendMsg msg = msgMemory.getMsgMap().get(qKey);
-                if (msg != null && (System.currentTimeMillis() - msg.getDateTime()) * 0.001 < frequency) {
-
-                    continue;
-                }
-            }
-            */
 
             if (onlineCacheProvider.containsKey(deviceId)) {
                 // 设备阻塞状态

@@ -123,7 +123,7 @@ public class TestMain {
     }
 
     @Test
-    public void test9(){
+    public void test9() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date(0));
 
@@ -131,9 +131,29 @@ public class TestMain {
     }
 
     @Test
-    public void test10(){
+    public void test10() {
+        // System.out.println(Float.floatToIntBits(315.0f));
 
-        System.out.println(Float.floatToIntBits(315.0f));
+
+        byte[] bytes = CommonUtil.hexStringToBytes("3EA7E585");
+
+        int val = CommonUtil.byte2int(bytes);
+        String v = String.valueOf(Float.intBitsToFloat(val));
+        System.out.println(v);
     }
 
+    @Test
+    public void testStr(){
+
+        String str = "33 35 35 37 38 34 30 31 32 35 39 31 31 31 31";
+
+        byte[] bytes = CommonUtil.hexStringToBytes(str);
+
+        System.out.println(new String(bytes));
+
+
+        str= "16129005";
+
+        System.out.println(CommonUtil.bytesToString(str.getBytes()));
+    }
 }

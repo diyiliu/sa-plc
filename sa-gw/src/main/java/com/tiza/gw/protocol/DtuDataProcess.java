@@ -370,6 +370,7 @@ public class DtuDataProcess implements IDataProcess {
                 long id = currentFault.getId();
                 FaultInfo faultInfo = faultInfoJpa.findById(id);
                 faultInfo.setEndTime(new Date());
+                faultInfo.setValue("0");
 
                 faultInfo = faultInfoJpa.save(faultInfo);
                 if (faultInfo != null) {
@@ -521,6 +522,7 @@ public class DtuDataProcess implements IDataProcess {
             long fId = alarmGroup.getId();
 
             FaultInfo faultInfo = faultInfoJpa.findById(fId);
+            faultInfo.setValue("0");
             faultInfo.setEndTime(new Date());
             faultInfo = faultInfoJpa.save(faultInfo);
             if (faultInfo != null) {

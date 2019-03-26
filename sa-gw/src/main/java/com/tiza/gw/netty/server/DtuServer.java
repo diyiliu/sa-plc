@@ -37,7 +37,6 @@ public class DtuServer extends Thread {
 
         try {
             ServerBootstrap b = new ServerBootstrap();
-
             b.group(bossGroup, workGroup)
                     .channel(NioServerSocketChannel.class)
                     .option(ChannelOption.SO_BACKLOG, 1024)

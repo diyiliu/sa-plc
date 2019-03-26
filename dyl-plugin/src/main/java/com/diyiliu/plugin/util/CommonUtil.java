@@ -184,7 +184,7 @@ public class CommonUtil {
     }
 
     public static byte[] hexStringToBytes(String hex) {
-
+        hex = hex.replaceAll(" ", "");
         char[] charArray = hex.toCharArray();
 
         if (charArray.length % 2 != 0) {
