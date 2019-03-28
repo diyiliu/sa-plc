@@ -2,13 +2,15 @@ package com.tiza.gw.support.task;
 
 import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.task.ITask;
+import com.diyiliu.plugin.util.CommonUtil;
+import com.diyiliu.plugin.util.JacksonUtil;
 import com.tiza.gw.support.dao.dto.DeviceInfo;
-import com.tiza.gw.support.model.MsgMemory;
-import com.tiza.gw.support.model.PointUnit;
-import com.tiza.gw.support.model.QueryFrame;
-import com.tiza.gw.support.model.SendMsg;
+import com.tiza.gw.support.dao.dto.SendLog;
+import com.tiza.gw.support.dao.jpa.SendLogJpa;
+import com.tiza.gw.support.model.*;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,6 +21,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * 定时查询任务
@@ -30,6 +34,12 @@ import java.util.Set;
 @Slf4j
 @Service
 public class TimerTask implements ITask {
+
+    /**
+     * 设置线程池
+     **/
+    private static final ExecutorService sendService = Executors.newCachedThreadPool();
+
 
     /**
      * 设备缓存
@@ -56,7 +66,19 @@ public class TimerTask implements ITask {
     private ICache sendCacheProvider;
 
 
-    @Scheduled(fixedRate = 5 * 1000, initialDelay = 10 * 1000)
+    @Resource
+    private ICache singlePoolCache;
+
+
+    @Resource
+    private ICache sendServiceCache;
+
+
+    @Resource
+    private SendLogJpa sendLogJpa;
+
+
+    @Scheduled(fixedDelay = 3 * 1000, initialDelay = 10 * 1000)
     public void execute() {
         Set set = onlineCacheProvider.getKeys();
         for (Iterator iterator = set.iterator(); iterator.hasNext(); ) {
@@ -82,11 +104,8 @@ public class TimerTask implements ITask {
                     long frequency = frame.getPointUnits().get(0).getFrequency();
 
                     if (onTime(deviceId, qKey, frequency)) {
-                        SendMsg msg = toSendMsg(deviceId, frame);
-
-                        if (!SenderTask.send(msg)) {
-                            log.info("设备[{}]生产查询指令[{}]失败!", deviceId, qKey);
-                        }
+                        SendMsg msg = buildMsg(deviceId, frame);
+                        toSend(msg);
                     }
                 }
             }
@@ -107,14 +126,13 @@ public class TimerTask implements ITask {
         if (MapUtils.isNotEmpty(fnQuery) && fnQuery.containsKey(fnCode)) {
             List<QueryFrame> frameList = fnQuery.get(fnCode);
             for (QueryFrame frame : frameList) {
-                SendMsg msg = toSendMsg(deviceId, frame);
-                SenderTask.send(msg, true);
+                SendMsg msg = buildMsg(deviceId, frame);
+                toSend(msg);
             }
         }
     }
 
-
-    private SendMsg toSendMsg(String deviceId, QueryFrame queryFrame) {
+    private SendMsg buildMsg(String deviceId, QueryFrame queryFrame) {
         List<PointUnit> units = queryFrame.getPointUnits();
         int type = units.get(0).getType();
 
@@ -150,6 +168,24 @@ public class TimerTask implements ITask {
     }
 
     /**
+     * 更新下发指令状态
+     *
+     * @param msg
+     * @param result
+     * @param replyMsg
+     */
+    public void updateLog(SendMsg msg, int result, String replyMsg) {
+        SendLog sendLog = sendLogJpa.findById(msg.getRowId().longValue());
+        // 0:未发送;1:已发送;2:成功;3:失败;4:超时;
+        if (sendLog != null) {
+            sendLog.setResult(result);
+            sendLog.setSendData(CommonUtil.bytesToStr(msg.getBytes()));
+            sendLog.setReplyData(replyMsg);
+            sendLogJpa.save(sendLog);
+        }
+    }
+
+    /**
      * 校验查询频率
      *
      * @param qKey
@@ -172,5 +208,54 @@ public class TimerTask implements ITask {
         }
 
         return true;
+    }
+
+    public void toSend(SendMsg sendMsg) {
+        String deviceId = sendMsg.getDeviceId();
+        if (!onlineCacheProvider.containsKey(deviceId)) {
+            log.info("设备[{}]离线!", deviceId);
+            return;
+        }
+
+        // 设备下发通道
+        ChannelHandlerContext context = (ChannelHandlerContext) onlineCacheProvider.get(deviceId);
+
+        MsgPool pool;
+        if (singlePoolCache.containsKey(deviceId)) {
+            pool = (MsgPool) singlePoolCache.get(deviceId);
+        } else {
+            pool = new MsgPool();
+            pool.setDeviceId(deviceId);
+            singlePoolCache.put(deviceId, pool);
+        }
+
+        // 指令标记
+        String key = sendMsg.getKey();
+        // 指令类型
+        int type = sendMsg.getType();
+
+        // 过滤重复查询指令
+        if (0 == type && pool.getKeyList().contains(key)) {
+            log.info("设备[{}, {}]指令已存在消费队列: {}!", deviceId, key, JacksonUtil.toJson(pool.getKeyList()));
+            return;
+        }
+
+        // 设置指令优先执行
+        if (1 == type) {
+            pool.getMsgQueue().addFirst(sendMsg);
+        } else {
+            pool.getKeyList().add(key);
+            pool.getMsgQueue().add(sendMsg);
+        }
+
+        if (!sendServiceCache.containsKey(deviceId)) {
+            SendService service = new SendService(pool, context);
+            sendServiceCache.put(deviceId, System.currentTimeMillis());
+
+            // 执行
+            sendService.execute(service);
+        }
+
+        log.info("正在执行的线程总数: [{}, {}]。", sendServiceCache.size(), JacksonUtil.toJson(sendServiceCache.getKeys()));
     }
 }

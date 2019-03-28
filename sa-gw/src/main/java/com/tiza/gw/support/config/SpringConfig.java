@@ -167,4 +167,26 @@ public class SpringConfig {
 
         return new RamCacheProvider();
     }
+
+    /**
+     * 单个设备指令缓存
+     *
+     * @return
+     */
+    @Bean
+    public ICache singlePoolCache() {
+
+        return new RamCacheProvider();
+    }
+
+    /**
+     * 设备线程缓存
+     *
+     * @return
+     */
+    @Bean
+    public ICache sendServiceCache() {
+
+        return new RamCacheProvider();
+    }
 }

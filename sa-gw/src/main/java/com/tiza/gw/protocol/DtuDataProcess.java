@@ -276,7 +276,7 @@ public class DtuDataProcess implements IDataProcess {
         sqlBuilder.append("lastTime").append("=?, ");
         list.add(new Date());
 
-        log.debug("[更新] 设备[{}]状态...", equipId);
+        //log.info("[更新] 设备[{}]当前信息...", equipId);
         String sql = sqlBuilder.substring(0, sqlBuilder.length() - 2) + " WHERE equipmentId=" + equipId;
         jdbcTemplate.update(sql, list.toArray());
     }
@@ -300,6 +300,7 @@ public class DtuDataProcess implements IDataProcess {
                     dealFault(detailInfo);
                 }
             }
+            //log.info("[更新] 设备[{}]详细信息...", equipId);
 
             // 批量更新数据
             detailInfoJpa.saveAll(detailInfoList);

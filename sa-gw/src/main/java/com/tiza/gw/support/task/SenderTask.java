@@ -28,7 +28,6 @@ import java.util.concurrent.ConcurrentMap;
  */
 
 @Slf4j
-@Service
 public class SenderTask implements ITask {
     /**
      * 查询指令
@@ -60,9 +59,9 @@ public class SenderTask implements ITask {
     private static ConcurrentMap<String, Long> produceMap = new ConcurrentHashMap();
 
 
-    @Scheduled(fixedDelay = 1000, initialDelay = 5 * 1000)
+//    @Scheduled(fixedDelay = 1000, initialDelay = 5 * 1000)
     public void execute() {
-        Map<String, Long> blockCache = new HashMap();
+      /*  Map<String, Long> blockCache = new HashMap();
 
         List<SendMsg> tempMsg = new ArrayList();
         List<SendMsg> tempSet = new ArrayList();
@@ -134,7 +133,7 @@ public class SenderTask implements ITask {
         }
 
         msgPool.addAll(tempMsg);
-        setupPool.addAll(tempSet);
+        setupPool.addAll(tempSet);*/
     }
 
     /**
@@ -143,7 +142,7 @@ public class SenderTask implements ITask {
      * @param msg
      * @param result
      * @param replyMsg
-     */
+
     public static void updateLog(SendMsg msg, int result, String replyMsg) {
         SendLogJpa sendLogJpa = SpringUtil.getBean("sendLogJpa");
 
@@ -155,35 +154,35 @@ public class SenderTask implements ITask {
             sendLog.setReplyData(replyMsg);
             sendLogJpa.save(sendLog);
         }
-    }
+    }   */
 
     /**
      * 是否为设置指令
      *
      * @param sendMsg
      * @param flag
-     */
+
     public static void send(SendMsg sendMsg, boolean flag) {
         if (flag) {
             setupPool.add(sendMsg);
         } else {
             msgPool.add(sendMsg);
         }
-    }
+    }     */
 
-    public static boolean send(SendMsg sendMsg) {
-        String proKey = sendMsg.getDeviceId() + "_" + sendMsg.getKey();
-        if (produceMap.containsKey(proKey) &&
-                produceMap.get(proKey) - System.currentTimeMillis() < 60 * 1000) {
-
-            return false;
-        }
-
-        produceMap.put(proKey, System.currentTimeMillis());
-        msgPool.add(sendMsg);
-
-        return true;
-    }
+//    public static boolean send(SendMsg sendMsg) {
+//        String proKey = sendMsg.getDeviceId() + "_" + sendMsg.getKey();
+//        if (produceMap.containsKey(proKey) &&
+//                produceMap.get(proKey) - System.currentTimeMillis() < 60 * 1000) {
+//
+//            return false;
+//        }
+//
+//        produceMap.put(proKey, System.currentTimeMillis());
+//        msgPool.add(sendMsg);
+//
+//        return true;
+//    }
 
 
     /**
@@ -191,7 +190,6 @@ public class SenderTask implements ITask {
      *
      * @param deviceId
      * @return
-     */
     private boolean isBlock(String deviceId) {
         if (sendCacheProvider.containsKey(deviceId)) {
             MsgMemory msgMemory = (MsgMemory) sendCacheProvider.get(deviceId);
@@ -213,4 +211,6 @@ public class SenderTask implements ITask {
 
         return false;
     }
+     */
+
 }

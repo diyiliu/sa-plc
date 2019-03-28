@@ -55,6 +55,8 @@ public class SendController {
     @Resource
     private TimerTask timerTask;
 
+
+
     /**
      * 参数设置
      *
@@ -179,7 +181,8 @@ public class SendController {
         sendMsg.setType(1);
         sendMsg.setUnitList(unitList);
         sendMsg.setTags(pointUnit.getTags());
-        SenderTask.send(sendMsg, true);
+
+        timerTask.toSend(sendMsg);
         //log.info("设备[{}]参数[{},{}]等待下发[{}]...", dtuId, key, value, CommonUtil.bytesToStr(bytes));
 
         return "设置成功。";

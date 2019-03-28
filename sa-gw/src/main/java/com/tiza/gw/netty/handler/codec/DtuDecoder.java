@@ -5,11 +5,11 @@ import com.diyiliu.plugin.util.CommonUtil;
 import com.diyiliu.plugin.util.SpringUtil;
 import com.tiza.gw.support.client.KafkaClient;
 import com.tiza.gw.support.config.Constant;
+import com.tiza.gw.support.dao.dto.DeviceInfo;
 import com.tiza.gw.support.model.MsgMemory;
 import com.tiza.gw.support.model.PointUnit;
 import com.tiza.gw.support.model.SendMsg;
-import com.tiza.gw.support.dao.dto.DeviceInfo;
-import com.tiza.gw.support.task.SenderTask;
+import com.tiza.gw.support.task.TimerTask;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
@@ -162,11 +162,11 @@ public class DtuDecoder extends ByteToMessageDecoder {
             // 设置应答
             if (type == 1 && sendMsg.getResult() == 0) {
                 sendMsg.setResult(1);
-                log.info("[设置] 设备[{}]应答[{}, {}]成功。", deviceId, sendMsg.getTags(), CommonUtil.bytesToStr(bytes));
-                SenderTask.updateLog(sendMsg, 2, CommonUtil.bytesToStr(bytes));
+                String str = CommonUtil.bytesToStr(bytes);
 
+                log.info("[设置] 设备[{}]应答[{}, {}]成功。", deviceId, sendMsg.getTags(), str);
                 // 查询设置
-                query(sendMsg);
+                dealMsg(sendMsg, str);
 
                 return;
             }
@@ -213,7 +213,10 @@ public class DtuDecoder extends ByteToMessageDecoder {
      *
      * @param msg
      */
-    private void query(SendMsg msg) {
+    private void dealMsg(SendMsg msg, String content) {
+        TimerTask timerTask = SpringUtil.getBean("timerTask");
+        timerTask.updateLog(msg, 2, content);
+
         PointUnit pointUnit = msg.getUnitList().get(0);
         if (pointUnit.getFrequency() < 30) {
 
@@ -241,7 +244,6 @@ public class DtuDecoder extends ByteToMessageDecoder {
         byte[] bytes = byteBuf.array();
 
         String key = site + ":" + code + ":" + star;
-
         SendMsg sendMsg = new SendMsg();
         sendMsg.setDeviceId(msg.getDeviceId());
         sendMsg.setCmd(code);
@@ -251,6 +253,6 @@ public class DtuDecoder extends ByteToMessageDecoder {
         sendMsg.setKey(key);
         sendMsg.setUnitList(msg.getUnitList());
 
-        SenderTask.send(sendMsg, true);
+        timerTask.toSend(sendMsg);
     }
 }
