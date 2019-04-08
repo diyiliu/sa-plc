@@ -10,7 +10,6 @@ import com.tiza.gw.support.dao.jpa.SendLogJpa;
 import com.tiza.gw.support.model.*;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -65,14 +64,11 @@ public class TimerTask implements ITask {
     @Resource
     private ICache sendCacheProvider;
 
-
+    /**
+     * 单个设备下发缓存
+     */
     @Resource
     private ICache singlePoolCache;
-
-
-    @Resource
-    private ICache sendServiceCache;
-
 
     @Resource
     private SendLogJpa sendLogJpa;
@@ -210,17 +206,19 @@ public class TimerTask implements ITask {
         return true;
     }
 
+
     public void toSend(SendMsg sendMsg) {
         String deviceId = sendMsg.getDeviceId();
-        if (!onlineCacheProvider.containsKey(deviceId)) {
-            log.info("设备[{}]离线!", deviceId);
+
+        MsgPool pool;
+        if (!onlineCacheProvider.containsKey(deviceId) && singlePoolCache.containsKey(deviceId)){
+            pool = (MsgPool) singlePoolCache.get(deviceId);
+            pool.getKeyList().clear();
+            pool.getMsgQueue().clear();
+
             return;
         }
 
-        // 设备下发通道
-        ChannelHandlerContext context = (ChannelHandlerContext) onlineCacheProvider.get(deviceId);
-
-        MsgPool pool;
         if (singlePoolCache.containsKey(deviceId)) {
             pool = (MsgPool) singlePoolCache.get(deviceId);
         } else {
@@ -236,7 +234,7 @@ public class TimerTask implements ITask {
 
         // 过滤重复查询指令
         if (0 == type && pool.getKeyList().contains(key)) {
-            log.info("设备[{}, {}]指令已存在消费队列: {}!", deviceId, key, JacksonUtil.toJson(pool.getKeyList()));
+            // log.info("设备[{}, {}, {}]指令已存在消费队列!", deviceId, key, JacksonUtil.toJson(pool.getKeyList()));
             return;
         }
 
@@ -247,15 +245,5 @@ public class TimerTask implements ITask {
             pool.getKeyList().add(key);
             pool.getMsgQueue().add(sendMsg);
         }
-
-        if (!sendServiceCache.containsKey(deviceId)) {
-            SendService service = new SendService(pool, context);
-            sendServiceCache.put(deviceId, System.currentTimeMillis());
-
-            // 执行
-            sendService.execute(service);
-        }
-
-        log.info("正在执行的线程总数: [{}, {}]。", sendServiceCache.size(), JacksonUtil.toJson(sendServiceCache.getKeys()));
     }
 }

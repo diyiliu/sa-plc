@@ -178,15 +178,4 @@ public class SpringConfig {
 
         return new RamCacheProvider();
     }
-
-    /**
-     * 设备线程缓存
-     *
-     * @return
-     */
-    @Bean
-    public ICache sendServiceCache() {
-
-        return new RamCacheProvider();
-    }
 }

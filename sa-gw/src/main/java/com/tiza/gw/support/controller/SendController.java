@@ -9,7 +9,6 @@ import com.tiza.gw.support.dao.jpa.DetailInfoJpa;
 import com.tiza.gw.support.dao.jpa.DeviceInfoJpa;
 import com.tiza.gw.support.model.PointUnit;
 import com.tiza.gw.support.model.SendMsg;
-import com.tiza.gw.support.task.SenderTask;
 import com.tiza.gw.support.task.TimerTask;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

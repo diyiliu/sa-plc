@@ -22,11 +22,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class KafkaClient extends Thread {
     private KafkaTemplate kafkaTemplate;
 
-    private String rowTopic;
+    private static String rowTopic;
 
-    private String dataTopic;
+    private static String dataTopic;
 
-    private Queue<TopicMsg> pool = new ConcurrentLinkedQueue();
+    private static Queue<TopicMsg> pool = new ConcurrentLinkedQueue();
 
     @Override
     public void run() {
@@ -50,13 +50,13 @@ public class KafkaClient extends Thread {
     }
 
     /**
-     * kafka原始指令存入队列
+     * Kafka 原始指令存入队列
      *
      * @param deviceId
      * @param bytes
      */
     public void toKafka(String deviceId, byte[] bytes, int direction) {
-        log.debug("[{}] 设备[{}]原始数据[{}]...", direction == 1 ? "上行" : "下行", deviceId, CommonUtil.bytesToStr(bytes));
+        log.info("[{}] 设备[{}]原始数据[{}]...", direction == 1 ? "上行" : "下行", deviceId, CommonUtil.bytesToStr(bytes));
 
         long time = System.currentTimeMillis();
         Map map = new HashMap();
@@ -65,16 +65,11 @@ public class KafkaClient extends Thread {
         map.put("data", CommonUtil.bytesToStr(bytes));
         map.put("flow", direction);
 
-        TopicMsg tm = new TopicMsg();
-        tm.setTopic(rowTopic);
-        tm.setContent(JacksonUtil.toJson(map));
-        tm.setDateTime(time);
-
-        pool.add(tm);
+        addPool(map, rowTopic);
     }
 
     /**
-     * kafka解析数据存入队列
+     * Kafka 解析数据存入队列
      *
      * @param id
      * @param list
@@ -88,10 +83,14 @@ public class KafkaClient extends Thread {
         map.put("timestamp", time);
         map.put("metrics", JacksonUtil.toJson(list));
 
+        addPool(map, dataTopic);
+    }
+
+    public void addPool(Object o, String topic){
         TopicMsg tm = new TopicMsg();
-        tm.setTopic(dataTopic);
-        tm.setContent(JacksonUtil.toJson(map));
-        tm.setDateTime(time);
+        tm.setTopic(topic);
+        tm.setContent(JacksonUtil.toJson(o));
+        tm.setDateTime(System.currentTimeMillis());
 
         pool.add(tm);
     }

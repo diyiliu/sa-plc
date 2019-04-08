@@ -11,8 +11,11 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.timeout.IdleStateHandler;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Description: DtuServer
@@ -46,6 +49,7 @@ public class DtuServer extends Thread {
                         protected void initChannel(SocketChannel ch) {
                             ch.pipeline().addLast(new DtuEncoder())
                                     .addLast(new DtuDecoder())
+                                    .addLast(new IdleStateHandler(0, 0, 200, TimeUnit.MILLISECONDS))
                                     .addLast(new DtuHandler());
                         }
                     });

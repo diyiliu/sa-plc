@@ -4,8 +4,6 @@ import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.model.Header;
 import com.diyiliu.plugin.model.IDataProcess;
 import com.diyiliu.plugin.util.CommonUtil;
-import com.diyiliu.plugin.util.JacksonUtil;
-import com.diyiliu.plugin.util.SpringUtil;
 import com.tiza.gw.support.client.KafkaClient;
 import com.tiza.gw.support.dao.dto.*;
 import com.tiza.gw.support.dao.jpa.DetailInfoJpa;
@@ -63,6 +61,9 @@ public class DtuDataProcess implements IDataProcess {
 
     @Resource
     private ICache onlineCacheProvider;
+
+    @Resource
+    private ICache singlePoolCache;
 
 
     @Override
@@ -170,15 +171,12 @@ public class DtuDataProcess implements IDataProcess {
             msgMemory.setCurrent(null);
         }
 
-         /*
-        ICache deviceCache = SpringUtil.getBean("deviceCacheProvider");
-        if (deviceCache.containsKey(deviceId)) {
-            DeviceInfo deviceInfo = (DeviceInfo) deviceCache.get(deviceId);
-            String sql = "UPDATE equipment_info SET DtuStatus = 0 WHERE EquipmentId = " + deviceInfo.getId();
-            jdbcTemplate.update(sql);
-            log.warn("设备[{}]离线[{}]", deviceId, sql);
+        // 清除线程缓存
+        if (singlePoolCache.containsKey(deviceId)) {
+            MsgPool pool = (MsgPool) singlePoolCache.get(deviceId);
+            pool.getMsgQueue().clear();
+            pool.getKeyList().clear();
         }
-        */
     }
 
 
