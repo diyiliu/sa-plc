@@ -51,7 +51,7 @@ public class SenderTask implements ITask {
 
         SendMsg sendMsg = pool.poll();
         byte[] bytes = sendMsg.getBytes();
-        log.info("设备[{}, {}, {}]指令已下发!", deviceId, sendMsg.getKey(), CommonUtil.bytesToStr(bytes));
+        log.info("设备[{}, {}]指令已下发!", deviceId, CommonUtil.bytesToStr(bytes));
 
         // 清除查询指令队列
         String key = sendMsg.getKey();
@@ -89,21 +89,32 @@ public class SenderTask implements ITask {
             MsgMemory msgMemory = (MsgMemory) sendCacheProvider.get(deviceId);
             SendMsg current = msgMemory.getCurrent();
             if (current != null && current.getResult() == 0) {
-                // 超时 手动置为已处理
-                if (System.currentTimeMillis() - current.getDateTime() > 5 * 1000) {
-                    log.info("丢弃超时未应答指令, 设备[{}]内容[{}]!", current.getDeviceId(), CommonUtil.bytesToStr(current.getBytes()));
-                    current.setResult(1);
-                    if (current.getType() == 1) {
-                        timerTask.updateLog(current, 4, "");
-                    }
-
-                    return false;
-                }
 
                 return true;
             }
         }
 
         return false;
+    }
+
+    /**
+     * 超时丢弃未应答指令
+     *
+     * @param deviceId
+     */
+    public void timeOut(String deviceId) {
+        if (sendCacheProvider.containsKey(deviceId)) {
+            MsgMemory msgMemory = (MsgMemory) sendCacheProvider.get(deviceId);
+            SendMsg current = msgMemory.getCurrent();
+            if (current != null && current.getResult() == 0) {
+                if (System.currentTimeMillis() - current.getDateTime() > 3 * 1000) {
+                    log.info("设备[{}]丢弃超时未应答指令[{}]!", current.getDeviceId(), CommonUtil.bytesToStr(current.getBytes()));
+                    current.setResult(1);
+                    if (current.getType() == 1) {
+                        timerTask.updateLog(current, 4, "");
+                    }
+                }
+            }
+        }
     }
 }

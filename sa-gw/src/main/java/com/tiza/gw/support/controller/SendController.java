@@ -54,8 +54,6 @@ public class SendController {
     @Resource
     private TimerTask timerTask;
 
-
-
     /**
      * 参数设置
      *
@@ -70,7 +68,6 @@ public class SendController {
     @ApiOperation(value = "参数设置", notes = "设置设备参数")
     public String setup(@RequestParam("key") String key, @RequestParam("value") String value,
                         @RequestParam("equipId") String equipId, @RequestParam("rowId") Long rowId, HttpServletResponse response) {
-        //log.info("[{}, {}, {}, {}]", key, value, equipId, rowId);
 
         DeviceInfo deviceInfo = deviceInfoJpa.findById(Long.parseLong(equipId));
         String dtuId = deviceInfo.getDtuId();
@@ -182,7 +179,7 @@ public class SendController {
         sendMsg.setTags(pointUnit.getTags());
 
         timerTask.toSend(sendMsg);
-        //log.info("设备[{}]参数[{},{}]等待下发[{}]...", dtuId, key, value, CommonUtil.bytesToStr(bytes));
+        log.info("设备[{}]参数[{},{}]等待下发[{}]...", dtuId, key, value, CommonUtil.bytesToStr(bytes));
 
         return "设置成功。";
     }
@@ -199,6 +196,7 @@ public class SendController {
     @PostMapping("/synchronize")
     @ApiOperation(value = "同步参数", notes = "刷新指定功能码参数")
     public String synchronize(@RequestParam("code") Integer code, @RequestParam("equipId") String equipId, HttpServletResponse response) {
+        // log.info("同步参数[{}, {}]", code, equipId);
         DeviceInfo deviceInfo = deviceInfoJpa.findById(Long.parseLong(equipId));
         String dtuId = deviceInfo.getDtuId();
         if (!onlineCacheProvider.containsKey(dtuId)) {

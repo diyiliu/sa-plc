@@ -3,7 +3,6 @@ package com.tiza.gw.support.task;
 import com.diyiliu.plugin.cache.ICache;
 import com.diyiliu.plugin.task.ITask;
 import com.diyiliu.plugin.util.CommonUtil;
-import com.diyiliu.plugin.util.JacksonUtil;
 import com.tiza.gw.support.dao.dto.DeviceInfo;
 import com.tiza.gw.support.dao.dto.SendLog;
 import com.tiza.gw.support.dao.jpa.SendLogJpa;
@@ -33,12 +32,6 @@ import java.util.concurrent.Executors;
 @Slf4j
 @Service
 public class TimerTask implements ITask {
-
-    /**
-     * 设置线程池
-     **/
-    private static final ExecutorService sendService = Executors.newCachedThreadPool();
-
 
     /**
      * 设备缓存
@@ -73,6 +66,8 @@ public class TimerTask implements ITask {
     @Resource
     private SendLogJpa sendLogJpa;
 
+    /** 多线程执行数据操作 **/
+    private final static ExecutorService sqlService = Executors.newFixedThreadPool(3);
 
     @Scheduled(fixedDelay = 3 * 1000, initialDelay = 10 * 1000)
     public void execute() {
@@ -123,6 +118,9 @@ public class TimerTask implements ITask {
             List<QueryFrame> frameList = fnQuery.get(fnCode);
             for (QueryFrame frame : frameList) {
                 SendMsg msg = buildMsg(deviceId, frame);
+                msg.setFirst(true);
+
+                log.info("设备[{}]参数同步[{}]", deviceId, CommonUtil.bytesToStr(msg.getBytes()));
                 toSend(msg);
             }
         }
@@ -150,7 +148,6 @@ public class TimerTask implements ITask {
         byte[] bytes = byteBuf.array();
 
         String key = site + ":" + code + ":" + star;
-
         SendMsg sendMsg = new SendMsg();
         sendMsg.setDeviceId(deviceId);
         sendMsg.setCmd(code);
@@ -171,14 +168,16 @@ public class TimerTask implements ITask {
      * @param replyMsg
      */
     public void updateLog(SendMsg msg, int result, String replyMsg) {
-        SendLog sendLog = sendLogJpa.findById(msg.getRowId().longValue());
-        // 0:未发送;1:已发送;2:成功;3:失败;4:超时;
-        if (sendLog != null) {
-            sendLog.setResult(result);
-            sendLog.setSendData(CommonUtil.bytesToStr(msg.getBytes()));
-            sendLog.setReplyData(replyMsg);
-            sendLogJpa.save(sendLog);
-        }
+        sqlService.execute(() -> {
+            SendLog sendLog = sendLogJpa.findById(msg.getRowId().longValue());
+            // 0:未发送;1:已发送;2:成功;3:失败;4:超时;
+            if (sendLog != null) {
+                sendLog.setResult(result);
+                sendLog.setSendData(CommonUtil.bytesToStr(msg.getBytes()));
+                sendLog.setReplyData(replyMsg);
+                sendLogJpa.save(sendLog);
+            }
+        });
     }
 
     /**
@@ -206,15 +205,18 @@ public class TimerTask implements ITask {
         return true;
     }
 
-
     public void toSend(SendMsg sendMsg) {
         String deviceId = sendMsg.getDeviceId();
 
         MsgPool pool;
-        if (!onlineCacheProvider.containsKey(deviceId) && singlePoolCache.containsKey(deviceId)){
-            pool = (MsgPool) singlePoolCache.get(deviceId);
-            pool.getKeyList().clear();
-            pool.getMsgQueue().clear();
+        if (!onlineCacheProvider.containsKey(deviceId)) {
+            if (singlePoolCache.containsKey(deviceId)) {
+                pool = (MsgPool) singlePoolCache.get(deviceId);
+                pool.getKeyList().clear();
+                pool.getMsgQueue().clear();
+            }
+
+            log.info("设备[{}]离线,下发指令异常!", deviceId);
 
             return;
         }
@@ -232,18 +234,15 @@ public class TimerTask implements ITask {
         // 指令类型
         int type = sendMsg.getType();
 
-        // 过滤重复查询指令
-        if (0 == type && pool.getKeyList().contains(key)) {
-            // log.info("设备[{}, {}, {}]指令已存在消费队列!", deviceId, key, JacksonUtil.toJson(pool.getKeyList()));
-            return;
-        }
-
         // 设置指令优先执行
-        if (1 == type) {
+        if (1 == type || sendMsg.isFirst()) {
             pool.getMsgQueue().addFirst(sendMsg);
         } else {
-            pool.getKeyList().add(key);
-            pool.getMsgQueue().add(sendMsg);
+            // 过滤重复查询指令
+            if (!pool.getKeyList().contains(key)) {
+                pool.getKeyList().add(key);
+                pool.getMsgQueue().add(sendMsg);
+            }
         }
     }
 }

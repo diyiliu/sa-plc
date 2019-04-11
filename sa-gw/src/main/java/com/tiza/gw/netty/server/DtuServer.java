@@ -49,7 +49,7 @@ public class DtuServer extends Thread {
                         protected void initChannel(SocketChannel ch) {
                             ch.pipeline().addLast(new DtuEncoder())
                                     .addLast(new DtuDecoder())
-                                    .addLast(new IdleStateHandler(0, 0, 200, TimeUnit.MILLISECONDS))
+                                    .addLast(new IdleStateHandler(5000, 0, 500, TimeUnit.MILLISECONDS))
                                     .addLast(new DtuHandler());
                         }
                     });

@@ -32,7 +32,7 @@ public class DtuHandler extends ChannelInboundHandlerAdapter {
 
     private Attribute attribute;
 
-    private ExecutorService executorService = Executors.newCachedThreadPool();
+    private ExecutorService executorService = Executors.newFixedThreadPool(20);
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
@@ -92,29 +92,32 @@ public class DtuHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
         attribute = ctx.channel().attr(AttributeKey.valueOf(Constant.NETTY_DEVICE_ID));
+        String deviceId = (String) attribute.get();
+
         SenderTask senderTask = SpringUtil.getBean("senderTask");
 
         if (evt instanceof IdleStateEvent) {
             IdleStateEvent event = (IdleStateEvent) evt;
 
             if (IdleState.READER_IDLE == event.state()) {
-                //logger.warn("读超时...[{}]", key);
-
+                //log.info("读超时(5s)[{}]..", deviceId);
+                senderTask.timeOut(deviceId);
             } else if (IdleState.WRITER_IDLE == event.state()) {
-                //logger.warn("写超时...");
-
+                //log.info("写超时...");
             } else if (IdleState.ALL_IDLE == event.state()) {
-                String deviceId = (String) attribute.get();
-
                 if (StringUtils.isNotEmpty(deviceId)){
+                    /*
+                    if (!"18010001".equals(deviceId)){
+                        return;
+                    }
+                    */
+
                     byte[] bytes = senderTask.fetchData(deviceId);
                     if (bytes != null && bytes.length > 0){
-
                         ctx.writeAndFlush(Unpooled.copiedBuffer(bytes));
                     }
                 }
             }
         }
-
     }
 }
